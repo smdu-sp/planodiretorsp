@@ -42,7 +42,7 @@ get_header(); ?>
 			// EXTCODE
 			global $wpdb;
 			$wpdb->show_errors();
-			
+
 			// Check file size
 			$uploadSizeOk = 1;
 
@@ -75,11 +75,6 @@ get_header(); ?>
 					// Envia arquivos para o servidor
 					$target_file_ato = $target_file . 'ato_constitutivo_' . $_FILES['anexo_ato_constitutivo']['name'];
 					$target_file_representantes = $target_file . 'representantes_' . $_FILES['anexo_representantes_legais']['name'];
-
-					/*
-					echo "<script>window.alert('Sua homenagem foi enviada com sucesso. Após breve análise, ela será inserida no nosso mural.');
-					window.location.replace('https://aultimahomenagem.prefeitura.sp.gov.br');</script>";
-					*/
 
 					if (
 						move_uploaded_file($_FILES["anexo_ato_constitutivo"]["tmp_name"], $target_file_ato) &&
