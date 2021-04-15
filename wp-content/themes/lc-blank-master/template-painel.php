@@ -67,11 +67,11 @@ get_header(); ?>
                 data: {
                     entidades: entidades,
                     colunas: [],
-                    prefixo: "/planodiretorsp/wp-content/uploads/anexos-entidade/"
+                    prefixo: "/wp-content/uploads/anexos-entidade/"
                 },
                 methods: {
                     trataUrl: function(nome, valor) {
-                        if (nome.includes('url')){
+                        if (nome.includes('url')) {
                             return this.prefixo + valor
                         }
 
@@ -80,21 +80,20 @@ get_header(); ?>
                     exportaCSV: function() {
                         /* Array das linhas da tabela */
                         var rows = [];
-                        let firstRow = []
+                        let firstRow = [];
                         for (coluna in this.colunas) {
-                            firstRow.push(this.colunas[coluna])
+                            firstRow.push('"' + this.colunas[coluna] + '"');
                         }
                         rows.push(firstRow);
 
                         for (linha in this.entidades) {
-                            let novaLinha = []
+                            let novaLinha = [];
                             for (coluna in this.entidades[linha]) {
-                                if(coluna.includes('url')) {
-                                    let url = "https://planodiretorsp.prefeitura.sp.gov.br/wp-content/uploads/anexos-entidade/"+this.entidades[linha][coluna];
-                                    novaLinha.push(url);
-                                }
-                                else {
-                                    novaLinha.push(this.entidades[linha][coluna]);
+                                if (coluna.includes('url')) {
+                                    let url = "https://planodiretorsp.prefeitura.sp.gov.br/wp-content/uploads/anexos-entidade/" + this.entidades[linha][coluna];
+                                    novaLinha.push('"' + url + '"');
+                                } else {
+                                    novaLinha.push('"' + this.entidades[linha][coluna] + '"');
                                 }
                             }
                             rows.push(novaLinha);
