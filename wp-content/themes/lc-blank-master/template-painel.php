@@ -41,6 +41,13 @@ get_header(); ?>
         ?>
 
         <div id="apppainel">
+            <div class="button">
+                <a href="#" target="_self" @click="exportaCSV">
+                    <span>
+                        BAIXAR CSV
+                    </span>
+                </a>
+            </div>
             <table id="tabelaPainel" class="tabela-painel">
                 <tr>
                     <th v-for="coluna in colunas">{{coluna}}</th>
@@ -64,78 +71,39 @@ get_header(); ?>
                 },
                 methods: {
                     trataUrl: function(nome, valor) {
-                        if (nome.includes('url'))
+                        if (nome.includes('url')){
                             return this.prefixo + valor
+                        }
 
                         return valor
                     },
                     exportaCSV: function() {
-                        /* Get the HTML data using Element by Id */
-                        var tabela = document.getElementById('tabelaPainel');
-                        var numeroColunas = document.getElementById('tabelaPainel').rows[0].cells.length - 1;
-
-                        // console.log(numeroColunas);
-
                         /* Array das linhas da tabela */
                         var rows = [];
-
-                        // Itera as linhas da tabela
-                        for (var i = 0, row; row = tabela.rows[i]; i++) {
-                            //rows would be accessed using the "row" variable assigned in the for loop
-                            //Get each cell value/column from the row
-                            column1 = row.cells[0].innerText;
-                            column2 = row.cells[1].innerText;
-                            column3 = row.cells[2].innerText;
-                            column4 = row.cells[3].innerText;
-                            column5 = row.cells[4].innerText;
-                            column6 = row.cells[5].innerText;
-                            column7 = row.cells[6].innerText;
-                            column8 = row.cells[7].innerText;
-                            column9 = row.cells[8].innerText;
-                            column10 = row.cells[9].innerText;
-                            column11 = row.cells[10].innerText;
-                            column12 = row.cells[11].innerText;
-                            column13 = row.cells[12].innerText;
-                            column14 = row.cells[13].innerText;
-                            column15 = row.cells[14].innerText;
-                            column16 = row.cells[15].innerText;
-                            column17 = row.cells[16].innerText;
-                            column18 = row.cells[17].innerText;
-                            column19 = row.cells[18].innerText;
-                            column20 = row.cells[19].innerText;
-
-                            /* add a new records in the array */
-                            rows.push(
-                                [
-                                    column1,
-                                    column2,
-                                    column3,
-                                    column4,
-                                    column5,
-                                    column6,
-                                    column7,
-                                    column8,
-                                    column9,
-                                    column10,
-                                    column11,
-                                    column12,
-                                    column13,
-                                    column14,
-                                    column15,
-                                    column16,
-                                    column17,
-                                    column18,
-                                    column19,
-                                    column20
-                                ]
-
-                            );
-
+                        let firstRow = []
+                        for (coluna in this.colunas) {
+                            firstRow.push(this.colunas[coluna])
                         }
-                        csvContent = "data:text/csv;charset=utf-8,sep=\t\r\n";
+                        rows.push(firstRow);
+
+                        for (linha in this.entidades) {
+                            let novaLinha = []
+                            for (coluna in this.entidades[linha]) {
+                                if(coluna.includes('url')) {
+                                    let url = "https://planodiretorsp.prefeitura.sp.gov.br/wp-content/uploads/anexos-entidade/"+this.entidades[linha][coluna];
+                                    novaLinha.push(url);
+                                }
+                                else {
+                                    novaLinha.push(this.entidades[linha][coluna]);
+                                }
+                            }
+                            rows.push(novaLinha);
+                        }
+                        console.log(rows);
+                        csvContent = "data:text/csv;charset=utf-8,sep=;\r\n";
                         /* add the column delimiter as comma(,) and each row splitted by new line character (\n) */
                         rows.forEach(function(rowArray) {
-                            row = rowArray.join("\t");
+                            row = rowArray.join(";");
                             csvContent += row + "\r\n";
                         });
 
