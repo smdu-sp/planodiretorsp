@@ -26,3 +26,4 @@ node_modules/
 *_bkp
 wp-config.php
 readme.html
+wp-content/plugins/wordfence/*
