@@ -13,7 +13,7 @@ get_header(); ?>
 
         // OBTÉM LISTA DE ENTIDADES CADASTRADAS
         $entidades = $wpdb->get_results('SELECT * FROM entidades_chamamento;');
-        
+
         // BUSCA ARQUIVOS NO DIRETORIO DE UPLOADS
         $dir = get_template_directory() . "/../../uploads/anexos-entidade/";
         $files = array_diff(scandir($dir), array('..', '.'));
@@ -24,24 +24,31 @@ get_header(); ?>
             $id = explode("_", $nome_arquivo)[0];
             $tipo = explode("_", $nome_arquivo)[1];
 
-            if($tipo !== "ato" && $tipo !== "representantes"){
+            if ($tipo !== "ato" && $tipo !== "representantes") {
                 $tipo = 'arquivo';
             }
 
-            foreach ($entidades as $ent_key => $entidade) {                
+            foreach ($entidades as $ent_key => $entidade) {
                 $url_tipo = "url_$tipo";
-                if($entidade->id === $id){
+                if ($entidade->id === $id) {
                     $entidade->{$url_tipo} = $nome_arquivo;
                 }
             }
         }
-        
+
         echo "<script>const entidades=" . json_encode($entidades) . ";</script>";
-        
+
         ?>
-        
+
         <div id="apppainel">
-            <table class="tabela-painel">
+            <div class="button">
+                <a href="#" target="_self" @click="exportaCSV">
+                    <span>
+                        BAIXAR CSV
+                    </span>
+                </a>
+            </div>
+            <table id="tabelaPainel" class="tabela-painel">
                 <tr>
                     <th v-for="coluna in colunas">{{coluna}}</th>
                 </tr>
@@ -60,14 +67,52 @@ get_header(); ?>
                 data: {
                     entidades: entidades,
                     colunas: [],
-                    prefixo: "/planodiretorsp/wp-content/uploads/anexos-entidade/"
+                    prefixo: "/wp-content/uploads/anexos-entidade/"
                 },
                 methods: {
                     trataUrl: function(nome, valor) {
-                        if (nome.includes('url'))
-                            return this.prefixo+valor
+                        if (nome.includes('url')) {
+                            return this.prefixo + valor
+                        }
 
                         return valor
+                    },
+                    exportaCSV: function() {
+                        /* Array das linhas da tabela */
+                        var rows = [];
+                        let firstRow = [];
+                        for (coluna in this.colunas) {
+                            firstRow.push('"' + this.colunas[coluna] + '"');
+                        }
+                        rows.push(firstRow);
+
+                        for (linha in this.entidades) {
+                            let novaLinha = [];
+                            for (coluna in this.entidades[linha]) {
+                                if (coluna.includes('url')) {
+                                    let url = "https://planodiretorsp.prefeitura.sp.gov.br/wp-content/uploads/anexos-entidade/" + this.entidades[linha][coluna];
+                                    novaLinha.push('"' + url + '"');
+                                } else {
+                                    novaLinha.push('"' + this.entidades[linha][coluna] + '"');
+                                }
+                            }
+                            rows.push(novaLinha);
+                        }
+                        console.log(rows);
+                        csvContent = "data:text/csv;charset=utf-8,sep=;\r\n";
+                        /* add the column delimiter as comma(,) and each row splitted by new line character (\n) */
+                        rows.forEach(function(rowArray) {
+                            row = rowArray.join(";");
+                            csvContent += row + "\r\n";
+                        });
+
+                        /* create a hidden <a> DOM node and set its download attribute */
+                        var encodedUri = encodeURI(csvContent);
+                        var link = document.createElement("a");
+                        link.setAttribute("href", encodedUri);
+                        link.setAttribute("download", "Tabela Cadastros.csv");
+                        document.body.appendChild(link);
+                        link.click();
                     }
                 },
                 created: function() {
