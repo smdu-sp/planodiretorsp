@@ -13,7 +13,7 @@ get_header(); ?>
 
     if ($_POST['form_token']) {
       if ($_POST['form_token'] != $_SESSION['form_token']) {
-        echo "<div class='mensagem-sucesso'>Acesso negado</div>";
+        echo "<div class='mensagem-sucesso'>Formulário já enviado anteriormente.</div>";
         get_footer();
         return;
       }
@@ -104,10 +104,13 @@ get_header(); ?>
     }
     ?>
     <br>
-    <br>
-
+    <div id="modalEnvio" class="modal-envio">
+      <div class="modal-envio-content">
+        <p>Enviando formulário, aguarde</p>
+      </div>
+    </div>
     <div id="appchamamento">
-      <form method="post" class="form-entidade" action="<?php echo get_permalink(); ?>" enctype="multipart/form-data">
+      <form method="post" class="form-entidade" action="<?php echo get_permalink(); ?>" enctype="multipart/form-data" @submit="exibeModal()">
         <div class="card-chamamento">
           <div class="card-header-chamamento">
             <h2>INFORMAÇÕES DA ENTIDADE</h2>
@@ -300,6 +303,10 @@ get_header(); ?>
                 }
               }
             }, 100);
+          },
+          exibeModal: function() {
+            var modal = document.getElementById("modalEnvio");
+            modal.style.display = "flex";
           }
         },
         created: function() {
