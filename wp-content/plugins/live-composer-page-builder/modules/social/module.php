@@ -1035,7 +1035,7 @@ class DSLC_Social extends DSLC_Module {
 						if ( array_key_exists( $id, $social_network_icons ) && $option ) {
 							?>
 							<li>
-								<a class="dslc-social-icon" target="_blank" href="<?php echo $options[$id]; ?>" <?php if ( $options['link_nofollow'] ) { echo 'rel="nofollow"';} ?> aria-label="<?php echo $social_network_titles[$id]; ?>"><span class="dslc-icon dslc-icon-<?php echo $social_network_icons[$id]; ?>"></span></a>
+								<a class="dslc-social-icon" target="_blank" href="<?php echo $options[$id]; ?>" <?php if ( $options['link_nofollow'] ) { echo 'rel="nofollow"';} ?>><span class="dslc-icon dslc-icon-<?php echo $social_network_icons[$id]; ?>"></span></a>
 								<?php if ( $options['show_labels'] == 'enabled' ) : ?>
 									<a class="dslc-social-label" target="_blank" href="<?php echo $options[$id]; ?>" <?php if ( $options['link_nofollow'] ) { echo 'rel="nofollow"';} ?>><span><?php echo $social_network_titles[$id]; ?></span></a>
 								<?php endif; ?>
