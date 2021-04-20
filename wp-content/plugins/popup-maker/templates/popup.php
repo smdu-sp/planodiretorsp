@@ -41,7 +41,7 @@
 		 */
 		?>
 		<?php if ( pum_show_close_button() ) : ?>
-            <button type="button" class="<?php pum_popup_classes( null, 'close' ); ?>" aria-label="<?php _e( 'Close', 'popup-maker' ); ?>">
+            <button type="button" class="<?php pum_popup_classes( null, 'close' ); ?>" aria-label="<?php _e( 'Fechar', 'popup-maker' ); ?>">
 			<?php pum_popup_close_text(); ?>
             </button>
 		<?php endif; ?>
