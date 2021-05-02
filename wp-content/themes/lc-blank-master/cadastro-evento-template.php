@@ -2,9 +2,11 @@
 /*
 Template Name: Cadastro de evento
 */
+
 require_once('evento.php');
 
 get_header();
+
 
 if (have_posts()) : while (have_posts()) : the_post();
 
@@ -17,8 +19,8 @@ if (have_posts()) : while (have_posts()) : the_post();
                 'titulo',
                 'destaque',
                 'descricao',
-                'data',
-                'hora',
+                'data_evento',
+                'hora_evento',
                 'local',
                 'link',
                 'documentos'
@@ -27,10 +29,10 @@ if (have_posts()) : while (have_posts()) : the_post();
             $sqlData = [];
 
             foreach ($camposForm as $key => $coluna) {
-                $sqlData[$coluna] = $_POST[$coluna];
+                if ($coluna !== 'documentos') {
+                    $sqlData[$coluna] = $_POST[$coluna];
+                }
             }
-
-            var_dump($sqlData);
 
             global $wpdb;
             $wpdb->show_errors();
@@ -38,11 +40,25 @@ if (have_posts()) : while (have_posts()) : the_post();
             // INSERT EVENTO
             $wpdb->insert('eventos_agenda', $sqlData);
             $idEvento = $wpdb->insert_id;
+            if (!is_int($idEvento)) {
+                echo "<script>window.alert('Falha no cadastro do evento. Consulte o desenvolvedor.');</script>";
+                return;
+            }
 
             // INSERT DOCUMENTOS EVENTO
+            $json = stripcslashes($_POST['documentos']);
+            $documentos = json_decode($json, true);
 
-            // TODO: CRIAR IF PARA CONFIRMAR CADASTRO
-            // echo "<script>window.alert('Evento cadastrado com sucesso.');window.location.replace('" . get_site_url() . "');</script>";
+            foreach ($documentos as $key => $value) {
+                $documentos[$key]['id_evento'] = $idEvento;
+                $wpdb->insert('documentos_evento', $documentos[$key]);
+                if (!is_int($wpdb->insert_id)) {
+                    echo "<script>window.alert('Falha no cadastro do documento relacionado ao evento. Consulte o desenvolvedor.');</script>";
+                    return;
+                }
+            }
+
+            echo "<script>window.alert('Evento cadastrado com sucesso.');</script>";
         }
 
         $vue = get_site_url() == 'http://planodiretorsp.prefeitura.sp.gov.br/' ? 'vue.min.js' : 'vue.js';
@@ -61,8 +77,9 @@ if (have_posts()) : while (have_posts()) : the_post();
 ?>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <div id="appcadastro">
-            <form method="post" class="formulario-evento" enctype="multipart/form-data" v-on:submit.prevent>
+            <form method="post" class="formulario-evento" enctype="multipart/form-data;charset=UTF-8" @submit="sendForm" action="<?php echo get_permalink(); ?>">
                 <div class="container">
+                    <h1 class="display-1">Cadastro de evento</h1>
                     <div class="row">
                         <div class="col mb-3">
                             <label class="form-label" for="tipo">Tipo de evento</label>
@@ -80,9 +97,19 @@ if (have_posts()) : while (have_posts()) : the_post();
                         </div>
                     </div>
 
-                    <label class="form-label" for="descricao">Descrição</label>
-                    <textarea class="form-control" type="text" id="descricao" name="descricao">
-                    </textarea>
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <label for="imagem" class="form-label">Link da imagem</label>
+                            <input type="text" class="form-control mb-3" placeholder="Ex.: http://url.com/imagem.jpg" id="imagem" name="imagem" v-model="imagem">
+                            <img :src="imagem" class="rounded" style="height: 200px">
+                        </div>
+                        <div class="col">
+                            <label class="form-label" for="descricao">Descrição</label>
+                            <textarea class="form-control" type="text" id="descricao" name="descricao" style="height: 250px;">
+                            </textarea>
+                        </div>
+                    </div>
+
 
                     <div class="row">
                         <div class="col-6">
@@ -91,13 +118,13 @@ if (have_posts()) : while (have_posts()) : the_post();
                         </div>
 
                         <div class="col-3">
-                            <label class="form-label" for="data">Data do evento</label>
-                            <input class="form-control" type="date" id="data" name="data">
+                            <label class="form-label" for="data_evento">Data do evento</label>
+                            <input class="form-control" type="date" id="data_evento" name="data_evento">
                         </div>
 
                         <div class="col-3">
-                            <label class="form-label" for="hora">Hora do evento</label>
-                            <input class="form-control" type="time" id="hora" name="hora">
+                            <label class="form-label" for="hora_evento">Hora do evento</label>
+                            <input class="form-control" type="time" id="hora_evento" name="hora_evento">
                         </div>
                     </div>
 
@@ -116,22 +143,30 @@ if (have_posts()) : while (have_posts()) : the_post();
                     <br>
                     <span>Documentos</span>
                     <div>
-                        <div v-for="documento, key in documentos" class="row mb-3">
+                        <div v-for="documento, key in listaDeDocumentos" class="row mb-3">
                             <div class="col-5">
                                 <label class="form-label" :for="`nome-`+key">Descrição:</label>
-                                <input class="form-control" type="text" :id="`nome-`+key">
+                                <input class="form-control" type="text" :id="`nome-`+key" v-model="documento['nome']">
                             </div>
                             <div class="col-5">
                                 <label class="form-label" :for="`link-`+key">Link:</label>
-                                <input class="form-control" type="text" :id="`link-`+key">
+                                <input class="form-control" type="text" :id="`link-`+key" v-model="documento['link']">
                             </div>
                             <div class="col-2">
                                 <button class="btn btn-danger" @click.prevent="removeDocumento(key)">Remover documento</button>
                             </div>
                         </div>
                     </div>
+                    <div style="display: none">
+                        <input type="text" id="documentos" v-model="documentos" name="documentos" />
+                    </div>
                     <div class="mb-3">
-                        <button class="btn btn-success btn-large" @click.prevent="addDocumento">Adicionar documento</button>
+                        <button class="btn btn-info btn-lg" @click.prevent="addDocumento()">Adicionar documento</button>
+                    </div>
+                    <div class="my-5">
+                        <div class="justify-content-md-center">
+                            <input type="submit" value="Salvar evento" class="btn btn-success" />
+                        </div>
                     </div>
                 </div>
             </form>
@@ -139,6 +174,15 @@ if (have_posts()) : while (have_posts()) : the_post();
         <style>
             #appcadastro {
                 margin-top: 130px;
+            }
+
+            h1 {
+                font-family: sans-serif !important;
+                padding: 0;
+                margin: 0;
+                padding-top: 0 !important;
+                margin-bottom: 30px;
+                color: #333;
             }
 
             form.formulario-evento * {
@@ -149,19 +193,27 @@ if (have_posts()) : while (have_posts()) : the_post();
             var app = new Vue({
                 el: "#appcadastro",
                 data: {
-                    documentos: [],
+                    documentos: "",
+                    listaDeDocumentos: [],
                     temas: [],
-                    tipos: []
+                    tipos: [],
+                    imagem: null
                 },
                 methods: {
-                    addDocumento: function(nomeDocumento, linkDocumento) {
-                        this.documentos.push({
-                            nome: nomeDocumento,
-                            link: linkDocumento
+                    addDocumento: function() {
+                        this.listaDeDocumentos.push({
+                            nome: '',
+                            link: ''
                         })
                     },
                     removeDocumento: function(indice) {
-                        this.documentos.splice(indice, 1);
+                        this.listaDeDocumentos.splice(indice, 1)
+                    },
+                    trataDocumentos: function() {
+                        this.documentos = JSON.stringify(this.listaDeDocumentos)
+                    },
+                    sendForm: function(e) {
+                        this.trataDocumentos()
                     }
                 }
             })
