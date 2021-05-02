@@ -6,23 +6,25 @@
 
     class Evento
     {
-        function __construct($id, $tipo, $tema, $titulo, $destaque, $descricao, $data, $hora, $local, $link, $documentos)
+        function __construct($id, $tipo, $tema, $titulo, $imagem, $destaque, $descricao, $data, $hora, $local, $link, $descricao_link, $documentos)
         {
             $this->id = $id;
             $this->tipo = $tipo;
             $this->tema = $tema;
             $this->titulo = $titulo;
+            $this->imagem = $imagem;
             $this->destaque = $destaque;
             $this->descricao = $descricao;
             $this->data = $data;
             $this->hora = $hora;
             $this->local = $local;
             $this->link = $link;
+            $this->descricao_link = $descricao_link;
             $this->documentos = $documentos;
         }
     }
 
-    $exemplo = new Evento(0, "live", "descrição do tema", "Título curto da live nessa linha", "com Fulano de Tal", "Descrição longa com determinada quantidade de caracteres", "2021-07-19", "10:00:00", "Av. Paulista, 100", "http://www.google.com/", "[{nome: 'ATA / lista de presença...', link: 'http://link/...'}]");
+    $exemplo = new Evento(0, "live", "descrição do tema", "Título curto da live nessa linha", "http://www.teste.com/imagem.jpg", "com Fulano de Tal", "Descrição longa com determinada quantidade de caracteres", "2021-07-19", "10:00:00", "Av. Paulista, 100", "http://www.google.com/", "Ao vivo no YouTube", "[{nome: 'ATA / lista de presença...', link: 'http://link/...'}]");
 
     function getEventos(array $tipos = [])
     {

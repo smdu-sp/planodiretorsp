@@ -17,12 +17,14 @@ if (have_posts()) : while (have_posts()) : the_post();
                 'tipo',
                 'tema',
                 'titulo',
+                'imagem',
                 'destaque',
                 'descricao',
                 'data_evento',
                 'hora_evento',
                 'local',
                 'link',
+                'descricao_link',
                 'documentos'
             ];
 
@@ -129,14 +131,19 @@ if (have_posts()) : while (have_posts()) : the_post();
                     </div>
 
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col">
                             <label class="form-label" for="local">Local (evento presencial)</label>
                             <input class="form-control" type="text" id="local" name="local">
                         </div>
 
-                        <div class="col-6">
+                        <div class="col">
                             <label class="form-label" for="link">Link (da transmissão)</label>
                             <input class="form-control" type="text" id="link" name="link">
+                        </div>
+
+                        <div class="col">
+                            <label class="form-label" for="descricao_link">Descrição do Link</label>
+                            <input class="form-control" type="text" id="descricao_link" name="descricao_link">
                         </div>
                     </div>
 
