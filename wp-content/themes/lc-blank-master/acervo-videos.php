@@ -33,7 +33,7 @@ if (have_posts()) : while (have_posts()) : the_post();
                     <iframe 
                     width="560" 
                     height="315" 
-                    :src="video.link" 
+                    :src="video.link.replace('watch?v=', 'embed/')" 
                     title="YouTube video player" 
                     frameborder="0" 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
