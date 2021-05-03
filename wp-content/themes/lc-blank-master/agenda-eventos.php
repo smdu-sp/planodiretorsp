@@ -25,53 +25,79 @@ if (have_posts()) : while (have_posts()) : the_post();
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <div id="appagenda" class="container-eventos">
-            <div v-if="isLoading" style="color: red">Carregando eventos...</div>
-            <div v-for="mes in mesesPosteriores" class="card-mes">
-                <div class="tag-mes" :style="'background-color: '+mes.cor">
-                    <h2>{{mes.nome}}</h2>
-                </div>
-                <br>
-                <!-- Evento -->
-                <div v-for="evento in mes.eventos" :key="evento.id" :class="evento.aberto ? 'row' : 'row fechado'">
-                    <div class="col-2">
-                        <span class="linha-evento" :style="'color: '+mes.cor">{{evento.tipo}}</span>
-                    </div>
-                    <div class="col">
-                        <div>
-                            <h3>{{evento.titulo}}</h3>
+            <div v-if="isLoading" style="color: gray">Carregando eventos...</div>
+            <!-- MESES POSTERIORES -->
+            <div class="row">
+                <div class="col coluna-desktop">
+                    <div v-for="(mes, index) in colEsqPosteriores" class="card-mes" :key="index">
+                        <div class="tag-mes" :style="'background-color: '+mes.cor">
+                            <h2>{{mes.nome}}</h2>
                         </div>
-                        <div>
-                            <img class="rounded" :src="evento.imagem" :alt="evento.titulo">
-                        </div>
-                        <div>
-                            <p>{{evento.descricao}}</p>
-                        </div>
-                        <div class="tag-evento tag-data" :style="'background-color: '+mes.cor">
-                            <i class="bi bi-calendar3" style="color: white"></i>{{formataData(evento.data_evento)}}
-                        </div>
-                        <div class="tag-evento tag-hora">
-                            <i class="bi bi-clock" :style="'color: '+mes.cor"></i>{{formataHora(evento.hora_evento)}}
-                        </div>
-                        <div class="tag-evento tag-local" v-if="evento.local">
-                            <i class="bi bi-geo-alt" :style="'color: '+mes.cor"></i>{{evento.local}}
-                        </div>
-                        <a :href="evento.link" target="_blank" v-if="evento.link">
-                            <div class="tag-evento tag-link" :style="'color: '+mes.cor">
-                                <i class="bi bi-hand-index"></i>
-                                {{evento.descricao_link}}
-                            </div>
-                        </a>
-                    </div>
-                    <div>
-                        <div class="botao-colapso position-absolute" @click="toggleEvento(evento)" :style="'background-color: '+mes.cor">
-                            <div>{{evento.aberto ? "-" : "+"}}</div>
-                        </div>
+                        <br>
+                        <?php require('modulo-mes.php'); ?>
                     </div>
                 </div>
-                <!-- Fim evento -->
+                <div class="col coluna-desktop">
+                    <div v-for="(mes, index) in colDirPosteriores" class="card-mes mt-10" :key="index">
+                        <div class="tag-mes" :style="'background-color: '+mes.cor">
+                            <h2>{{mes.nome}}</h2>
+                        </div>
+                        <br>
+                        <?php require('modulo-mes.php'); ?>
+                    </div>
+                </div>
+                <div class="col coluna-mobile">
+                    <div v-for="(mes, index) in mesesPosteriores" class="card-mes" :key="index">
+                        <div class="tag-mes" :style="'background-color: '+mes.cor">
+                            <h2>{{mes.nome}}</h2>
+                        </div>
+                        <br>
+                        <?php require('modulo-mes.php'); ?>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MESES ANTERIORES -->
+            <div class="banner-anteriores row">
+                <div class="col">
+                    <h2>Agendas anteriores</h2>
+                </div>
+                <div class="col">
+                    <p>Confira aqui as reuniões realizadas e acesse seus respectivos documentos</p>
+                </div>
+            </div>
+            <div class="row cidade-background">
+                <div class="col coluna-desktop coluna-esquerda">
+                    <div v-for="(mes, index) in colEsqAnteriores" class="card-mes" :key="index">
+                        <div class="tag-mes" :style="'background-color: '+mes.cor">
+                            <h2>{{mes.nome}}</h2>
+                        </div>
+                        <br>
+                        <?php require('modulo-mes.php'); ?>
+                    </div>
+                </div>
+                <div class="col coluna-desktop">
+                    <div v-for="(mes, index) in colDirAnteriores" class="card-mes mt-10" :key="index">
+                        <div class="tag-mes" :style="'background-color: '+mes.cor">
+                            <h2>{{mes.nome}}</h2>
+                        </div>
+                        <br>
+                        <?php require('modulo-mes.php'); ?>
+                    </div>
+                </div>
+                <div class="col coluna-mobile">
+                    <div v-for="(mes, index) in mesesAnteriores" class="card-mes" :key="index">
+                        <div class="tag-mes" :style="'background-color: '+mes.cor">
+                            <h2>{{mes.nome}}</h2>
+                        </div>
+                        <br>
+                        <?php require('modulo-mes.php'); ?>
+                    </div>
+                </div>
             </div>
         </div>
         </div>
+
         <script type="text/javascript">
             const listaEventos = "<?php echo $isLocalhost ? './lista-eventos/' : '/lista-eventos/' ?>";
             var app = new Vue({
@@ -83,7 +109,9 @@ if (have_posts()) : while (have_posts()) : the_post();
                     mesesPosteriores: [],
                     mesesAnteriores: [],
                     colEsqPosteriores: [],
+                    colEsqAnteriores: [],
                     colDirPosteriores: [],
+                    colDirAnteriores: [],
                     arrayMeses: ['JANEIRO', 'FEVEREIRO', 'MARÇO', 'ABRIL', 'MAIO', 'JUNHO', 'JULHO', 'AGOSTO', 'SETEMBRO', 'OUTUBRO', 'NOVEMBRO', 'DEZEMBRO'],
                     isLoading: true,
                     cores: ['#f96546', '#f4a7b0', '#517bee', '#fd8524']
@@ -118,6 +146,56 @@ if (have_posts()) : while (have_posts()) : the_post();
 
                                 this.mesesPosteriores.push(novoMes)
                             }
+                        }
+
+                        for (var i = 0; i < this.mesesPosteriores.length; i++) {
+                            if (i % 2 === 0)
+                                this.colEsqPosteriores.push(this.mesesPosteriores[i])
+                            else
+                                this.colDirPosteriores.push(this.mesesPosteriores[i])
+                        }
+
+                        // ANTERIORES
+                        this.mesesAnteriores = []
+                        corAtual = 0
+
+                        for (let index = 0; index < this.eventosAnteriores.length; index++) {
+                            let evento = this.eventosAnteriores[index];
+                            const dataGmt = new Date(evento.data_evento)
+                            const nomeMes = this.arrayMeses[dataGmt.getUTCMonth()]
+                            let mesExistente = false
+
+                            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' };
+                            evento.dataCompleta = dataGmt.toLocaleDateString('pt-BR', options)
+                            
+                            // ITERA mesesAnteriores PARA VERIFICAR SE MES JA FOI ADICIONADO
+                            for (mes in this.mesesAnteriores) {
+                                if (this.mesesAnteriores[mes].nome === nomeMes) {
+                                    mesExistente = true
+                                    this.mesesAnteriores[mes].eventos.push(evento)
+                                    break
+                                }
+                            }
+                            if (!mesExistente) {
+                                let novoMes = {
+                                    nome: nomeMes,
+                                    eventos: [evento],
+                                    cor: this.cores[corAtual]
+                                }
+                                corAtual++
+                                corAtual = corAtual >= this.cores.length ? 0 : corAtual
+
+                                this.mesesAnteriores.push(novoMes)
+                            }
+                        }
+
+                        this.mesesAnteriores = this.mesesAnteriores.slice().reverse()
+
+                        for (var i = 0; i < this.mesesAnteriores.length; i++) {
+                            if (i % 2 === 0)
+                                this.colEsqAnteriores.push(this.mesesAnteriores[i])
+                            else
+                                this.colDirAnteriores.push(this.mesesAnteriores[i])
                         }
                     },
                     formataData: function(dateStr) {
@@ -162,7 +240,7 @@ if (have_posts()) : while (have_posts()) : the_post();
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
         <style>
             #appagenda {
-                max-width: calc(100% - 20px);
+                max-width: calc(100% - 60px);
                 margin: 100px auto;
             }
 
@@ -186,8 +264,8 @@ if (have_posts()) : while (have_posts()) : the_post();
             }
 
             .container-eventos .row {
-                max-height: 100em;
-                transition: max-height 0.2s;
+                max-height: 1000em;
+                transition: max-height 0.5s;
             }
 
             .container-eventos .fechado {
@@ -216,6 +294,10 @@ if (have_posts()) : while (have_posts()) : the_post();
                 transform: translate(30px, -2em);
             }
 
+            .container-eventos .tag-mes h2 {
+                color: white;
+            }
+
             .container-eventos .tag-evento {
                 border-radius: 10px;
                 font-size: 16px;
@@ -236,7 +318,8 @@ if (have_posts()) : while (have_posts()) : the_post();
 
             .container-eventos .card-mes {
                 margin-bottom: 5em;
-                box-shadow: 0 0 20px darkgrey;
+                background-color: white;
+                box-shadow: 0 0 20px rgba(0,0,0,0.3);
                 border-radius: 20px;
                 padding-bottom: 10px;
             }
@@ -248,6 +331,55 @@ if (have_posts()) : while (have_posts()) : the_post();
 
             .container-eventos .tag-evento i {
                 padding-right: 1em;
+            }
+
+            .coluna-desktop {
+                display: block;
+            }
+
+            .coluna-mobile {
+                display: none;
+            }
+
+            .mt-10 {
+                margin-top: 6rem !important;
+            }
+
+            .cidade-background {
+                background-image: url("https://planodiretorsp.prefeitura.sp.gov.br/wp-content/uploads/2021/03/fundo_site-e1616103151744.png");
+            }
+
+            .container-eventos .banner-anteriores {
+                background-color: #0a3299;
+                padding: 40px;
+                min-height: 500px;
+                margin-bottom: -80px;
+            }
+
+            .container-eventos .banner-anteriores * {
+                color: white;
+                font-size: 72px;
+                font-weight: 700;
+            }
+
+            .container-eventos .banner-anteriores p {
+                font-size: 36px !important;
+                font-weight: 300;
+                padding: 1em;
+            }
+
+            .container-eventos .coluna-esquerda {
+                margin-top: -100px;
+            }
+
+            @media (max-width: 767.98px) {
+                .coluna-desktop {
+                    display: none;
+                }
+
+                .coluna-mobile {
+                    display: block;
+                }
             }
         </style>
 <?php

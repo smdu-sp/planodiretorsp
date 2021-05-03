@@ -83,9 +83,16 @@ if (have_posts()) : while (have_posts()) : the_post();
                 <div class="container">
                     <h1 class="display-1">Cadastro de evento</h1>
                     <div class="row">
-                        <div class="col mb-3">
+                        <div class="col-1">
+                            <div class="form-check">
+                                <label for="is-video" class="form-label">Vídeo?</label>
+                                <input type="checkbox" v-model="isVideo" id="is-video" class="form-control" @click="toggleVideo">
+                            </div>
+                        </div>
+
+                        <div class="col mb-2">
                             <label class="form-label" for="tipo">Tipo de evento</label>
-                            <input class="form-control" type="text" id="tipo" name="tipo" required>
+                            <input class="form-control" v-model="tipoEvento" type="text" id="tipo" name="tipo" :disabled="isVideo" required>
                         </div>
 
                         <div class="col mb-3">
@@ -115,7 +122,7 @@ if (have_posts()) : while (have_posts()) : the_post();
 
                     <div class="row">
                         <div class="col-6">
-                            <label class="form-label" for="destaque">Texto de destaque</label>
+                            <label class="form-label" for="destaque" title="Caso o evento cadastrado seja um vídeo, digite aqui a fonte (ex.: Folha de SP)">Fonte / Texto de destaque</label>
                             <input class="form-control" type="text" id="destaque" name="destaque">
                         </div>
 
@@ -204,7 +211,9 @@ if (have_posts()) : while (have_posts()) : the_post();
                     listaDeDocumentos: [],
                     temas: [],
                     tipos: [],
-                    imagem: null
+                    tipoEvento: null,
+                    imagem: null,
+                    isVideo: false
                 },
                 methods: {
                     addDocumento: function() {
@@ -221,6 +230,12 @@ if (have_posts()) : while (have_posts()) : the_post();
                     },
                     sendForm: function(e) {
                         this.trataDocumentos()
+                    },
+                    toggleVideo: function() {
+                        this.tipoEvento = this.isVideo ? "video" : this.tipoEvento
+                        window.setTimeout(() => {
+                            document.querySelector('#tipo').value = 'video'
+                        }, 100)
                     }
                 }
             })
