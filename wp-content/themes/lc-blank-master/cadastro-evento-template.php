@@ -63,7 +63,7 @@ if (have_posts()) : while (have_posts()) : the_post();
             echo "<script>window.alert('Evento cadastrado com sucesso.');</script>";
         }
 
-        $vue = get_site_url() == 'http://planodiretorsp.prefeitura.sp.gov.br/' ? 'vue.min.js' : 'vue.js';
+        $vue = 'vue.min.js';
 
         $isLocalhost = get_site_url() == 'http://localhost/planodiretorsp';
 
@@ -92,7 +92,7 @@ if (have_posts()) : while (have_posts()) : the_post();
 
                         <div class="col mb-2">
                             <label class="form-label" for="tipo">Tipo de evento</label>
-                            <input class="form-control" v-model="tipoEvento" type="text" id="tipo" name="tipo" :disabled="isVideo" required>
+                            <input class="form-control" v-model="tipoEvento" type="text" id="tipo" name="tipo" :style="isVideo ? 'opacity: 50%;' : ''" required>
                         </div>
 
                         <div class="col mb-3">

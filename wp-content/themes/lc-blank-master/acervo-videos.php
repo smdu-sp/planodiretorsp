@@ -9,7 +9,7 @@ if (have_posts()) : while (have_posts()) : the_post();
 
         the_content();
 
-        $vue = get_site_url() == 'http://planodiretorsp.prefeitura.sp.gov.br/' ? 'vue.min.js' : 'vue.js';
+        $vue = 'vue.min.js';
 
         $isLocalhost = get_site_url() == 'http://localhost/planodiretorsp';
 
