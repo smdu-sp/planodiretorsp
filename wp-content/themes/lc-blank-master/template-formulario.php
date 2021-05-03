@@ -11,6 +11,9 @@ get_header(); ?>
     <?php
     the_content();
 
+    $vue = 'vue.min.js';
+    echo "<script type='text/javascript' src='/planodiretorsp/wp-content/themes/lc-blank-master/{$vue}'></script>";
+
     if ($_POST['form_token']) {
       if ($_POST['form_token'] != $_SESSION['form_token']) {
         echo "<div class='mensagem-sucesso'>Formulário já enviado anteriormente.</div>";
@@ -272,8 +275,6 @@ get_header(); ?>
       </form>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="https://www.google.com/recaptcha/enterprise.js" async defer></script>
     <script type="text/javascript">
       var app = new Vue({
         el: '#appchamamento',
