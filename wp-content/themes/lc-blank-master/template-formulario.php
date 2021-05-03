@@ -12,7 +12,7 @@ get_header(); ?>
     the_content();
 
     $vue = 'vue.min.js';
-    echo "<script type='text/javascript' src='/planodiretorsp/wp-content/themes/lc-blank-master/{$vue}'></script>";
+    echo "<script type='text/javascript' src='./wp-content/themes/lc-blank-master/{$vue}'></script>";
 
     if ($_POST['form_token']) {
       if ($_POST['form_token'] != $_SESSION['form_token']) {
