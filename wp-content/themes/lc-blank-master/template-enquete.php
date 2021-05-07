@@ -11,7 +11,7 @@ if (have_posts()) : while (have_posts()) : the_post();
 
     the_content();
 
-    $vue = 'vue.js';
+    $vue = 'vue.min.js';
     echo "<script type='text/javascript' src='../wp-content/themes/lc-blank-master/{$vue}'></script>";
 
     // Verifica reenvio de formulário
@@ -153,7 +153,6 @@ if (have_posts()) : while (have_posts()) : the_post();
                     <label for="d4">Unidade de saúde</label>
                   </div>
                 </div>
-
                 <input type="checkbox" id="d5" value="e_Parque ou praça" v-model="resposta_4_ar" @change="ordenaResposta()">
                 <label for="d5">Parque ou praça</label>
                 <br />
@@ -204,7 +203,7 @@ if (have_posts()) : while (have_posts()) : the_post();
                 <div class="row">
                   <div class="col">
                     <div class="row">
-                      <div class="col-1">
+                      <div class="col-1 align-self-center">
                         <input type="radio" id="f1" value="Não penso em hipótese alguma deixar o bairro onde moro" v-model="resposta_6">
                       </div>
                       <div class="col">
@@ -214,7 +213,7 @@ if (have_posts()) : while (have_posts()) : the_post();
                   </div>
                   <div class="col">
                     <div class="row">
-                      <div class="col-1">
+                      <div class="col-1 align-self-center">
                         <input type="radio" id="f2" value="Permaneceria no bairro onde moro se ele recebesse melhorias" v-model="resposta_6">
                       </div>
                       <div class="col">
@@ -226,7 +225,7 @@ if (have_posts()) : while (have_posts()) : the_post();
                 <div class="row">
                   <div class="col">
                     <div class="row">
-                      <div class="col-1">
+                      <div class="col-1 align-self-center">
                         <input type="radio" id="f3" value="Mudaria de bairro porque prefiro ficar mais perto da região central da cidade" v-model="resposta_6">
                       </div>
                       <div class="col">
@@ -236,7 +235,7 @@ if (have_posts()) : while (have_posts()) : the_post();
                   </div>
                   <div class="col">
                     <div class="row">
-                      <div class="col-1">
+                      <div class="col-1 align-self-center">
                         <input type="radio" id="f4" value="Mudaria de bairro, pois está muito caro o custo de vida no atual" v-model="resposta_6">
                       </div>
                       <div class="col">
@@ -248,7 +247,7 @@ if (have_posts()) : while (have_posts()) : the_post();
                 <div class="row">
                   <div class="col">
                     <div class="row">
-                      <div class="col-1">
+                      <div class="col-1 align-self-center">
                         <input type="radio" id="f5" value="Mudaria para regiões próximas à rede de transporte público, independentemente do bairro" v-model="resposta_6">
                       </div>
                       <div class="col">
@@ -385,8 +384,15 @@ if (have_posts()) : while (have_posts()) : the_post();
                 <input type="text" id="pesquisado_email" name="pesquisado_email" placeholder="exemplo@exemplo.com.br" required />
               </div>
               <div>
-                <label for="pesquisado_bairro">Distrito</label>
-                <input type="text" id="pesquisado_bairro" name="pesquisado_bairro" placeholder="Brasilandia-SP" required />
+                <label>Distrito:</label>
+                <select id="select_zona" v-model="zonaSelecionada" required>
+                  <option value="" disabled selected hidden>Selecione a região</option>
+                  <option v-for="zona in todasZonas" :value="zona">{{zona.nome}}</option>
+                </select>
+                <select v-if="zonaSelecionada !== ''" id="select_distrito" name="pesquisado_bairro" v-model="distritoSelecionado" required>
+                  <option value="" disabled selected hidden>Selecione o distrito</option>
+                  <option v-for="distrito in zonaSelecionada.distritos" :value="valorDistrito(distrito)">{{distrito.nome}}</option>
+                </select>
               </div>
             </div>
             <center>
@@ -412,7 +418,168 @@ if (have_posts()) : while (have_posts()) : the_post();
           resposta_8: "",
           resposta_9: "",
           resposta_10: "",
-          resposta4Outro: ""
+          resposta4Outro: "",
+          distritoSelecionado: '',
+          zonaSelecionada: '',
+          todasZonas: [],
+          zonas: [{
+              nome: 'CENTRO',
+              macrozonas: [{
+                nome: 'Centro',
+                distritos: [
+                  'Bela Vista',
+                  'Bom Retiro',
+                  'Cambuci',
+                  'Consolação',
+                  'Liberdade',
+                  'República',
+                  'Santa Cecília',
+                  'Sé'
+                ]
+              }]
+            },
+            {
+              nome: 'ZONA LESTE',
+              macrozonas: [{
+                  nome: 'Leste 1',
+                  distritos: [
+                    'Água Rasa',
+                    'Aricanduva',
+                    'Artur Alvim',
+                    'Belém',
+                    'Brás',
+                    'Cangaíba',
+                    'Carrão',
+                    'Moóca',
+                    'Pari',
+                    'Penha',
+                    'São Lucas',
+                    'Sapopemba',
+                    'Tatuapé',
+                    'Vila Formosa',
+                    'Vila Matilde',
+                    'Vila Prudente'
+                  ]
+                },
+                {
+                  nome: 'Leste 2',
+                  distritos: [
+                    'Cidade Líder',
+                    'Cidade Tiradentes',
+                    'Ermelino Matarazzo',
+                    'Guaianases',
+                    'Iguatemi',
+                    'Itaim Paulista',
+                    'Itaquera',
+                    'Jardim Helena',
+                    'José Bonifácio',
+                    'Lajeado',
+                    'Parque do Carmo',
+                    'Ponte Rasa',
+                    'São Mateus',
+                    'São Miguel',
+                    'São Rafael',
+                    'Vila Curuçá',
+                    'Vila Jacuí'
+                  ]
+                }
+              ]
+            },
+            {
+              nome: 'ZONA NORTE',
+              macrozonas: [{
+                  nome: 'Norte 1',
+                  distritos: [
+                    'Jaçanã',
+                    'Mandaqui',
+                    'Santana',
+                    'Tremembé',
+                    'Tucuruvi',
+                    'Vila Guilherme',
+                    'Vila Maria',
+                    'Vila Medeiros'
+                  ]
+                },
+                {
+                  nome: 'Norte 2',
+                  distritos: [
+                    'Anhanguera',
+                    'Brasilândia',
+                    'Cachoeirinha',
+                    'Casa Verde',
+                    'Freguesia do Ó',
+                    'Jaraguá',
+                    'Limão',
+                    'Perus',
+                    'Pirituba',
+                    'São Domingos'
+                  ]
+                }
+              ]
+            },
+            {
+              nome: 'ZONA OESTE',
+              macrozonas: [{
+                nome: 'Oeste',
+                distritos: [
+                  'Alto de Pinheiros',
+                  'Barra Funda',
+                  'Butantã',
+                  'Itaim Bibi',
+                  'Jaguara',
+                  'Jaguaré',
+                  'Jardim Paulista',
+                  'Lapa',
+                  'Morumbi',
+                  'Perdizes',
+                  'Pinheiros',
+                  'Raposo Tavares',
+                  'Rio Pequeno',
+                  'Vila Leopoldina',
+                  'Vila Sônia'
+                ]
+              }]
+            },
+            {
+              nome: 'ZONA SUL',
+              macrozonas: [{
+                  nome: 'Sul 1',
+                  distritos: [
+                    'Cursino',
+                    'Ipiranga',
+                    'Jabaquara',
+                    'Moema',
+                    'Sacomã',
+                    'Saúde',
+                    'Vila Mariana'
+                  ]
+                },
+                {
+                  nome: 'Sul 2',
+                  distritos: [
+                    'Campo Belo',
+                    'Campo Grande',
+                    'Campo Limpo',
+                    'Capão Redondo',
+                    'Cidade Ademar',
+                    'Cidade Dutra',
+                    'Grajaú',
+                    'Jardim Ângela',
+                    'Jardim São Luís',
+                    'Marsilac',
+                    'Parelheiros',
+                    'Pedreira',
+                    'Santo Amaro',
+                    'Socorro',
+                    'Vila Andrade'
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        mounted() {
+          this.populaDistritos()
         },
         methods: {
           exibeModal: function() {
@@ -431,8 +598,35 @@ if (have_posts()) : while (have_posts()) : the_post();
 
             if (this.resposta_4.includes("f_Outro"))
               this.resposta_4 += ": " + this.resposta4Outro
+          },
+          populaDistritos: function() {
+            for (iZona in this.zonas) {
+              let newZona = {
+                nome: this.zonas[iZona].nome,
+                distritos: []
+              }
 
-            console.log("OK -> ", this.resposta_4_ar, this.resposta_4)
+              for (iMacrozona in this.zonas[iZona].macrozonas) {
+                let macrozona = this.zonas[iZona].macrozonas[iMacrozona]
+
+                for (iDistrito in macrozona.distritos) {
+                  let newDistrito = {
+                    nome: macrozona.distritos[iDistrito],
+                    macrozona: macrozona.nome,
+                    zona: this.zonas[iZona].nome
+                  }
+                  newZona.distritos.push(newDistrito)
+                }
+
+                newZona.distritos.sort((a, b) => (a.nome.normalize("NFD").replace(/[\u0300-\u036f]/g, "") > b.nome.normalize("NFD").replace(/[\u0300-\u036f]/g, "")) ? 1 : -1)
+
+              }
+
+              this.todasZonas.push(newZona)
+            }
+          },
+          valorDistrito: function(distrito) {
+            return distrito.macrozona + ' - ' + distrito.nome
           }
         }
       })
