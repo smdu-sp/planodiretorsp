@@ -30,14 +30,7 @@ if (have_posts()) : while (have_posts()) : the_post();
             <div class="row card-video" v-for="video in videos">
                 <div class="col-6">
                     <!-- VIDEO EMBED -->
-                    <iframe 
-                    width="560" 
-                    height="315" 
-                    :src="video.link.replace('watch?v=', 'embed/')" 
-                    title="YouTube video player" 
-                    frameborder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowfullscreen>
+                    <iframe width="560" height="315" :src="video.link.replace('watch?v=', 'embed/')" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
                     </iframe>
                 </div>
                 <div class="col ficha-tecnica">
@@ -46,25 +39,34 @@ if (have_posts()) : while (have_posts()) : the_post();
                         <h2>{{video.titulo}}</h2>
                     </div>
                     <div class="row">
-                        <span>{{video.data}}</span>
+                        <span>{{formataData(video.data_evento)}}</span>
                     </div>
                     <div class="row video-info">
                         <div class="col-1 p-0"><span>Evento:</span></div>
-                        <div class="col"><p>{{video.titulo}}</p></div>
+                        <div class="col">
+                            <p>{{video.titulo}}</p>
+                        </div>
                     </div>
                     <div class="row video-info">
                         <div class="col-1 p-0"><span>Tema:</span></div>
-                        <div class="col"><p>{{video.tema}}</p></div>
+                        <div class="col">
+                            <p>{{video.tema}}</p>
+                        </div>
                     </div>
                     <div class="row video-info">
                         <div class="col-1 p-0"><span>Fonte:</span></div>
-                        <div class="col"><p>{{video.destaque}}</p></div>
+                        <div class="col">
+                            <p>{{video.destaque}}</p>
+                        </div>
                     </div>
-                    <div class="row">
-                        <p>{{video.descricao}}</p>
+                    <div class="row video-separador">
+                        ***
                     </div>
                     <div class="row">
                         <p>Link do vídeo original: <a :href="video.link" target="_blank">{{video.link}}</a></p>
+                    </div>
+                    <div class="row">
+                        <p>{{video.descricao}}</p>
                     </div>
                     <div class="row">
                         <span class="hashtag">#TransparênciaPDE</span>
@@ -79,6 +81,7 @@ if (have_posts()) : while (have_posts()) : the_post();
             var app = new Vue({
                 el: '#appvideos',
                 data: {
+                    arrayMeses: ['JANEIRO', 'FEVEREIRO', 'MARÇO', 'ABRIL', 'MAIO', 'JUNHO', 'JULHO', 'AGOSTO', 'SETEMBRO', 'OUTUBRO', 'NOVEMBRO', 'DEZEMBRO'],
                     videos: [],
                     isLoading: true
                 },
@@ -104,20 +107,7 @@ if (have_posts()) : while (have_posts()) : the_post();
             });
         </script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-        <style>
-            #appvideos .ficha-tecnica h2 {
-                text-overflow: ellipsis;
-                color: #0a3299;
-                font-size: 22px;                
-            }
-            #appvideos .hashtag {
-                color: #888;
-            }
-            #appvideos .card-video {
-                padding: 20px 0;
-                border: 1px solid red;
-            }
-        </style>
+
 <?php
     endwhile;
 endif;

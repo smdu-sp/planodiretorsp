@@ -86,13 +86,13 @@ if (have_posts()) : while (have_posts()) : the_post();
                         <div class="col-1">
                             <div class="form-check">
                                 <label for="is-video" class="form-label">Vídeo?</label>
-                                <input type="checkbox" v-model="isVideo" id="is-video" class="form-control" @click="toggleVideo">
+                                <input type="checkbox" v-model="isVideo" id="is-video" class="form-control" @change="toggleVideo">
                             </div>
                         </div>
 
                         <div class="col mb-2">
                             <label class="form-label" for="tipo">Tipo de evento</label>
-                            <input class="form-control" v-model="tipoEvento" type="text" id="tipo" name="tipo" :style="isVideo ? 'opacity: 50%;' : ''" required>
+                            <input class="form-control" v-model="tipoEvento" type="text" id="tipo" name="tipo" :style="isVideo ? 'pointer-events: none; opacity: 50%; cursor: not-allowed;' : ''" required>
                         </div>
 
                         <div class="col mb-3">
@@ -211,7 +211,7 @@ if (have_posts()) : while (have_posts()) : the_post();
                     listaDeDocumentos: [],
                     temas: [],
                     tipos: [],
-                    tipoEvento: null,
+                    tipoEvento: '',
                     imagem: null,
                     isVideo: false
                 },
@@ -233,9 +233,10 @@ if (have_posts()) : while (have_posts()) : the_post();
                     },
                     toggleVideo: function() {
                         this.tipoEvento = this.isVideo ? "video" : this.tipoEvento
-                        window.setTimeout(() => {
-                            document.querySelector('#tipo').value = 'video'
-                        }, 100)
+                        // window.setTimeout(() => {
+                        // console.log(this.tipoEvento)
+                        //     document.querySelector('#tipo').value = 'video'
+                        // }, 100)
                     }
                 }
             })
