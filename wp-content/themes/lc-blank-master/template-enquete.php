@@ -94,7 +94,7 @@ if (have_posts()) : while (have_posts()) : the_post();
             ?>
             <input type="hidden" name="form_token" value="<?php echo $form_token; ?>" />
             <!-- Validação do formulário -->
-            <div>
+            <div class="enquete-pergunta">
               <p>Você sabe o que é o Plano Diretor Estratégico ?</p>
               <div>
                 <input type="radio" id="a1" value="Sim" v-model="resposta_1">
@@ -106,7 +106,7 @@ if (have_posts()) : while (have_posts()) : the_post();
                 <input type="text" class="campo-oculto" id="resposta_1" name="resposta_1" :value="resposta_1" required />
               </div>
             </div>
-            <div>
+            <div class="enquete-pergunta">
               <p>Você participou do processo participativo do Plano Diretor em 2014?</p>
               <div>
                 <input type="radio" id="b1" value="Sim" v-model="resposta_2">
@@ -118,7 +118,7 @@ if (have_posts()) : while (have_posts()) : the_post();
                 <input type="text" class="campo-oculto" id="resposta_2" name="resposta_2" :value="resposta_2" required />
               </div>
             </div>
-            <div>
+            <div class="enquete-pergunta">
               <p>Você acompanha e se interessa sobre as discussões de desenvolvimento urbano da cidade?</p>
               <div>
                 <input type="radio" id="c1" value="Sim" v-model="resposta_3">
@@ -130,25 +130,25 @@ if (have_posts()) : while (have_posts()) : the_post();
                 <input type="text" class="campo-oculto" id="resposta_3" name="resposta_3" :value="resposta_3" required />
               </div>
             </div>
-            <div>
+            <div class="enquete-pergunta">
               <p>Se pudesse escolher, você moraria perto de:</p>
-              <div class="container">
+              <div>
                 <div class="row">
-                  <div class="col">
+                  <div class="col-md">
                     <input type="checkbox" id="d1" value="a_Emprego" v-model="resposta_4_ar" @change="ordenaResposta()">
                     <label for="d1">Emprego</label>
                   </div>
-                  <div class="col">
+                  <div class="col-md">
                     <input type="checkbox" id="d2" value="b_Transporte" v-model="resposta_4_ar" @change="ordenaResposta()">
                     <label for="d2">Transporte (metrô, trem e terminal de ônibus)</label>
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col">
+                  <div class="col-md">
                     <input type="checkbox" id="d3" value="c_Escola" v-model="resposta_4_ar" @change="ordenaResposta()">
                     <label for="d3">Escola</label>
                   </div>
-                  <div class="col">
+                  <div class="col-md">
                     <input type="checkbox" id="d4" value="d_Unidade de saúde" v-model="resposta_4_ar" @change="ordenaResposta()">
                     <label for="d4">Unidade de saúde</label>
                   </div>
@@ -165,31 +165,31 @@ if (have_posts()) : while (have_posts()) : the_post();
                 <input type="text" class="campo-oculto" id="resposta_4" name="resposta_4" :value="resposta_4" />
               </div>
             </div>
-            <div>
+            <div class="enquete-pergunta">
               <p>Quanto tempo de deslocamento você gasta, em média, da sua moradia até o trabalho diariamente?</p>
               <div>
                 <div class="row">
-                  <div class="col">
+                  <div class="col-md">
                     <input type="radio" id="e1" value="Menos de 15 minutos" v-model="resposta_5">
                     <label for="e1">Menos de 15 minutos</label>
                   </div>
-                  <div class="col">
+                  <div class="col-md">
                     <input type="radio" id="e2" value="Entre 15 e 30 minutos" v-model="resposta_5">
                     <label for="e2">Entre 15 e 30 minutos</label>
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col">
+                  <div class="col-md">
                     <input type="radio" id="e3" value="Entre 30 minutos e 1 hora" v-model="resposta_5">
                     <label for="e3">Entre 30 minutos e 1 hora</label>
                   </div>
-                  <div class="col">
+                  <div class="col-md">
                     <input type="radio" id="e4" value="Entre 1 e 2 horas" v-model="resposta_5">
                     <label for="e4">Entre 1 e 2 horas</label>
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col">
+                  <div class="col-md">
                     <input type="radio" id="e5" value="Mais de 2 horas" v-model="resposta_5">
                     <label for="e5">Mais de 2 horas</label>
                   </div>
@@ -197,105 +197,105 @@ if (have_posts()) : while (have_posts()) : the_post();
                 <input type="text" class="campo-oculto" id="resposta_5" name="resposta_5" :value="resposta_5" required />
               </div>
             </div>
-            <div>
+            <div class="enquete-pergunta">
               <p>Se pudesse escolher, qual das alternativas abaixo mais se aproxima dos seus planos?</p>
               <div>
                 <div class="row">
-                  <div class="col">
+                  <div class="col-md">
                     <div class="row">
-                      <div class="col-1 align-self-center">
+                      <div class="col-md-1 align-self-center">
                         <input type="radio" id="f1" value="Não penso em hipótese alguma deixar o bairro onde moro" v-model="resposta_6">
                       </div>
-                      <div class="col">
+                      <div class="col-md">
                         <label for="f1">Não penso em hipótese alguma deixar o bairro onde moro</label>
                       </div>
                     </div>
                   </div>
-                  <div class="col">
+                  <div class="col-md">
                     <div class="row">
-                      <div class="col-1 align-self-center">
+                      <div class="col-md-1 align-self-center">
                         <input type="radio" id="f2" value="Permaneceria no bairro onde moro se ele recebesse melhorias" v-model="resposta_6">
                       </div>
-                      <div class="col">
+                      <div class="col-md">
                         <label for="f2">Permaneceria no bairro onde moro se ele recebesse melhorias</label>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col">
+                  <div class="col-md">
                     <div class="row">
-                      <div class="col-1 align-self-center">
+                      <div class="col-md-1 align-self-center">
                         <input type="radio" id="f3" value="Mudaria de bairro porque prefiro ficar mais perto da região central da cidade" v-model="resposta_6">
                       </div>
-                      <div class="col">
+                      <div class="col-md">
                         <label for="f3">Mudaria de bairro porque prefiro ficar mais perto da região central da cidade</label>
                       </div>
                     </div>
                   </div>
-                  <div class="col">
+                  <div class="col-md">
                     <div class="row">
-                      <div class="col-1 align-self-center">
+                      <div class="col-md-1 align-self-center">
                         <input type="radio" id="f4" value="Mudaria de bairro, pois está muito caro o custo de vida no atual" v-model="resposta_6">
                       </div>
-                      <div class="col">
+                      <div class="col-md">
                         <label for="f4">Mudaria de bairro, pois está muito caro o custo de vida no atual</label>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col">
+                  <div class="col-md">
                     <div class="row">
-                      <div class="col-1 align-self-center">
+                      <div class="col-md-1 align-self-center">
                         <input type="radio" id="f5" value="Mudaria para regiões próximas à rede de transporte público, independentemente do bairro" v-model="resposta_6">
                       </div>
-                      <div class="col">
+                      <div class="col-md">
                         <label for="f5">Mudaria para regiões próximas à rede de transporte público, independentemente do bairro</label>
                       </div>
                     </div>
                   </div>
-                  <div class="col">
+                  <div class="col-md">
                   </div>
                 </div>
                 <input type="text" class="campo-oculto" id="resposta_6" name="resposta_6" :value="resposta_6" required />
               </div>
             </div>
-            <div>
+            <div class="enquete-pergunta">
               <p>Na sua opinião, do que seu bairro mais precisa?</p>
               <div>
                 <div class="row">
-                  <div class="col">
+                  <div class="col-md">
                     <input type="radio" id="g1" value="Transporte público" v-model="resposta_7">
                     <label for="g1">Transporte público</label>
                   </div>
-                  <div class="col">
+                  <div class="col-md">
                     <input type="radio" id="g2" value="Segurança" v-model="resposta_7">
                     <label for="g2">Segurança</label>
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col">
+                  <div class="col-md">
                     <input type="radio" id="g3" value="Emprego" v-model="resposta_7">
                     <label for="g3">Emprego</label>
                   </div>
-                  <div class="col">
+                  <div class="col-md">
                     <input type="radio" id="g4" value="Moradia" v-model="resposta_7">
                     <label for="g4">Moradia</label>
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col">
+                  <div class="col-md">
                     <input type="radio" id="g5" value="Iluminação pública" v-model="resposta_7">
                     <label for="g5">Iluminação pública</label>
                   </div>
-                  <div class="col">
+                  <div class="col-md">
                     <input type="radio" id="g6" value="Parques e áreas verdes" v-model="resposta_7">
                     <label for="g6">Parques e áreas verdes</label>
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col">
+                  <div class="col-md">
                     <input type="radio" id="g7" value="Equipamento público" v-model="resposta_7">
                     <label for="g7">Equipamento público</label>
                   </div>
@@ -303,7 +303,7 @@ if (have_posts()) : while (have_posts()) : the_post();
                 <input type="text" class="campo-oculto" id="resposta_7" name="resposta_7" :value="resposta_7" required />
               </div>
             </div>
-            <div>
+            <div class="enquete-pergunta">
               <p>Você gostaria de morar no centro da cidade?</p>
               <div>
                 <input type="radio" id="h1" value="Sim" v-model="resposta_8">
@@ -317,23 +317,23 @@ if (have_posts()) : while (have_posts()) : the_post();
             </div>
             <div>
               <p>Qual desses espaços públicos ao ar livre você mais valoriza?</p>
-              <div>
+              <div class="enquete-pergunta">
                 <div class="row">
-                  <div class="col">
+                  <div class="col-md">
                     <input type="radio" id="i1" value="Parque" v-model="resposta_9">
                     <label for="i1">Parque</label>
                   </div>
-                  <div class="col">
+                  <div class="col-md">
                     <input type="radio" id="i2" value="Praça" v-model="resposta_9">
                     <label for="i2">Praça</label>
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col">
+                  <div class="col-md">
                     <input type="radio" id="i3" value="Quadra de esporte" v-model="resposta_9">
                     <label for="i3">Quadra de esporte</label>
                   </div>
-                  <div class="col">
+                  <div class="col-md">
                     <input type="radio" id="i4" value="Ciclovia" v-model="resposta_9">
                     <label for="i4">Ciclovia</label>
                   </div>
@@ -343,29 +343,29 @@ if (have_posts()) : while (have_posts()) : the_post();
             </div>
             <div>
               <p>O que é mais importante que tenha na São Paulo do futuro ?</p>
-              <div>
+              <div class="enquete-pergunta">
                 <div class="row">
-                  <div class="col">
+                  <div class="col-md">
                     <input type="radio" id="j1" value="Moradia para todos" v-model="resposta_10">
                     <label for="j1">Moradia para todos</label>
                   </div>
-                  <div class="col">
+                  <div class="col-md">
                     <input type="radio" id="j2" value="Transporte público perto de casa" v-model="resposta_10">
                     <label for="j2">Transporte público perto de casa</label>
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col">
+                  <div class="col-md">
                     <input type="radio" id="j3" value="Soluções para enfrentar novas pandemias" v-model="resposta_10">
                     <label for="j3">Soluções para enfrentar novas pandemias</label>
                   </div>
-                  <div class="col">
+                  <div class="col-md">
                     <input type="radio" id="j4" value="Áreas verdes preservadas" v-model="resposta_10">
                     <label for="j4">Áreas verdes preservadas</label>
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col">
+                  <div class="col-md">
                     <input type="radio" id="j5" value="Centro da cidade requalificado" v-model="resposta_10">
                     <label for="j5">Centro da cidade requalificado</label>
                   </div>
