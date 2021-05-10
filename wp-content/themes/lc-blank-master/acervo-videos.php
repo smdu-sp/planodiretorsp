@@ -30,7 +30,7 @@ if (have_posts()) : while (have_posts()) : the_post();
             <div class="row card-video" v-for="video in videos">
                 <div class="col-6">
                     <!-- VIDEO EMBED -->
-                    <iframe width="560" height="315" :src="video.link.replace('watch?v=', 'embed/')" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+                    <iframe width="500" height="280" :src="video.link.replace('watch?v=', 'embed/').replace('youtu.be/', 'youtube.com/embed/')" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
                     </iframe>
                 </div>
                 <div class="col ficha-tecnica">
@@ -97,7 +97,7 @@ if (have_posts()) : while (have_posts()) : the_post();
                 mounted() {
                     axios.get(listaVideos)
                         .then(response => {
-                            this.videos = response.data.videos
+                            this.videos = response.data.videos.reverse()
                         })
                         .catch(error => {
                             console.error("ERRO AO OBTER VÍDEOS")
