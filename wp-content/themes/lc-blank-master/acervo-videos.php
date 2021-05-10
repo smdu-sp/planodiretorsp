@@ -47,13 +47,13 @@ if (have_posts()) : while (have_posts()) : the_post();
                             <p>{{video.titulo}}</p>
                         </div>
                     </div>
-                    <div class="row video-info">
+                    <div v-if="video.tema" class="row video-info">
                         <div class="col-1 p-0"><span>Tema:</span></div>
                         <div class="col">
                             <p>{{video.tema}}</p>
                         </div>
                     </div>
-                    <div class="row video-info">
+                    <div v-if="video.destaque" class="row video-info">
                         <div class="col-1 p-0"><span>Fonte:</span></div>
                         <div class="col">
                             <p>{{video.destaque}}</p>
@@ -65,7 +65,7 @@ if (have_posts()) : while (have_posts()) : the_post();
                     <div class="row">
                         <p>Link do vídeo original: <a :href="video.link" target="_blank">{{video.link}}</a></p>
                     </div>
-                    <div class="row">
+                    <div v-if="video.descricao" class="row">
                         <p>{{video.descricao}}</p>
                     </div>
                     <div class="row">
@@ -77,7 +77,7 @@ if (have_posts()) : while (have_posts()) : the_post();
         </div>
 
         <script type="text/javascript">
-            const listaVideos = "<?php echo $isLocalhost ? './lista-videos/' : '/lista-videos/' ?>";
+            const listaVideos = "<?php echo $isLocalhost ? '../lista-videos/' : '/lista-videos/' ?>";
             var app = new Vue({
                 el: '#appvideos',
                 data: {
@@ -89,7 +89,8 @@ if (have_posts()) : while (have_posts()) : the_post();
                     formataData: function(dateStr) {
                         let dia = new Date(dateStr).getUTCDate()
                         let mes = this.arrayMeses[new Date(dateStr).getUTCMonth()]
-                        let dataRetorno = "" + dia + " de " + mes
+                        let ano = new Date(dateStr).getUTCFullYear()
+                        let dataRetorno = (dia < 10 ? "0" : "") + dia + ". " + mes + ". " + ano
                         return dataRetorno.toLowerCase()
                     }
                 },
