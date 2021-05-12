@@ -28,7 +28,7 @@
                     </div>
                     <a :href="evento.link" target="_blank" v-if="evento.link">
                         <div class="tag-evento tag-link" :style="'color: '+mes.cor">
-                            <i class="bi bi-hand-index"></i>
+                            <i class="bi bi-hand-index" :style="'color: '+mes.cor"></i>
                             {{evento.descricao_link}}
                         </div>
                     </a>
