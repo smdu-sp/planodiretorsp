@@ -11,8 +11,8 @@
                 </div>
 
                 <div v-if="!evento.dataCompleta">
-                    <div>
-                        <img class="rounded" :src="evento.imagem" :alt="evento.titulo">
+                    <div class="container-img">
+                        <img :src="evento.imagem" :alt="evento.titulo">
                     </div>
                     <div>
                         <p>{{evento.descricao}}</p>
