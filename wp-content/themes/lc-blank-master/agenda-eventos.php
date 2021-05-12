@@ -11,7 +11,7 @@ if (have_posts()) : while (have_posts()) : the_post();
 
         $vue = 'vue.min.js';
 
-        $isLocalhost = get_site_url() == 'http://localhost/planodiretorsp';
+        $isLocalhost = get_site_url() === 'http://localhost/planodiretorsp';
 
         // include local
         if ($localhosting) {
@@ -58,7 +58,7 @@ if (have_posts()) : while (have_posts()) : the_post();
             </div>
 
             <!-- MESES ANTERIORES -->
-            <div class="banner-anteriores row">
+            <div v-if="!isLoading" class="banner-anteriores row">
                 <div class="col">
                     <h2>Agendas anteriores</h2>
                 </div>
@@ -99,7 +99,7 @@ if (have_posts()) : while (have_posts()) : the_post();
         </div>
 
         <script type="text/javascript">
-            const listaEventos = "<?php echo $isLocalhost ? './lista-eventos/' : '/lista-eventos/' ?>";
+            const listaEventos = "<?php echo $isLocalhost ? '../lista-eventos/' : '/lista-eventos/' ?>";
             var app = new Vue({
                 el: '#appagenda',
                 data: {
@@ -165,9 +165,15 @@ if (have_posts()) : while (have_posts()) : the_post();
                             const nomeMes = this.arrayMeses[dataGmt.getUTCMonth()]
                             let mesExistente = false
 
-                            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' };
+                            const options = {
+                                weekday: 'long',
+                                year: 'numeric',
+                                month: 'long',
+                                day: 'numeric',
+                                timeZone: 'UTC'
+                            };
                             evento.dataCompleta = dataGmt.toLocaleDateString('pt-BR', options)
-                            
+
                             // ITERA mesesAnteriores PARA VERIFICAR SE MES JA FOI ADICIONADO
                             for (mes in this.mesesAnteriores) {
                                 if (this.mesesAnteriores[mes].nome === nomeMes) {
@@ -289,6 +295,7 @@ if (have_posts()) : while (have_posts()) : the_post();
                 top: -1em;
                 color: white;
                 width: fit-content;
+                width: -moz-fit-content;
                 border-radius: 5px;
                 padding: 8px 12px;
                 transform: translate(30px, -2em);
@@ -319,7 +326,7 @@ if (have_posts()) : while (have_posts()) : the_post();
             .container-eventos .card-mes {
                 margin-bottom: 5em;
                 background-color: white;
-                box-shadow: 0 0 20px rgba(0,0,0,0.3);
+                box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
                 border-radius: 20px;
                 padding-bottom: 10px;
             }
