@@ -51,4 +51,16 @@
         return $results;
     }
 
-?>
+    function getEvento(int $id)
+    {
+        global $wpdb;
+        $where = "id = {$id}";
+        $sql = "SELECT * FROM eventos_agenda WHERE {$where};";
+        $results = $wpdb->get_results($sql, OBJECT);
+        foreach ($results as $key => $value) {
+            $sql = "SELECT nome, link FROM documentos_evento WHERE `id_evento` = " . $value->id;
+            $docs = $wpdb->get_results($sql, OBJECT);
+            $results[$key]->documentos = $docs;
+        }
+        return $results;
+    }
