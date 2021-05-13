@@ -106,6 +106,7 @@ if (have_posts()) : while (have_posts()) : the_post();
                     eventos: [],
                     eventosPosteriores: [],
                     eventosAnteriores: [],
+                    eventoAtual: [],
                     mesesPosteriores: [],
                     mesesAnteriores: [],
                     colEsqPosteriores: [],
@@ -145,6 +146,15 @@ if (have_posts()) : while (have_posts()) : the_post();
                                 corAtual = corAtual >= this.cores.length ? 0 : corAtual
 
                                 this.mesesPosteriores.push(novoMes)
+                            }
+                        }
+
+                        // SEPARA O PRIMEIRO ITEM DA LISTA PARA MOSTRAR COM DESTAQUE
+                        if (this.mesesPosteriores[0].eventos[0].id > 0) {
+                            console.log('ID antes: ' + this.mesesPosteriores[0].eventos[0].id)
+                            this.eventoAtual = this.mesesPosteriores[0].eventos.shift()
+                            if (!this.mesesPosteriores[0].eventos[0]) {
+                                this.mesesPosteriores.shift()
                             }
                         }
 
