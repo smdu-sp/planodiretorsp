@@ -85,30 +85,37 @@ if (have_posts()) : while (have_posts()) : the_post();
     <!-- O EVENTO EM SI -->
     <div id="appevento">
       <div class="evento form-group">
-        <div>{{evento.titulo}}</div>
+        <div>
+          <h1>Editar Evento: {{evento.titulo}}</h1>
+        </div>
         <div class="btn btn-danger" @click="confirmaExclusao" title="Excluir evento">Excluir evento</div>
 
-        <div class="item-evento row" v-for="(value, key) in evento">
-          <div class="col-2">{{key}}</div>
+        <div class="item-evento row" v-for="(value, key) in evento" :id="key">
+          <div class="item-nome col-1">{{key}}</div>
           <div class="col">
             <input class="form-control" type="text" v-model="evento[key]" @change="atualizaDado(key, value)" :key="key">
           </div>
         </div>
-        Lista de documentos
-        <div class="row" v-for="(value, key) in listaDeDocumentos" :key="key">
-          <div class="col-2">
-            <input type="text" v-model="value.nome" @change="atualizaDocumentos()" placeholder="Nome do documento">
-          </div>
-          <div class="col">
-            <input type="text" v-model="value.link" @change="atualizaDocumentos()" placeholder="URL (link)">
-          </div>
-          <div class="col-1">
-            <div class="btn btn-danger" @click="removeDocumento(key)">
-              Remover documento
+        <div class="evento-documentos">
+          <h2>Lista de documentos</h2>
+          <div class="row" v-for="(value, key) in listaDeDocumentos" :key="key">
+            <div class="col-2">
+              <input class="form-control" type="text" v-model="value.nome" @change="atualizaDocumentos()" placeholder="Nome do documento">
+            </div>
+            <div class="col-4">
+              <input class="form-control" type="text" v-model="value.link" @change="atualizaDocumentos()" placeholder="URL (link)">
+            </div>
+            <div class="col-1">
+              <div class="btn btn-danger" @click="removeDocumento(key)">
+                Remover documento
+              </div>
             </div>
           </div>
+          <div @click="addDocumento" class="btn btn-primary">
+            Adicionar documento
+          </div>
         </div>
-        <div @click="addDocumento" class="btn btn-primary">Adicionar documento</div>
+
       </div>
     </div>
 
@@ -179,6 +186,45 @@ if (have_posts()) : while (have_posts()) : the_post();
       });
     </script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <style>
+      #appevento {
+        width: 1200px;
+        margin: auto;
+      }
+
+      .evento h1 {
+        margin: 20px 0;
+        font-size: 2.5em !important;
+      }
+
+      .evento .item-evento {
+        padding-top: 5px !important;
+      }
+
+      .evento .item-nome,
+      .evento input {
+        font-size: 16px;
+      }
+
+      .evento .item-nome {
+        margin: auto 0;
+      }
+
+      .evento .evento-documentos {
+        margin: 30px 0 10px 0;
+      }
+
+      .evento .evento-documentos input {
+        margin-bottom: 5px;
+      }
+
+      .evento #id,
+      .evento #created_at,
+      .evento #updated_at {
+        display: none;
+      }
+    </style>
 
 <?php
 
