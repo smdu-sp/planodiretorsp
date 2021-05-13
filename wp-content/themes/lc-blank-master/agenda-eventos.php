@@ -42,7 +42,7 @@ if (have_posts()) : while (have_posts()) : the_post();
                                 <span class="linha-evento col">
                                     {{eventoAtual.tipo}}
                                 </span>
-                                <a class="col-4" v-if="logado" :href="'/planodiretorsp/evento?id=' + eventoAtual.id">
+                                <a class="col-4" v-if="logado" :href="'/evento?id=' + eventoAtual.id">
                                     <div class="btn btn-primary">
                                         Editar evento
                                     </div>

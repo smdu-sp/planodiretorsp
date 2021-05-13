@@ -39,7 +39,7 @@ if (have_posts()) : while (have_posts()) : the_post();
                         <h2>{{video.titulo}}</h2>
                     </div>
                     <div class="row">
-                        <a v-if="logado" :href="'/planodiretorsp/evento?id=' + video.id">
+                        <a v-if="logado" :href="'/evento?id=' + video.id">
                             <div class="btn btn-primary">
                                 Editar evento
                             </div>
