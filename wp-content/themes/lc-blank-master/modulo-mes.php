@@ -9,10 +9,14 @@
                 <div>
                     <h3>{{evento.titulo}}</h3>
                 </div>
-
+                <a v-if="logado" :href="'/evento?id=' + evento.id">
+                    <div class="btn btn-primary">
+                        Editar evento
+                    </div>
+                </a>
                 <div v-if="!evento.dataCompleta">
-                    <div>
-                        <img class="rounded" :src="evento.imagem" :alt="evento.titulo">
+                    <div class="container-img">
+                        <img :src="evento.imagem" :alt="evento.titulo">
                     </div>
                     <div>
                         <p>{{evento.descricao}}</p>
@@ -28,7 +32,7 @@
                     </div>
                     <a :href="evento.link" target="_blank" v-if="evento.link">
                         <div class="tag-evento tag-link" :style="'color: '+mes.cor">
-                            <i class="bi bi-hand-index"></i>
+                            <i class="bi bi-hand-index" :style="'color: '+mes.cor"></i>
                             {{evento.descricao_link}}
                         </div>
                     </a>
