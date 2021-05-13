@@ -9,7 +9,11 @@
                 <div>
                     <h3>{{evento.titulo}}</h3>
                 </div>
-
+                <a v-if="logado" :href="'/planodiretorsp/evento?id=' + evento.id">
+                    <div class="btn btn-primary">
+                        Editar evento
+                    </div>
+                </a>
                 <div v-if="!evento.dataCompleta">
                     <div class="container-img">
                         <img :src="evento.imagem" :alt="evento.titulo">

@@ -38,9 +38,16 @@ if (have_posts()) : while (have_posts()) : the_post();
                     </div>
                     <div class="row align-items-end">
                         <div class="col-lg-6 destaque-texto">
-                            <span class="linha-evento">
-                                {{eventoAtual.tipo}}
-                            </span>
+                            <div class="row">
+                                <span class="linha-evento col">
+                                    {{eventoAtual.tipo}}
+                                </span>
+                                <a class="col-4" v-if="logado" :href="'/planodiretorsp/evento?id=' + eventoAtual.id">
+                                    <div class="btn btn-primary">
+                                        Editar evento
+                                    </div>
+                                </a>
+                            </div>
                             <div>
                                 <h3>{{eventoAtual.titulo}}</h3>
                             </div>
@@ -152,7 +159,8 @@ if (have_posts()) : while (have_posts()) : the_post();
                     colDirAnteriores: [],
                     arrayMeses: ['JANEIRO', 'FEVEREIRO', 'MARÇO', 'ABRIL', 'MAIO', 'JUNHO', 'JULHO', 'AGOSTO', 'SETEMBRO', 'OUTUBRO', 'NOVEMBRO', 'DEZEMBRO'],
                     isLoading: true,
-                    cores: ['#f96546', '#f4a7b0', '#517bee', '#fd8524']
+                    cores: ['#f96546', '#f4a7b0', '#517bee', '#fd8524'],
+                    logado: false
                 },
                 methods: {
                     criaMeses: function() {
@@ -279,6 +287,10 @@ if (have_posts()) : while (have_posts()) : the_post();
                             }
                             return
                         }
+                    },
+                    checaLogin: function() {
+                        if ("<?php echo is_user_logged_in() ?>")
+                            this.logado = true
                     }
                 },
                 mounted() {
@@ -297,6 +309,7 @@ if (have_posts()) : while (have_posts()) : the_post();
                             }
                             this.criaMeses()
                             this.checaDataProxima()
+                            this.checaLogin()
                         })
                         .catch(error => {
                             console.error("ERRO AO OBTER EVENTOS DA AGENDA")

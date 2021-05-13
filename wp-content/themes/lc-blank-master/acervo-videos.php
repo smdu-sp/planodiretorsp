@@ -39,6 +39,13 @@ if (have_posts()) : while (have_posts()) : the_post();
                         <h2>{{video.titulo}}</h2>
                     </div>
                     <div class="row">
+                        <a v-if="logado" :href="'/planodiretorsp/evento?id=' + video.id">
+                            <div class="btn btn-primary">
+                                Editar evento
+                            </div>
+                        </a>
+                    </div>
+                    <div class="row">
                         <span>{{formataData(video.data_evento)}}</span>
                     </div>
                     <div class="row video-info">
@@ -83,7 +90,8 @@ if (have_posts()) : while (have_posts()) : the_post();
                 data: {
                     arrayMeses: ['JANEIRO', 'FEVEREIRO', 'MARÇO', 'ABRIL', 'MAIO', 'JUNHO', 'JULHO', 'AGOSTO', 'SETEMBRO', 'OUTUBRO', 'NOVEMBRO', 'DEZEMBRO'],
                     videos: [],
-                    isLoading: true
+                    isLoading: true,
+                    logado: false
                 },
                 methods: {
                     formataData: function(dateStr) {
@@ -92,12 +100,17 @@ if (have_posts()) : while (have_posts()) : the_post();
                         let ano = new Date(dateStr).getUTCFullYear()
                         let dataRetorno = (dia < 10 ? "0" : "") + dia + ". " + mes + ". " + ano
                         return dataRetorno.toLowerCase()
+                    },
+                    checaLogin: function() {
+                        if ("<?php echo is_user_logged_in() ?>")
+                            this.logado = true
                     }
                 },
                 mounted() {
                     axios.get(listaVideos)
                         .then(response => {
                             this.videos = response.data.videos.reverse()
+                            this.checaLogin()
                         })
                         .catch(error => {
                             console.error("ERRO AO OBTER VÍDEOS")
