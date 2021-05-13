@@ -26,6 +26,42 @@ if (have_posts()) : while (have_posts()) : the_post();
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <div id="appagenda" class="container-eventos">
             <div v-if="isLoading" style="color: gray; height: 2000px">Carregando eventos...</div>
+
+            <!-- EVENTO DE DESTAQUE -->
+            <div v-if="!isLoading" class="row evento-destaque">
+                <div class="col-md-4 destaque-imagem">
+                    <img :src="eventoAtual.imagem" alt="Magna in ad ut exped">
+                </div>
+                <div class="col destaque-info">
+                    <div v-if="dataProxima" class="tag-mes" style="background-color: #0a3299">
+                        <h2>{{dataProxima}}</h2>
+                    </div>
+                    <div class="row align-items-end">
+                        <div class="col-lg-6 destaque-texto">
+                            <span class="linha-evento">
+                                {{eventoAtual.tipo}}
+                            </span>
+                            <div>
+                                <h3>{{eventoAtual.titulo}}</h3>
+                            </div>
+                            <div>
+                                <p>{{eventoAtual.destaque}}</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 destaque-tags">
+                            <div class="tag-evento tag-hora">
+                                <i class="bi bi-calendar3" style="color: white"></i>{{formataData(eventoAtual.data_evento)}}&nbsp;&nbsp;&nbsp;<i class="bi bi-clock" style="color: white"></i>{{formataHora(eventoAtual.hora_evento)}}
+                            </div>
+                            <a :href="eventoAtual.link" target="_blank" v-if="eventoAtual.link">
+                                <div class="tag-evento tag-destaque">
+                                    {{eventoAtual.descricao_link}}
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- MESES POSTERIORES -->
             <div class="row">
                 <div class="col coluna-desktop">
@@ -107,6 +143,7 @@ if (have_posts()) : while (have_posts()) : the_post();
                     eventosPosteriores: [],
                     eventosAnteriores: [],
                     eventoAtual: [],
+                    dataProxima: "",
                     mesesPosteriores: [],
                     mesesAnteriores: [],
                     colEsqPosteriores: [],
@@ -228,6 +265,20 @@ if (have_posts()) : while (have_posts()) : the_post();
                     toggleEvento: function(evento) {
                         evento.aberto = !evento.aberto
                         this.$forceUpdate()
+                    },
+                    checaDataProxima: function() {
+                        let dataAtual = new Date()
+                        let dataEvento = new Date(app.eventoAtual.data_evento)
+
+                        if (dataAtual.getUTCMonth() === dataEvento.getUTCMonth()) {
+                            if (dataAtual.getUTCDate() === dataEvento.getUTCDate()) {
+                                this.dataProxima = "HOJE"
+                            }
+                            if (dataAtual.getUTCDate() + 1 === dataEvento.getUTCDate()) {
+                                this.dataProxima = "AMANHÃ"
+                            }
+                            return
+                        }
                     }
                 },
                 mounted() {
@@ -245,6 +296,7 @@ if (have_posts()) : while (have_posts()) : the_post();
                                     this.eventosAnteriores.push(this.eventos[evento])
                             }
                             this.criaMeses()
+                            this.checaDataProxima()
                         })
                         .catch(error => {
                             console.error("ERRO AO OBTER EVENTOS DA AGENDA")
