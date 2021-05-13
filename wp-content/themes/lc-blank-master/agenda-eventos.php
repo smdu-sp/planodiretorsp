@@ -226,9 +226,10 @@ if (have_posts()) : while (have_posts()) : the_post();
                             this.eventos = response.data.eventos
                             for (evento in this.eventos) {
                                 this.eventos[evento].aberto = false
-                                const dataEvento = new Date(this.eventos[evento].data_evento)
+                                const dataEvento = new Date(this.eventos[evento].data_evento + " " + this.eventos[evento].hora_evento)
 
-                                if (dataEvento > new Date())
+                                // COMPARA DATA ATUAL COM A DO EVENTO E ADICIONA 3 HORAS DE MARGEM PARA DURACAO DO EVENTO
+                                if ((dataEvento.getTime() + 3 * 60 * 60 * 1000) > new Date().getTime())
                                     this.eventosPosteriores.push(this.eventos[evento])
                                 else
                                     this.eventosAnteriores.push(this.eventos[evento])
