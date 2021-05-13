@@ -30,7 +30,7 @@ if (have_posts()) : while (have_posts()) : the_post();
             <!-- EVENTO DE DESTAQUE -->
             <div v-if="!isLoading" class="row evento-destaque">
                 <div class="col-md-4 destaque-imagem">
-                    <img :src="eventoAtual.imagem" alt="Magna in ad ut exped">
+                    <img :src="eventoAtual.imagem" :alt="eventoAtual.titulo">
                 </div>
                 <div class="col destaque-info">
                     <div v-if="dataProxima" class="tag-mes" style="background-color: #0a3299">
