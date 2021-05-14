@@ -1,6 +1,6 @@
 <?php
 /*
-Template Name: Evento agenda
+Template Name: Eventos (Agenda/ Área de Transparência)
 */
 require_once('evento.php');
 

@@ -1,6 +1,6 @@
 <?php
 /*
-Template Name: Acervo Videos
+Template Name: Área de Transparência
 */
 
 get_header();
