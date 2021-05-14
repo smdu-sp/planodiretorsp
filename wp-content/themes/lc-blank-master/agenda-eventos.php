@@ -28,7 +28,7 @@ if (have_posts()) : while (have_posts()) : the_post();
             <div v-if="isLoading" style="color: gray; height: 2000px">Carregando eventos...</div>
 
             <!-- EVENTO DE DESTAQUE -->
-            <div v-if="!isLoading" class="row evento-destaque">
+            <div v-if="!isLoading && (eventoAtual.id)" class="row evento-destaque">
                 <div class="col-md-4 destaque-imagem">
                     <img :src="eventoAtual.imagem" :alt="eventoAtual.titulo">
                 </div>
@@ -166,46 +166,47 @@ if (have_posts()) : while (have_posts()) : the_post();
                         this.mesesPosteriores = []
                         let corAtual = 0
 
-                        for (let index = 0; index < this.eventosPosteriores.length; index++) {
-                            let evento = this.eventosPosteriores[index];
-                            const nomeMes = this.arrayMeses[new Date(evento.data_evento).getUTCMonth()]
-                            let mesExistente = false
+                        if(this.eventosPosteriores.length > 0) {
+                            for (let index = 0; index < this.eventosPosteriores.length; index++) {
+                                let evento = this.eventosPosteriores[index];
+                                const nomeMes = this.arrayMeses[new Date(evento.data_evento).getUTCMonth()]
+                                let mesExistente = false
 
-                            // ITERA mesesPosteriores PARA VERIFICAR SE MES JA FOI ADICIONADO
-                            for (mes in this.mesesPosteriores) {
-                                if (this.mesesPosteriores[mes].nome === nomeMes) {
-                                    mesExistente = true
-                                    this.mesesPosteriores[mes].eventos.push(evento)
-                                    break
+                                // ITERA mesesPosteriores PARA VERIFICAR SE MES JA FOI ADICIONADO
+                                for (mes in this.mesesPosteriores) {
+                                    if (this.mesesPosteriores[mes].nome === nomeMes) {
+                                        mesExistente = true
+                                        this.mesesPosteriores[mes].eventos.push(evento)
+                                        break
+                                    }
+                                }
+                                if (!mesExistente) {
+                                    let novoMes = {
+                                        nome: nomeMes,
+                                        eventos: [evento],
+                                        cor: this.cores[corAtual]
+                                    }
+                                    corAtual++
+                                    corAtual = corAtual >= this.cores.length ? 0 : corAtual
+
+                                    this.mesesPosteriores.push(novoMes)
                                 }
                             }
-                            if (!mesExistente) {
-                                let novoMes = {
-                                    nome: nomeMes,
-                                    eventos: [evento],
-                                    cor: this.cores[corAtual]
+                        
+                            // SEPARA O PRIMEIRO ITEM DA LISTA PARA MOSTRAR COM DESTAQUE
+                            if (this.mesesPosteriores[0].eventos[0].id > 0) {
+                                this.eventoAtual = this.mesesPosteriores[0].eventos.shift()
+                                if (!this.mesesPosteriores[0].eventos[0]) {
+                                    this.mesesPosteriores.shift()
                                 }
-                                corAtual++
-                                corAtual = corAtual >= this.cores.length ? 0 : corAtual
-
-                                this.mesesPosteriores.push(novoMes)
                             }
-                        }
 
-                        // SEPARA O PRIMEIRO ITEM DA LISTA PARA MOSTRAR COM DESTAQUE
-                        if (this.mesesPosteriores[0].eventos[0].id > 0) {
-                            console.log('ID antes: ' + this.mesesPosteriores[0].eventos[0].id)
-                            this.eventoAtual = this.mesesPosteriores[0].eventos.shift()
-                            if (!this.mesesPosteriores[0].eventos[0]) {
-                                this.mesesPosteriores.shift()
+                            for (var i = 0; i < this.mesesPosteriores.length; i++) {
+                                if (i % 2 === 0)
+                                    this.colEsqPosteriores.push(this.mesesPosteriores[i])
+                                else
+                                    this.colDirPosteriores.push(this.mesesPosteriores[i])
                             }
-                        }
-
-                        for (var i = 0; i < this.mesesPosteriores.length; i++) {
-                            if (i % 2 === 0)
-                                this.colEsqPosteriores.push(this.mesesPosteriores[i])
-                            else
-                                this.colDirPosteriores.push(this.mesesPosteriores[i])
                         }
 
                         // ANTERIORES
