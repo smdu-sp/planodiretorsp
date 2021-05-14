@@ -46,27 +46,35 @@
         </div>
     </div>
     <div class="col-12" v-if="evento.dataCompleta">
-        <div class="row">
+        <div class="row anteriores-linha">
             <div class="col-2">
-                <span>tema:</span>
+                <span class="anteriores-descricao">tema:</span>
             </div>
             <div class="col">
-                <span>{{evento.tema}}</span>
+                <span class="anteriores-item">{{evento.tema}}</span>
             </div>
         </div>
-        <div class="row">
+        <div class="row anteriores-linha">
             <div class="col-2">
-                <span>data:</span>
+                <span class="anteriores-descricao">data:</span>
             </div>
-            <div class="col">{{evento.dataCompleta}}</div>
+            <div class="col anteriores-item">{{evento.dataCompleta}}</div>
         </div>
-        <div class="row" v-if="evento.documentos?.length > 0">
+        <div class="row anteriores-linha" v-if="evento.tipo === 'video'">
             <div class="col-2">
-                <span>documentos:</span>
+                <span class="anteriores-descricao">link:</span>
+            </div>
+            <a href="{{evento.link}}">
+                <div class="col anteriores-item" style="text-overflow: ellipsis">{{evento.link}}</div>
+            </a>
+        </div>
+        <div class="row anteriores-linha" v-if="evento.documentos?.length > 0">
+            <div class="col-2">
+                <span class="anteriores-descricao">documentos:</span>
             </div>
             <div class="col">
                 <p>
-                    <span style="padding-right: 5px;" v-for="(doc, index) in evento.documentos"><a :href="doc.link">{{doc.nome}}</a>{{ index < evento.documentos.length - 1 ? '; ' : '' }}</span>
+                    <span class="anteriores-item" style="padding-right: 5px;" v-for="(doc, index) in evento.documentos"><a :href="doc.link">{{doc.nome}}</a>{{ index < evento.documentos.length - 1 ? '; ' : '' }}</span>
                 </p>
             </div>
         </div>
