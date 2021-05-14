@@ -32,39 +32,37 @@ if (have_posts()) : while (have_posts()) : the_post();
                 <div class="col-md-4 destaque-imagem">
                     <img :src="eventoAtual.imagem" :alt="eventoAtual.titulo">
                 </div>
-                <div class="col destaque-info">
+                <div class="row col align-items-end destaque-info">
                     <div v-if="dataProxima" class="tag-mes" style="background-color: #0a3299">
                         <h2>{{dataProxima}}</h2>
                     </div>
-                    <div class="row align-items-end">
-                        <div class="col-lg-6 destaque-texto">
-                            <div class="row">
-                                <span class="linha-evento col">
-                                    {{eventoAtual.tipo}}
-                                </span>
-                                <a class="col-4" v-if="logado" :href="'/evento?id=' + eventoAtual.id">
-                                    <div class="btn btn-primary">
-                                        Editar evento
-                                    </div>
-                                </a>
-                            </div>
-                            <div>
-                                <h3>{{eventoAtual.titulo}}</h3>
-                            </div>
-                            <div>
-                                <p>{{eventoAtual.destaque}}</p>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 destaque-tags">
-                            <div class="tag-evento tag-hora">
-                                <i class="bi bi-calendar3" style="color: white"></i>{{formataData(eventoAtual.data_evento)}}&nbsp;&nbsp;&nbsp;<i class="bi bi-clock" style="color: white"></i>{{formataHora(eventoAtual.hora_evento)}}
-                            </div>
-                            <a :href="eventoAtual.link" target="_blank" v-if="eventoAtual.link">
-                                <div class="tag-evento tag-destaque">
-                                    {{eventoAtual.descricao_link}}
+                    <div class="col-lg-6 destaque-texto">
+                        <div class="row">
+                            <span class="linha-evento col">
+                                {{eventoAtual.tipo}}
+                            </span>
+                            <a class="col-4" v-if="logado" :href="'/evento?id=' + eventoAtual.id">
+                                <div class="btn btn-primary">
+                                    Editar evento
                                 </div>
                             </a>
                         </div>
+                        <div>
+                            <h3>{{eventoAtual.titulo}}</h3>
+                        </div>
+                        <div>
+                            <p>{{eventoAtual.destaque}}</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 destaque-tags">
+                        <div class="tag-evento tag-hora">
+                            <i class="bi bi-calendar3" style="color: white"></i>{{formataData(eventoAtual.data_evento)}}&nbsp;&nbsp;&nbsp;<i class="bi bi-clock" style="color: white"></i>{{formataHora(eventoAtual.hora_evento)}}
+                        </div>
+                        <a :href="eventoAtual.link" target="_blank" v-if="eventoAtual.link">
+                            <div class="tag-evento tag-destaque">
+                                {{eventoAtual.descricao_link}}
+                            </div>
+                        </a>
                     </div>
                 </div>
             </div>
