@@ -1,6 +1,6 @@
 <?php
 /*
-Template Name: Formulário Chamamento Público
+Template Name: Chamamento Público
 */
 
 session_start();
