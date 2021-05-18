@@ -34,8 +34,8 @@ if (have_posts()) : while (have_posts()) : the_post();
             <div v-if="!carregando" class="row mais-videos fechado" @click="alternaMaisVideos">
                 <div class="col decorativo">
                 </div>
-                <div class="col-2">
-                    <h2 class="">+ vídeos</h2>
+                <div class="col-xs-2">
+                    <h2 class="">&nbsp;+ vídeos&nbsp;</h2>
                 </div>
                 <div class="col decorativo">
                 </div>
