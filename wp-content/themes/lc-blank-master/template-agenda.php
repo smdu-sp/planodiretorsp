@@ -25,10 +25,24 @@ if (have_posts()) : while (have_posts()) : the_post();
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <div id="appagenda" class="container-eventos">
-            <div v-if="isLoading" style="color: gray; height: 2000px">Carregando eventos...</div>
+            <div v-if="carregando" style="color: gray; height: 2000px">Carregando eventos...</div>
+            <!-- BOTÃO ADICIONAR EVENTO -->
+            <div v-if="!carregando && logado" class="row justify-content-center">
+                <div class="col-3">
+                    <a class="btn btn-success btn-lg btn-block" href="/cadastro-de-evento/">
+                        Adicionar evento
+                    </a>
+                </div>
+                <div>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                </div>
 
+            </div>
             <!-- EVENTO DE DESTAQUE -->
-            <div v-if="!isLoading && (eventoAtual.id)" class="row evento-destaque">
+            <div v-if="!carregando && (eventoAtual.id)" class="row evento-destaque">
                 <div class="col-md-4 destaque-imagem">
                     <img :src="eventoAtual.imagem" :alt="eventoAtual.titulo">
                 </div>
@@ -99,7 +113,7 @@ if (have_posts()) : while (have_posts()) : the_post();
             </div>
 
             <!-- MESES ANTERIORES -->
-            <div v-if="!isLoading" class="banner-anteriores row">
+            <div v-if="!carregando" class="banner-anteriores row">
                 <div class="col">
                     <h2>Agendas anteriores</h2>
                 </div>
@@ -156,7 +170,7 @@ if (have_posts()) : while (have_posts()) : the_post();
                     colDirPosteriores: [],
                     colDirAnteriores: [],
                     arrayMeses: ['JANEIRO', 'FEVEREIRO', 'MARÇO', 'ABRIL', 'MAIO', 'JUNHO', 'JULHO', 'AGOSTO', 'SETEMBRO', 'OUTUBRO', 'NOVEMBRO', 'DEZEMBRO'],
-                    isLoading: true,
+                    carregando: true,
                     cores: ['#f96546', '#f4a7b0', '#517bee', '#fd8524'],
                     logado: false
                 },
@@ -314,7 +328,7 @@ if (have_posts()) : while (have_posts()) : the_post();
                             console.error("ERRO AO OBTER EVENTOS DA AGENDA")
                             console.log(error)
                         })
-                        .finally(() => this.isLoading = false)
+                        .finally(() => this.carregando = false)
                 }
             });
         </script>

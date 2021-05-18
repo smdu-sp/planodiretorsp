@@ -16,7 +16,7 @@ if (have_posts()) : while (have_posts()) : the_post();
 
         // include local
         if ($isLocalhost) {
-            echo "<script type='text/javascript' src='../wp-content/themes/lc-blank-master/{$vuedev}'></script>";
+            echo "<script type='text/javascript' src='../wp-content/themes/lc-blank-master/{$vue}'></script>";
             echo "<script type='text/javascript' src='../wp-content/themes/lc-blank-master/axios.min.js'></script>";
         } else {
             echo "<script type='text/javascript' src='../wp-content/themes/lc-blank-master/{$vue}'></script>";
@@ -27,6 +27,14 @@ if (have_posts()) : while (have_posts()) : the_post();
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <div id="appvideos" class="container">
             <div v-if="carregando" style="color: gray">Carregando vídeos...</div>
+            <!-- BOTÃO ADICIONAR VÍDEO -->
+            <div v-if="!carregando && logado" class="row justify-content-center">
+                <div class="col-3">
+                    <a class="btn btn-success btn-lg btn-block" href="/cadastro-de-evento/">
+                        Adicionar vídeo
+                    </a>
+                </div>
+            </div>
             <!-- VÍDEOS RECENTES -->
             <div class="row card-video" v-for="video in videosRecentes">
                 <?php require('modulo-video.php'); ?>
