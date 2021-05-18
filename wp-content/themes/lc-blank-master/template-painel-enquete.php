@@ -1,6 +1,6 @@
 <?php
 /*
-Template Name: Painel de Registros PDE
+Template Name: Painel de registros da Enquete sobre o PDE
 */
 
 get_header(); ?>

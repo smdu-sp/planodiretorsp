@@ -1,6 +1,6 @@
 <?php
 /*
-Template Name: Painel de Cadastros Chamamento
+Template Name: Painel de cadastros do Chamamento Público
 */
 
 get_header(); ?>

@@ -166,7 +166,7 @@ if (have_posts()) : while (have_posts()) : the_post();
                         this.mesesPosteriores = []
                         let corAtual = 0
 
-                        if(this.eventosPosteriores.length > 0) {
+                        if (this.eventosPosteriores.length > 0) {
                             for (let index = 0; index < this.eventosPosteriores.length; index++) {
                                 let evento = this.eventosPosteriores[index];
                                 const nomeMes = this.arrayMeses[new Date(evento.data_evento).getUTCMonth()]
@@ -192,7 +192,7 @@ if (have_posts()) : while (have_posts()) : the_post();
                                     this.mesesPosteriores.push(novoMes)
                                 }
                             }
-                        
+
                             // SEPARA O PRIMEIRO ITEM DA LISTA PARA MOSTRAR COM DESTAQUE
                             if (this.mesesPosteriores[0].eventos[0].id > 0) {
                                 this.eventoAtual = this.mesesPosteriores[0].eventos.shift()
