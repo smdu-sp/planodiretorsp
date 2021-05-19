@@ -16,7 +16,7 @@ if (have_posts()) : while (have_posts()) : the_post();
 
         // include local
         if ($isLocalhost) {
-            echo "<script type='text/javascript' src='../wp-content/themes/lc-blank-master/{$vuedev}'></script>";
+            echo "<script type='text/javascript' src='../wp-content/themes/lc-blank-master/{$vue}'></script>";
             echo "<script type='text/javascript' src='../wp-content/themes/lc-blank-master/axios.min.js'></script>";
         } else {
             echo "<script type='text/javascript' src='../wp-content/themes/lc-blank-master/{$vue}'></script>";
@@ -25,13 +25,22 @@ if (have_posts()) : while (have_posts()) : the_post();
 ?>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <div id="appvideos" class="container">
-            <div v-if="carregando" style="color: gray">Carregando vídeos...</div>
+        <div id="apptransparencia" class="container">
+            <div v-if="carregando" style="color: gray; height: 2000px; font-size: 2em">Carregando conteúdo...</div>
+            <!-- BOTÃO ADICIONAR VÍDEO -->
+            <div v-if="!carregando && logado" class="row justify-content-center">
+                <div class="col-3">
+                    <a class="btn btn-success btn-lg btn-block" href="/cadastro-de-evento/?evento=video">
+                        Adicionar vídeo
+                    </a>
+                </div>
+            </div>
             <!-- VÍDEOS RECENTES -->
             <div class="row card-video" v-for="video in videosRecentes">
                 <?php require('modulo-video.php'); ?>
             </div>
-            <div v-if="!carregando" class="row mais-videos fechado" @click="alternaMaisVideos">
+            <!-- MAIS VÍDEOS -->
+            <div v-if="(!carregando) && (videos.length > 0)" class="row mais-videos fechado" @click="alternaMaisVideos">
                 <div class="col decorativo">
                 </div>
                 <div class="col-xs-2">
@@ -45,15 +54,37 @@ if (have_posts()) : while (have_posts()) : the_post();
                     </div>
                 </div>
             </div>
+            <!-- ÁREA DE DOCUMENTOS -->
+            <div v-if="(!carregando) && ((documentos.length > 0) || logado)" class="row banner-documentos">
+                <div class="col-md-7">
+                    <h2><strong>Confira aqui todos os documentos relacionados ao processo de revisão do Plano Diretor SP</strong></h2>
+                </div>
+            </div>
+            <!-- BOTÃO ADICIONAR VÍDEO -->
+            <div v-if="!carregando && logado" class="row justify-content-center">
+                <div class="col-3">
+                    <a class="btn btn-success btn-lg btn-block" href="/cadastro-de-evento/?evento=documento">
+                        Adicionar documentos
+                    </a>
+                </div>
+            </div>
+            <div class="container-documentos row">
+                <div class="card-documento col-md-6 mb-4" v-for="documento in documentos">
+                    <div class="row justify-content-around">
+                        <?php require('modulo-documento.php'); ?>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <script type="text/javascript">
             const listaVideos = "<?php echo $isLocalhost ? '../lista-videos/' : '/lista-videos/' ?>";
             var app = new Vue({
-                el: '#appvideos',
+                el: '#apptransparencia',
                 data: {
                     arrayMeses: ['JANEIRO', 'FEVEREIRO', 'MARÇO', 'ABRIL', 'MAIO', 'JUNHO', 'JULHO', 'AGOSTO', 'SETEMBRO', 'OUTUBRO', 'NOVEMBRO', 'DEZEMBRO'],
                     videos: [],
+                    documentos: [],
                     videosRecentes: [],
                     carregando: true,
                     abreMaisVideos: false,
@@ -94,6 +125,7 @@ if (have_posts()) : while (have_posts()) : the_post();
                     axios.get(listaVideos)
                         .then(response => {
                             this.videos = response.data.videos.reverse()
+                            this.documentos = response.data.documentos
                             this.separaVideosRecentes()
                             this.checaLogin()
                         })

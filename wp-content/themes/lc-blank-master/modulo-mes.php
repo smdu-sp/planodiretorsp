@@ -69,12 +69,12 @@
             </a>
         </div>
         <div class="row anteriores-linha" v-if="evento.documentos?.length > 0">
-            <div class="col-2">
+            <div class="col-3">
                 <span class="anteriores-descricao">documentos:</span>
             </div>
             <div class="col">
                 <p>
-                    <span class="anteriores-item" style="padding-right: 5px;" v-for="(doc, index) in evento.documentos"><a :href="doc.link">{{doc.nome}}</a>{{ index < evento.documentos.length - 1 ? '; ' : '' }}</span>
+                    <span style="padding-right: 5px; font-size: 1.2em; line-height: 0" v-for="(doc, index) in evento.documentos"><a :href="doc.link">{{doc.nome}}</a>{{ index < evento.documentos.length - 1 ? '; ' : '' }}</span>
                 </p>
             </div>
         </div>
