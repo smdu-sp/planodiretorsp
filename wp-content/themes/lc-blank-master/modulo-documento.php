@@ -10,7 +10,7 @@
     <!-- BOTÃO EDITAR DOCUMENTOS -->
     <div class="col-3" v-if="logado">
       <div class="row">
-        <a href="'/evento?id=' + documento.id">
+        <a :href="'/evento?id=' + documento.id">
           <div class="btn btn-primary">
             Editar documentos
           </div>
