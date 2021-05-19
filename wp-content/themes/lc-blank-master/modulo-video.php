@@ -10,14 +10,19 @@
         <h2>{{video.titulo}}</h2>
     </div>
     <div class="row">
-        <a v-if="logado" :href="'/evento?id=' + video.id">
-            <div class="btn btn-primary">
-                Editar evento
+        <div class="col-9" style="padding-left: 0">
+            <span>{{formataData(video.data_evento)}}</span>
+        </div>
+        <!-- BOTÃO EDITAR VÍDEO -->
+        <div class="col-3">
+            <div class="row">
+                <a v-if="logado" :href="'/evento?id=' + video.id">
+                    <div class="btn btn-primary">
+                        Editar vídeo
+                    </div>
+                </a>
             </div>
-        </a>
-    </div>
-    <div class="row">
-        <span>{{formataData(video.data_evento)}}</span>
+        </div>
     </div>
     <div class="row video-info">
         <div class="col-1 p-0"><span>Evento:</span></div>

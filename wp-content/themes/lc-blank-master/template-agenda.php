@@ -25,11 +25,11 @@ if (have_posts()) : while (have_posts()) : the_post();
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <div id="appagenda" class="container-eventos">
-            <div v-if="carregando" style="color: gray; height: 2000px">Carregando eventos...</div>
+            <div v-if="carregando" style="color: gray; height: 2000px; font-size: 2em">Carregando conteúdo...</div>
             <!-- BOTÃO ADICIONAR EVENTO -->
             <div v-if="!carregando && logado" class="row justify-content-center">
                 <div class="col-3">
-                    <a class="btn btn-success btn-lg btn-block" href="/cadastro-de-evento/">
+                    <a class="btn btn-success btn-lg btn-block" href="/cadastro-de-evento/?evento=agenda">
                         Adicionar evento
                     </a>
                 </div>
@@ -291,11 +291,11 @@ if (have_posts()) : while (have_posts()) : the_post();
                         let dataAtual = new Date()
                         let dataEvento = new Date(app.eventoAtual.data_evento)
 
-                        if (dataAtual.getUTCMonth() === dataEvento.getUTCMonth()) {
-                            if (dataAtual.getUTCDate() === dataEvento.getUTCDate()) {
+                        if (dataAtual.getMonth() === dataEvento.getUTCMonth()) {
+                            if (dataAtual.getDate() === dataEvento.getUTCDate()) {
                                 this.dataProxima = "HOJE"
                             }
-                            if (dataAtual.getUTCDate() + 1 === dataEvento.getUTCDate()) {
+                            if (dataAtual.getDate() + 1 === dataEvento.getUTCDate()) {
                                 this.dataProxima = "AMANHÃ"
                             }
                             return
@@ -309,7 +309,8 @@ if (have_posts()) : while (have_posts()) : the_post();
                 mounted() {
                     axios.get(listaEventos)
                         .then(response => {
-                            this.eventos = response.data.eventos
+                            // Impede que eventos da categoria "documento" sejam mostrados na agenda
+                            this.eventos = response.data.eventos.filter(evento => evento.tipo !== "documento")
                             for (evento in this.eventos) {
                                 this.eventos[evento].aberto = false
                                 const dataEvento = new Date(this.eventos[evento].data_evento + " " + this.eventos[evento].hora_evento)
