@@ -19,14 +19,14 @@
     </div>
   </div>
   <div v-if="documento.tema" class="row documento-info">
-    <div class="col-1 p-0"><span>Tema:</span></div>
-    <div class="col ml-2">
+    <div class="col-1 p-0"><span>Evento:</span></div>
+    <div class="col ml-4">
       <p>{{documento.tema}}</p>
     </div>
   </div>
   <div v-if="documento.destaque" class="row documento-info">
     <div class="col-1 p-0"><span>Fonte:</span></div>
-    <div class="col ml-2">
+    <div class="col ml-4">
       <p>{{documento.destaque}}</p>
     </div>
   </div>
