@@ -48,6 +48,18 @@
     <div class="col-12" v-if="evento.dataCompleta">
         <div class="row anteriores-linha">
             <div class="col-2">
+            </div>
+            <div class="col">
+                <div class="container-img" v-if="evento.imagem">
+                    <img :src="evento.imagem" :alt="evento.titulo">
+                </div>
+                <div v-if="evento.descricao">
+                    <p>{{evento.descricao}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="row anteriores-linha">
+            <div class="col-2">
                 <span class="anteriores-descricao">tema:</span>
             </div>
             <div class="col">
