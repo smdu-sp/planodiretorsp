@@ -203,56 +203,36 @@ if (have_posts()) : while (have_posts()) : the_post();
                 <div class="row">
                   <div class="col-md">
                     <div class="row">
-                      <div class="col-md-1 align-self-center">
-                        <input type="radio" id="f1" value="Não penso em hipótese alguma deixar o bairro onde moro" v-model="resposta_6">
-                      </div>
-                      <div class="col-md">
-                        <label for="f1">Não penso em hipótese alguma deixar o bairro onde moro</label>
-                      </div>
+                      <input type="radio" id="f1" value="Não penso em hipótese alguma deixar o bairro onde moro" v-model="resposta_6">
+                      <label for="f1">Não penso em hipótese alguma deixar o bairro onde moro</label>
                     </div>
                   </div>
                   <div class="col-md">
                     <div class="row">
-                      <div class="col-md-1 align-self-center">
-                        <input type="radio" id="f2" value="Permaneceria no bairro onde moro se ele recebesse melhorias" v-model="resposta_6">
-                      </div>
-                      <div class="col-md">
-                        <label for="f2">Permaneceria no bairro onde moro se ele recebesse melhorias</label>
-                      </div>
+                      <input type="radio" id="f2" value="Permaneceria no bairro onde moro se ele recebesse melhorias" v-model="resposta_6">
+                      <label for="f2">Permaneceria no bairro onde moro se ele recebesse melhorias</label>
                     </div>
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-md">
                     <div class="row">
-                      <div class="col-md-1 align-self-center">
-                        <input type="radio" id="f3" value="Mudaria de bairro porque prefiro ficar mais perto da região central da cidade" v-model="resposta_6">
-                      </div>
-                      <div class="col-md">
-                        <label for="f3">Mudaria de bairro porque prefiro ficar mais perto da região central da cidade</label>
-                      </div>
+                      <input type="radio" id="f3" value="Mudaria de bairro porque prefiro ficar mais perto da região central da cidade" v-model="resposta_6">
+                      <label for="f3">Mudaria de bairro porque prefiro ficar mais perto da região central da cidade</label>
                     </div>
                   </div>
                   <div class="col-md">
                     <div class="row">
-                      <div class="col-md-1 align-self-center">
-                        <input type="radio" id="f4" value="Mudaria de bairro, pois está muito caro o custo de vida no atual" v-model="resposta_6">
-                      </div>
-                      <div class="col-md">
-                        <label for="f4">Mudaria de bairro, pois está muito caro o custo de vida no atual</label>
-                      </div>
+                      <input type="radio" id="f4" value="Mudaria de bairro, pois está muito caro o custo de vida no atual" v-model="resposta_6">
+                      <label for="f4">Mudaria de bairro, pois está muito caro o custo de vida no atual</label>
                     </div>
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-md">
                     <div class="row">
-                      <div class="col-md-1 align-self-center">
-                        <input type="radio" id="f5" value="Mudaria para regiões próximas à rede de transporte público, independentemente do bairro" v-model="resposta_6">
-                      </div>
-                      <div class="col-md">
-                        <label for="f5">Mudaria para regiões próximas à rede de transporte público, independentemente do bairro</label>
-                      </div>
+                      <input type="radio" id="f5" value="Mudaria para regiões próximas à rede de transporte público, independentemente do bairro" v-model="resposta_6">
+                      <label for="f5">Mudaria para regiões próximas à rede de transporte público, independentemente do bairro</label>
                     </div>
                   </div>
                   <div class="col-md">
