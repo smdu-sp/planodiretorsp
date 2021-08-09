@@ -46,7 +46,7 @@
         </div>
     </div>
     <div class="col-12" v-if="evento.dataCompleta">
-        <div class="row anteriores-linha">
+        <div class="row anteriores-linha" v-if="evento.imagem || evento.descricao">
             <div class="col-2">
             </div>
             <div class="col">
@@ -72,11 +72,11 @@
             </div>
             <div class="col anteriores-item">{{evento.dataCompleta}}</div>
         </div>
-        <div class="row anteriores-linha" v-if="evento.tipo === 'video'">
+        <div class="row anteriores-linha" v-if="evento.link">
             <div class="col-2">
                 <span class="anteriores-descricao">link:</span>
             </div>
-            <a href="{{evento.link}}">
+            <a :href="evento.link">
                 <div class="col anteriores-item" style="text-overflow: ellipsis">{{evento.link}}</div>
             </a>
         </div>
