@@ -242,15 +242,15 @@ if (have_posts()) : while (have_posts()) : the_post();
             <div class="enquete-dados-pessoais">
               <p>Para concluir o envio da sua participação preencha os dados abaixo:</p>
               <div class="row mx-0 my-4">
-                <label class="d-inline-flex mr-1" for="pesquisado_nome">Nome completo:</label>
-                <input class="d-flex" type="text" id="pesquisado_nome" name="pesquisado_nome" placeholder="Preencha aqui" required />
+                <label class="col-sm-auto px-0 mr-1" for="pesquisado_nome">Nome completo:</label>
+                <input class="col-sm px-0" type="text" id="pesquisado_nome" name="pesquisado_nome" placeholder="Preencha aqui" required />
               </div>
               <div class="row mx-0 my-4">
-                <label class="d-inline-flex mr-1" for="pesquisado_email">E-mail:</label>
-                <input class="d-flex" type="text" id="pesquisado_email" name="pesquisado_email" placeholder="exemplo@exemplo.com.br" required />
+                <label class="col-sm-auto px-0 mr-1" for="pesquisado_email">E-mail:</label>
+                <input class="col-sm px-0" type="text" id="pesquisado_email" name="pesquisado_email" placeholder="exemplo@exemplo.com.br" required />
               </div>
               <div class="row mx-0 my-4">
-                <label class="d-inline-flex mr-1">Distrito:</label>
+                <label class="col-sm-auto px-0 mr-1">Distrito:</label>
                 <select class="d-inline-flex" id="select_zona" v-model="zonaSelecionada" required>
                   <option value="" disabled selected hidden>Selecione a região</option>
                   <option v-for="zona in todasZonas" :value="zona">{{zona.nome}}</option>
