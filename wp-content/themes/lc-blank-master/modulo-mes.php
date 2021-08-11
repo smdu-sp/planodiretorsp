@@ -77,7 +77,7 @@
                 <span class="anteriores-descricao">link:</span>
             </div>
             <a :href="evento.link">
-                <div class="col anteriores-item" style="text-overflow: ellipsis">{{evento.link}}</div>
+                <div class="col anteriores-item" style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap">{{evento.link}}</div>
             </a>
         </div>
         <div class="row anteriores-linha" v-if="evento.documentos?.length > 0">
