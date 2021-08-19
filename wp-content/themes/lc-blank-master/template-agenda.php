@@ -43,7 +43,7 @@ if (have_posts()) : while (have_posts()) : the_post();
             </div>
             <!-- EVENTO DE DESTAQUE -->
             <div v-if="!carregando && (eventoAtual.id)" class="row evento-destaque">
-                <div class="col-md-4 destaque-imagem">
+                <!-- <div class="col-md-4 destaque-imagem">
                     <img :src="eventoAtual.imagem" :alt="eventoAtual.titulo">
                 </div>
                 <div class="row col align-items-end destaque-info">
@@ -78,7 +78,7 @@ if (have_posts()) : while (have_posts()) : the_post();
                             </div>
                         </a>
                     </div>
-                </div>
+                </div> -->
             </div>
 
             <!-- MESES POSTERIORES -->
@@ -209,10 +209,11 @@ if (have_posts()) : while (have_posts()) : the_post();
 
                             // SEPARA O PRIMEIRO ITEM DA LISTA PARA MOSTRAR COM DESTAQUE
                             if (this.mesesPosteriores[0].eventos[0].id > 0) {
-                                this.eventoAtual = this.mesesPosteriores[0].eventos.shift()
-                                if (!this.mesesPosteriores[0].eventos[0]) {
-                                    this.mesesPosteriores.shift()
-                                }
+                                this.eventoAtual = this.mesesPosteriores[0].eventos[0]
+                                // this.eventoAtual = this.mesesPosteriores[0].eventos.shift()
+                                // if (!this.mesesPosteriores[0].eventos[0]) {
+                                //     this.mesesPosteriores.shift()
+                                // }
                             }
 
                             for (var i = 0; i < this.mesesPosteriores.length; i++) {
@@ -272,10 +273,25 @@ if (have_posts()) : while (have_posts()) : the_post();
                                 this.colDirAnteriores.push(this.mesesAnteriores[i])
                         }
                     },
-                    formataData: function(dateStr) {
-                        let dia = new Date(dateStr).getUTCDate()
-                        let mes = this.arrayMeses[new Date(dateStr).getUTCMonth()]
-                        let dataRetorno = "" + dia + " de " + mes
+                    formataData: function(dataInicio, dataTermino = false) {
+                        let diaInicio = new Date(dataInicio).getUTCDate()
+                        let mesInicio = this.arrayMeses[new Date(dataInicio).getUTCMonth()]
+                        let dataRetorno = ""
+
+                        if (!dataTermino) {
+                            dataRetorno += diaInicio + " de " + mesInicio
+                            return dataRetorno.toLowerCase()
+                        }
+
+                        let diaTermino = new Date(dataTermino).getUTCDate()
+                        let mesTermino = this.arrayMeses[new Date(dataTermino).getUTCMonth()]
+
+                        if (mesInicio === mesTermino) {
+                            dataRetorno += diaInicio + " à " + diaTermino + " de " + mesTermino
+                        } else {
+                            dataRetorno += diaInicio + " de " + mesInicio + " à <br>" + diaTermino + " de " + mesTermino
+                        }
+
                         return dataRetorno.toLowerCase()
                     },
                     formataHora: function(hourStr) {

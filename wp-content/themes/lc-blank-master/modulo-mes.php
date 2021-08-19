@@ -25,7 +25,7 @@
                         <i class="bi bi-calendar3" style="color: white"></i>{{formataData(evento.data_evento)}}
                     </div>
                     <div class="tag-evento tag-data row" :style="'background-color: '+mes.cor" v-if="evento.data_termino">
-                        <i class="bi bi-calendar3 col-auto px-0" style="color: white"></i><span class="col">{{formataData(evento.data_evento)}} à <br>{{formataData(evento.data_termino)}}</span>
+                        <i class="bi bi-calendar3 col-auto px-0" style="color: white"></i><span class="col" v-html="formataData(evento.data_evento, evento.data_termino)"></span>
                     </div>
                     <div class="tag-evento tag-hora">
                         <i class="bi bi-clock" :style="'color: '+mes.cor"></i>{{formataHora(evento.hora_evento)}}
