@@ -23,6 +23,7 @@ if (have_posts()) : while (have_posts()) : the_post();
                 'destaque',
                 'descricao',
                 'data_evento',
+                'data_termino',
                 'hora_evento',
                 'local',
                 'link',
@@ -116,7 +117,9 @@ if (have_posts()) : while (have_posts()) : the_post();
                             </label>
                             <input class="form-control" type="text" id="titulo" name="titulo" required>
                         </div>
+                    </div>
 
+                    <div class="row">
                         <div class="col mb-3">
                             <label class="form-label" for="tema">
                                 <span v-if="categoriaEvento !== 'documento'">Tema</span>
@@ -124,9 +127,7 @@ if (have_posts()) : while (have_posts()) : the_post();
                             </label>
                             <input class="form-control" type="text" id="tema" name="tema">
                         </div>
-                    </div>
 
-                    <div class="row">
                         <div class="col-6">
                             <label class="form-label" for="destaque">
                                 <span v-if="categoriaEvento === 'agenda'">Texto de destaque</span>
@@ -134,13 +135,19 @@ if (have_posts()) : while (have_posts()) : the_post();
                             </label>
                             <input class="form-control" type="text" id="destaque" name="destaque">
                         </div>
-
-                        <div class="col-3">
+                    </div>
+                    <div class="row">
+                        <div class="col">
                             <label class="form-label" for="data_evento">Data do evento</label>
                             <input class="form-control" type="date" id="data_evento" name="data_evento">
                         </div>
 
-                        <div v-if="categoriaEvento === 'agenda'" class="col-3">
+                        <div class="col">
+                            <label class="form-label" for="data_termino">Término do evento (opcional)</label>
+                            <input class="form-control" type="date" id="data_termino" name="data_termino">
+                        </div>
+
+                        <div v-if="categoriaEvento === 'agenda'" class="col">
                             <label class="form-label" for="hora_evento">Hora do evento</label>
                             <input class="form-control" type="time" id="hora_evento" name="hora_evento">
                         </div>
@@ -158,7 +165,7 @@ if (have_posts()) : while (have_posts()) : the_post();
                         </div>
 
                         <div v-if="categoriaEvento === 'agenda'" class="col">
-                            <label class="form-label" for="descricao_link">Descrição do Link</label>
+                            <label class="form-label" for="descricao_link">Texto do Link</label>
                             <input class="form-control" type="text" id="descricao_link" name="descricao_link">
                         </div>
                     </div>
