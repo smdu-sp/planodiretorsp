@@ -183,7 +183,23 @@ if (have_posts()) : while (have_posts()) : the_post();
                         if (this.eventosPosteriores.length > 0) {
                             for (let index = 0; index < this.eventosPosteriores.length; index++) {
                                 let evento = this.eventosPosteriores[index];
-                                const nomeMes = this.arrayMeses[new Date(evento.data_evento).getUTCMonth()]
+                                let mesAtual = new Date().getUTCMonth()
+                                let mesInicio = new Date(evento.data_evento).getUTCMonth()
+                                let nomeMes = this.arrayMeses[mesInicio]
+
+                                if (evento.data_termino) {
+                                    let mesTermino = new Date(evento.data_termino).getUTCMonth()
+                                    let dataAtual = "" + new Date().getUTCFullYear() + ("0" + mesAtual).slice(-2)
+                                    let dataInicio = "" + new Date(evento.data_evento).getUTCFullYear() + ("0" + mesInicio).slice(-2)
+                                    let dataTermino = "" + new Date(evento.data_termino).getUTCFullYear() + ("0" + mesTermino).slice(-2)
+
+                                    console.log(dataAtual, dataInicio, dataTermino)
+
+                                    if (dataTermino > dataInicio && dataAtual > dataInicio) {
+                                        nomeMes = this.arrayMeses[mesAtual]
+                                    }
+                                }
+
                                 let mesExistente = false
 
                                 // ITERA mesesPosteriores PARA VERIFICAR SE MES JA FOI ADICIONADO
@@ -241,7 +257,29 @@ if (have_posts()) : while (have_posts()) : the_post();
                                 day: 'numeric',
                                 timeZone: 'UTC'
                             };
-                            evento.dataCompleta = dataGmt.toLocaleDateString('pt-BR', options)
+
+                            evento.data_completa = dataGmt.toLocaleDateString('pt-BR', options)
+
+                            if (evento.data_termino) {
+                                const dataTermGmt = new Date(evento.data_termino)
+                                let options_1 = {
+                                    month: 'long',
+                                    day: 'numeric',
+                                    timeZone: 'UTC'
+                                }
+                                const options_2 = {
+                                    year: 'numeric',
+                                    month: 'long',
+                                    day: 'numeric',
+                                    timeZone: 'UTC'
+                                }
+
+                                if (dataTermGmt.getUTCFullYear() > dataGmt.getUTCFullYear()) {
+                                    options_1 = options_2
+                                }
+
+                                evento.data_completa = dataGmt.toLocaleDateString('pt-BR', options_1) + " a " + dataTermGmt.toLocaleDateString('pt-BR', options_2)
+                            }
 
                             // ITERA mesesAnteriores PARA VERIFICAR SE MES JA FOI ADICIONADO
                             for (mes in this.mesesAnteriores) {
@@ -287,9 +325,9 @@ if (have_posts()) : while (have_posts()) : the_post();
                         let mesTermino = this.arrayMeses[new Date(dataTermino).getUTCMonth()]
 
                         if (mesInicio === mesTermino) {
-                            dataRetorno += diaInicio + " à " + diaTermino + " de " + mesTermino
+                            dataRetorno += diaInicio + " a " + diaTermino + " de " + mesTermino
                         } else {
-                            dataRetorno += diaInicio + " de " + mesInicio + " à <br>" + diaTermino + " de " + mesTermino
+                            dataRetorno += diaInicio + " de " + mesInicio + " a <br>" + diaTermino + " de " + mesTermino
                         }
 
                         return dataRetorno.toLowerCase()
@@ -329,10 +367,13 @@ if (have_posts()) : while (have_posts()) : the_post();
                             this.eventos = response.data.eventos.filter(evento => evento.tipo !== "documento")
                             for (evento in this.eventos) {
                                 this.eventos[evento].aberto = false
-                                const dataEvento = new Date(this.eventos[evento].data_evento + " " + this.eventos[evento].hora_evento)
+                                let dataEvento = new Date(this.eventos[evento].data_evento + " " + "23:59:59")
 
-                                // COMPARA DATA ATUAL COM A DO EVENTO E ADICIONA 3 HORAS DE MARGEM PARA DURACAO DO EVENTO
-                                if ((dataEvento.getTime() + 3 * 60 * 60 * 1000) > new Date().getTime())
+                                if (this.eventos[evento].data_termino) {
+                                    dataEvento = new Date(this.eventos[evento].data_termino + " " + "23:59:59")
+                                }
+
+                                if (dataEvento.getTime() > new Date().getTime())
                                     this.eventosPosteriores.push(this.eventos[evento])
                                 else
                                     this.eventosAnteriores.push(this.eventos[evento])

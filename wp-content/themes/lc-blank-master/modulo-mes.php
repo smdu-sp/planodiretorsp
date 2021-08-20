@@ -14,7 +14,7 @@
                         Editar evento
                     </div>
                 </a>
-                <div v-if="!evento.dataCompleta">
+                <div v-if="!evento.data_completa">
                     <div class="container-img">
                         <img :src="evento.imagem" :alt="evento.titulo">
                     </div>
@@ -27,7 +27,7 @@
                     <div class="tag-evento tag-data row" :style="'background-color: '+mes.cor" v-if="evento.data_termino">
                         <i class="bi bi-calendar3 col-auto px-0" style="color: white"></i><span class="col" v-html="formataData(evento.data_evento, evento.data_termino)"></span>
                     </div>
-                    <div class="tag-evento tag-hora">
+                    <div class="tag-evento tag-hora" v-if="evento.hora_evento">
                         <i class="bi bi-clock" :style="'color: '+mes.cor"></i>{{formataHora(evento.hora_evento)}}
                     </div>
                     <div class="tag-evento tag-local" v-if="evento.local">
@@ -48,7 +48,7 @@
             <div>{{evento.aberto ? "-" : "+"}}</div>
         </div>
     </div>
-    <div class="col-12" v-if="evento.dataCompleta">
+    <div class="col-12" v-if="evento.data_completa">
         <div class="row anteriores-linha" v-if="evento.imagem || evento.descricao">
             <div class="col-2">
             </div>
@@ -73,7 +73,7 @@
             <div class="col-2">
                 <span class="anteriores-descricao">data:</span>
             </div>
-            <div class="col anteriores-item">{{evento.dataCompleta}}</div>
+            <div class="col anteriores-item">{{evento.data_completa}}</div>
         </div>
         <div class="row anteriores-linha" v-if="evento.link">
             <div class="col-2">

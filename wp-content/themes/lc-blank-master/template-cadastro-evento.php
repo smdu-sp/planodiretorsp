@@ -37,6 +37,10 @@ if (have_posts()) : while (have_posts()) : the_post();
                 if ($coluna !== 'documentos') {
                     $sqlData[$coluna] = $_POST[$coluna];
                 }
+
+                if ($sqlData['data_termino'] <= $sqlData['data_evento']) {
+                    $sqlData['data_termino'] = null;
+                }
             }
 
             global $wpdb;
@@ -86,7 +90,7 @@ if (have_posts()) : while (have_posts()) : the_post();
 
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <div id="appcadastro">
-            <form method="post" class="formulario-evento" enctype="multipart/form-data;charset=UTF-8" @submit="sendForm" action="<?php echo get_permalink(); ?>">
+            <form method="post" class="formulario-evento" enctype="multipart/form-data;charset=UTF-8" @submit="sendForm" action="<?php echo get_permalink(); ?>?evento=agenda">
                 <div v-if="(categoriaEvento !== 'agenda') && (categoriaEvento !== 'video') && (categoriaEvento !== 'documento')" class="container">
                     <div class="row">
                         <a class="col-4 btn btn-success btn-lg btn-block" href="/cadastro-de-evento/?evento=agenda">Adicionar um evento (Agenda)</a>
