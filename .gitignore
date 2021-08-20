@@ -27,3 +27,4 @@ node_modules/
 wp-config.php
 readme.html
 wp-content/plugins/wordfence/*
+.htaccess
