@@ -193,8 +193,6 @@ if (have_posts()) : while (have_posts()) : the_post();
                                     let dataInicio = "" + new Date(evento.data_evento).getUTCFullYear() + ("0" + mesInicio).slice(-2)
                                     let dataTermino = "" + new Date(evento.data_termino).getUTCFullYear() + ("0" + mesTermino).slice(-2)
 
-                                    console.log(dataAtual, dataInicio, dataTermino)
-
                                     if (dataTermino > dataInicio && dataAtual > dataInicio) {
                                         nomeMes = this.arrayMeses[mesAtual]
                                     }
