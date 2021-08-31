@@ -36,6 +36,11 @@ if (have_posts()) : while (have_posts()) : the_post();
       $id = $_POST['id'];
       $chave = $_POST['chave'];
       $valor = $_POST['valor'];
+
+      if ($chave === 'data_termino' && strlen($valor) < 10) {
+        $valor = null;
+      }
+
       $wpdb->update('eventos_agenda', array($chave => $valor), array('id' => $id));
 
       echo $id;
