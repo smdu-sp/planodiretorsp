@@ -59,7 +59,7 @@ if (have_posts()) : while (have_posts()) : the_post();
 
     the_content();
 
-    $vue = 'vue.js';
+    $vue = 'vue.min.js';
     echo "<script type='text/javascript' src='../wp-content/themes/lc-blank-master/{$vue}'></script>";
 
 ?>
@@ -117,15 +117,15 @@ if (have_posts()) : while (have_posts()) : the_post();
                 <h2>O QUE PRECISAMOS PARA MELHORAR SUA IMPLEMENTAÇÃO ATÉ 2029?</h2>
                 <p class="propostas-subtitulo">Relacione sua contribuição com apenas um dos objetivos abaixo:</p>
                 <div class="row">
-                  <div class="col-6">
+                  <div class="col-lg-6">
                     <div v-for="(resposta, valor) in respostas_1_esq" class="mb-5">
-                      <input type="radio" :id="'r_1_' + parseInt(valor + 1)" :value="'r_1_' + parseInt(valor + 1)" v-model="resposta_1">
+                      <input type="radio" :id="'r_1_' + parseInt(valor + 1)" :value="parseInt(valor + 1)" v-model="resposta_1">
                       <label :for="'r_1_' +  parseInt(valor + 1)"><strong>{{valor + 1}})</strong> {{resposta}}</label>
                     </div>
                   </div>
-                  <div class="col-6">
+                  <div class="col-lg-6">
                     <div v-for="(resposta, valor) in respostas_1_dir" class="mb-5">
-                      <input type="radio" :id="'r_1_' + parseInt(valor + respostas_1_esq.length + 1)" :value="'r_1_' + parseInt(valor + respostas_1_esq.length + 1)" v-model="resposta_1">
+                      <input type="radio" :id="'r_1_' + parseInt(valor + respostas_1_esq.length + 1)" :value="parseInt(valor + respostas_1_esq.length + 1)" v-model="resposta_1">
                       <label :for="'r_1_' + parseInt(valor + respostas_1_esq.length + 1)"><strong>{{valor + respostas_1_esq.length + 1}})</strong> {{resposta}}</label>
                     </div>
                   </div>
@@ -139,7 +139,7 @@ if (have_posts()) : while (have_posts()) : the_post();
 
                 <p>Desde o início de 2020 a cidade de São Paulo e todo o mundo estão enfrentando a pandemia da COVID-19. Os efeitos sobre as cidades e a vida urbana já podem ser percebidos evidenciando a necessidade de se buscar soluções mais adequadas diante desta situação. Nesse sentido, diante destes impactos que tendem a se tornar permanentes na cidade de São Paulo, o que você entende que seria importante melhorar nessa revisão intermediária do Plano Diretor:</p>
                 <div v-for="(resposta, valor) in respostas_2" class="row">
-                  <input type="radio" :id="'r_2_' +  parseInt(valor + 1)" :value="'r_2_' + parseInt(valor + 1)" v-model="resposta_2">
+                  <input type="radio" :id="'r_2_' +  parseInt(valor + 1)" :value="parseInt(valor + 1)" v-model="resposta_2">
                   <label :for="'r_2_' + parseInt(valor + 1)"><strong>{{valor + 1}})</strong> {{resposta}}</label>
                 </div>
                 <input style="width: 100%" type="text" id="resposta_2" name="resposta_2" :value="resposta_2" required hidden />
