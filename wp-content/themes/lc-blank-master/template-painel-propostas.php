@@ -71,7 +71,7 @@ get_header(); ?>
                 },
                 methods: {
                     exportaArquivo: function(tipo) {
-                        if (typeof tipo !== "string") {
+                        if (typeof tipo === "string") {
                             var worksheet = XLSX.utils.json_to_sheet(this.registros);
                             var workbook = XLSX.utils.book_new();
                             XLSX.utils.book_append_sheet(workbook, worksheet, this.nome_planilha);
@@ -80,11 +80,14 @@ get_header(); ?>
                     }
                 },
                 created: function() {
-                    for (coluna in this.registros[0]) {
+                    for (let coluna in this.registros[0]) {
                         this.colunas.push(coluna)
+                        for (let linha in this.registros) {
+                            for (let col in this.registros[linha]) {
+                                registros[linha][col] = registros[linha][col]?.replace(/\\\'/g, "\'")
+                            }
+                        }
                     }
-
-                    console.log(this.colunas)
                 }
             });
         </script>
