@@ -20,7 +20,14 @@ get_header(); ?>
 
         <div id="apppainel">
             <div class="button">
-                <a href="#" target="_self" @click="exportaCSV">
+                <a href="#" target="_self" @click="exportaArquivo('xlsx')">
+                    <span>
+                        BAIXAR XLSX
+                    </span>
+                </a>
+            </div>
+            <div class="button">
+                <a href="#" target="_self" @click="exportaArquivo('csv')">
                     <span>
                         BAIXAR CSV
                     </span>
@@ -39,50 +46,34 @@ get_header(); ?>
             </table>
         </div>
         <script type='text/javascript' src='../wp-content/themes/lc-blank-master/vue.min.js'></script>
+        <script src="../wp-content/themes/lc-blank-master/xlsx.full.min.js"></script>
         <script type="text/javascript">
             var app = new Vue({
                 el: '#apppainel',
                 data: {
                     registros: registros,
                     colunas: [],
+                    nome_planilha: 'Resultados',
+                    nome_arquivo: 'Resultados Primeira Enquete PDE'
                 },
                 methods: {
-                    exportaCSV: function() {
-                        /* Array das linhas da tabela */
-                        var rows = [];
-                        let firstRow = [];
-                        for (coluna in this.colunas) {
-                            firstRow.push('"' + this.colunas[coluna] + '"');
+                    exportaArquivo: function(tipo) {
+                        if (typeof tipo === "string") {
+                            var worksheet = XLSX.utils.json_to_sheet(this.registros);
+                            var workbook = XLSX.utils.book_new();
+                            XLSX.utils.book_append_sheet(workbook, worksheet, this.nome_planilha);
+                            XLSX.writeFile(workbook, this.nome_arquivo + '.' + tipo);
                         }
-                        rows.push(firstRow);
-
-                        for (linha in this.registros) {
-                            let novaLinha = [];
-                            for (coluna in this.registros[linha]) {
-                                novaLinha.push('"' + this.registros[linha][coluna] + '"');
-                            }
-                            rows.push(novaLinha);
-                        }
-                        console.log(rows);
-                        csvContent = "data:text/csv;charset=utf-8,sep=;\r\n";
-                        /* add the column delimiter as comma(,) and each row splitted by new line character (\n) */
-                        rows.forEach(function(rowArray) {
-                            row = rowArray.join(";");
-                            csvContent += row + "\r\n";
-                        });
-
-                        /* create a hidden <a> DOM node and set its download attribute */
-                        var encodedUri = encodeURI(csvContent);
-                        var link = document.createElement("a");
-                        link.setAttribute("href", encodedUri);
-                        link.setAttribute("download", "Resultados Enquete PDE.csv");
-                        document.body.appendChild(link);
-                        link.click();
                     }
                 },
                 created: function() {
-                    for (coluna in this.registros[0]) {
-                        this.colunas.push(coluna);
+                    for (let coluna in this.registros[0]) {
+                        this.colunas.push(coluna)
+                        for (let linha in this.registros) {
+                            for (let col in this.registros[linha]) {
+                                registros[linha][col] = registros[linha][col]?.replace(/\\\'/g, "\'")
+                            }
+                        }
                     }
                 }
             });
