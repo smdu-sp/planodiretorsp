@@ -1,6 +1,6 @@
 <?php
 /*
-Template Name: Painel de Segunda Enquete
+Template Name: Painel de Propostas
 */
 
 get_header(); ?>
@@ -12,9 +12,23 @@ get_header(); ?>
         the_content();
 
         // OBTÉM LISTA DE REGISTROS CADASTRADOS
-        $registros = $wpdb->get_results('SELECT * FROM registros_enquete_2;');
-
-        echo "<script>const registros=" . json_encode($registros) . ";</script>";
+        $comandoquery = "SELECT 
+                            a.id AS 'ID', 
+                            a.data_envio AS 'Data', 
+                            a.subprefeitura AS 'Subprefeitura', 
+                            a.nome AS 'Nome', 
+                            a.email AS 'E-mail', 
+                            a.entidade AS 'Entidade', 
+                            b.resposta_1 AS 'Resposta 1', 
+                            a.proposta AS 'Proposta', 
+                            c.resposta_2 AS 'Resposta 2', 
+                        DATE_FORMAT(a.created_at, '%d/%m/%Y às %H:%i:%s') AS 'Recebido Em'
+                        FROM `registros_propostas` AS a
+                        INNER JOIN `propostas_alternativas_1` AS b ON a.resposta_1 = b.id 
+                        INNER JOIN `propostas_alternativas_2` AS c ON a.resposta_2 = c.id
+                        ORDER BY a.id ASC;";
+        $registros = $wpdb->get_results($comandoquery);
+        echo "<script>const registros=" . json_encode($registros) . "</script>";
 
         ?>
 
@@ -39,8 +53,7 @@ get_header(); ?>
                 </tr>
                 <tr v-for="registro in registros">
                     <td v-for="coluna in colunas">
-                        <a v-if="coluna.includes('url')" :href="prefixo+registro[coluna]" target="_blank">{{ registro[coluna] }}</a>
-                        <span v-if="!coluna.includes('url')">{{ registro[coluna] }}</span>
+                        <span>{{ registro[coluna] }}</span>
                     </td>
                 </tr>
             </table>
@@ -53,8 +66,8 @@ get_header(); ?>
                 data: {
                     registros: registros,
                     colunas: [],
-                    nome_planilha: 'Resultados',
-                    nome_arquivo: 'Resultados Segunda Enquete PDE'
+                    nome_planilha: 'Propostas',
+                    nome_arquivo: 'Propostas recebidas'
                 },
                 methods: {
                     exportaArquivo: function(tipo) {
