@@ -10,17 +10,17 @@ if (have_posts()) : while (have_posts()) : the_post();
         the_content();
 
         $vue = 'vue.min.js';
+        $vueDev = 'vue.js';
 
-        $isLocalhost = get_site_url() === 'http://localhost/planodiretorsp';
-
-        // include local
-        if ($localhosting) {
-            echo "<script type='text/javascript' src='./wp-content/themes/lc-blank-master/{$vue}'></script>";
-            echo "<script type='text/javascript' src='./wp-content/themes/lc-blank-master/axios.min.js'></script>";
+        $isLocalhost = get_site_url() === 'http://localhost';
+        
+        if ($isLocalhost) {
+            echo "<script type='text/javascript' src='../wp-content/themes/lc-blank-master/{$vueDev}'></script>";
         } else {
             echo "<script type='text/javascript' src='../wp-content/themes/lc-blank-master/{$vue}'></script>";
-            echo "<script type='text/javascript' src='../wp-content/themes/lc-blank-master/axios.min.js'></script>";
         }
+        echo "<script type='text/javascript' src='../wp-content/themes/lc-blank-master/axios.min.js'></script>";
+
 ?>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
