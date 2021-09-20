@@ -89,9 +89,10 @@ if (have_posts()) : while (have_posts()) : the_post();
             <input type="hidden" name="form_token" value="<?php echo $form_token; ?>" />
             <!-- Validação do formulário -->
 
+            <div class="row mt-0 mx-0 mb-4 obrigatorio" aria-hidden="true">*Obrigatório</div>
             <div class="enquete-dados-pessoais">
               <div class="row mx-0 my-4">
-                <label class="col-sm-auto px-0 mr-1">Subprefeitura:</label>
+                <label class="col-sm-auto px-0 mr-1">Subprefeitura:<span class="campo_obrigatorio" aria-label="Pergunta obrigatória">*</span></label>
                 <select class="d-inline-flex" id="select_subpref" v-model="subprefeituraSelecionada" required>
                   <option value="" disabled selected hidden>Selecione a subprefeitura</option>
                   <option v-for="subprefeitura in subprefeituras" :value="subprefeitura">{{subprefeitura}}</option>
@@ -99,11 +100,11 @@ if (have_posts()) : while (have_posts()) : the_post();
               </div>
               <input style="width: 100%" type="text" id="subprefeitura" name="subprefeitura" :value="subprefeituraSelecionada" required hidden />
               <div class="row mx-0 my-4">
-                <label class="col-sm-auto px-0 mr-1" for="nome">Nome:</label>
+                <label class="col-sm-auto px-0 mr-1" for="nome">Nome:<span class="campo_obrigatorio" aria-label="Pergunta obrigatória">*</span></label>
                 <input class="col-sm px-0" type="text" id="nome" name="nome" required />
               </div>
               <div class="row mx-0 my-4">
-                <label class="col-sm-auto px-0 mr-1" for="email">E-mail:</label>
+                <label class="col-sm-auto px-0 mr-1" for="email">E-mail:<span class="campo_obrigatorio" aria-label="Pergunta obrigatória">*</span></label>
                 <input class="col-sm px-0" type="text" id="email" name="email" required />
               </div>
               <div class="row mx-0 my-4">
@@ -114,7 +115,7 @@ if (have_posts()) : while (have_posts()) : the_post();
 
             <div class="enquete-pergunta">
               <div>
-                <h2>O QUE PRECISAMOS PARA MELHORAR SUA IMPLEMENTAÇÃO ATÉ 2029?</h2>
+                <h2>O QUE PRECISAMOS PARA MELHORAR SUA IMPLEMENTAÇÃO ATÉ 2029?<span class="campo_obrigatorio" aria-label="Pergunta obrigatória"> *</span></h2>
                 <p class="propostas-subtitulo">Relacione sua contribuição com apenas um dos objetivos abaixo:</p>
                 <div class="row">
                   <div class="col-lg-6">
@@ -132,12 +133,12 @@ if (have_posts()) : while (have_posts()) : the_post();
                 </div>
                 <input style="width: 100%" type="text" id="resposta_1" name="resposta_1" :value="resposta_1" required hidden />
 
-                <h2 class="pt-0">Escreva aqui a sua proposta</h2>
+                <h2 class="pt-0">Escreva aqui a sua proposta<span class="campo_obrigatorio" aria-label="Pergunta obrigatória"> *</span></h2>
                 <div class="escreva-proposta row mx-0 mt-4">
                   <textarea class="col-sm px-0" id="proposta" name="proposta" maxlength="1000" required></textarea>
                 </div>
 
-                <p>Desde o início de 2020 a cidade de São Paulo e todo o mundo estão enfrentando a pandemia da COVID-19. Os efeitos sobre as cidades e a vida urbana já podem ser percebidos evidenciando a necessidade de se buscar soluções mais adequadas diante desta situação. Nesse sentido, diante destes impactos que tendem a se tornar permanentes na cidade de São Paulo, o que você entende que seria importante melhorar nessa revisão intermediária do Plano Diretor:</p>
+                <p>Desde o início de 2020 a cidade de São Paulo e todo o mundo estão enfrentando a pandemia da COVID-19. Os efeitos sobre as cidades e a vida urbana já podem ser percebidos evidenciando a necessidade de se buscar soluções mais adequadas diante desta situação. Nesse sentido, diante destes impactos que tendem a se tornar permanentes na cidade de São Paulo, o que você entende que seria importante melhorar nessa revisão intermediária do Plano Diretor:<span class="campo_obrigatorio" aria-label="Pergunta obrigatória"> *</span></p>
                 <div v-for="(resposta, valor) in respostas_2" class="row">
                   <input type="radio" :id="'r_2_' +  parseInt(valor + 1)" :value="parseInt(valor + 1)" v-model="resposta_2">
                   <label :for="'r_2_' + parseInt(valor + 1)"><strong>{{valor + 1}})</strong> {{resposta}}</label>
