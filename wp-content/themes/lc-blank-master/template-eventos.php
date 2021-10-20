@@ -72,15 +72,14 @@ if (have_posts()) : while (have_posts()) : the_post();
     echo "<script>const eventoRaw = " . json_encode($evento) . ";</script>";
 
     $vue = 'vue.min.js';
-    $vuedev = 'vue.js';
+    $vueDev = 'vue.js';
 
-    $isLocalhost = get_site_url() == 'http://localhost/planodiretorsp';
-
-    // include local
+    $isLocalhost = get_site_url() === 'http://localhost';
+    
     if ($isLocalhost) {
-      echo "<script type='text/javascript' src='../wp-content/themes/lc-blank-master/{$vuedev}'></script>";
+        echo "<script type='text/javascript' src='../wp-content/themes/lc-blank-master/{$vueDev}'></script>";
     } else {
-      echo "<script type='text/javascript' src='../wp-content/themes/lc-blank-master/{$vue}'></script>";
+        echo "<script type='text/javascript' src='../wp-content/themes/lc-blank-master/{$vue}'></script>";
     }
     echo "<script type='text/javascript' src='../wp-content/themes/lc-blank-master/axios.min.js'></script>";
 
@@ -96,21 +95,28 @@ if (have_posts()) : while (have_posts()) : the_post();
         <div class="btn btn-danger" @click="confirmaExclusao" title="Excluir evento">Excluir evento</div>
 
         <div class="item-evento row" v-for="(value, key) in evento" :id="key">
-          <div class="item-nome col-1">{{key}}</div>
-          <div class="col">
-            <input class="form-control" type="text" v-model="evento[key]" @change="atualizaDado(key, value)" :key="key">
+          <div class="col-9">
+            <!-- NECESSÁRIO REFAZER ESTE TRECHO ATRIBUINDO :type="lista.tipo" E :class="lista.classe" -->
+            <label :for="'campo-' + key" v-if="key != 'data_evento' && key != 'link'">{{ listaDeLabels[0][key] }}</label>
+            <label class="mt-5" :for="'campo-' + key" v-if="key == 'data_evento' || key == 'link'">{{ listaDeLabels[0][key] }}</label>
+            <input class="form-control" type="text" v-if="key != 'descricao' && key != 'hora_evento' && key != 'data_evento' && key != 'data_termino'" v-model="evento[key]" @change="atualizaDado(key, value)" :id="'campo-' + key" :key="key">
+            <textarea class="form-control" v-if="key == 'descricao'" v-model="evento[key]" @change="atualizaDado(key, value)" :id="'campo-' + key" :key="key"></textarea>
+            <input class="form-control" type="date" v-if="key == 'data_evento' || key == 'data_termino'" v-model="evento[key]" @change="atualizaDado(key, value)" :id="'campo-' + key" :key="key">
+            <input class="form-control" type="time" v-if="key == 'hora_evento'" v-model="evento[key]" @change="atualizaDado(key, value)" :id="'campo-' + key" :key="key">
           </div>
         </div>
         <div class="evento-documentos">
           <h2>Lista de documentos</h2>
           <div class="row" v-for="(value, key) in listaDeDocumentos" :key="key">
             <div class="col-2">
-              <input class="form-control" type="text" v-model="value.nome" @change="atualizaDocumentos()" placeholder="Nome do documento">
+              <label :for="'nome-documento-' + key">Nome do documento</label>
+              <input class="form-control" type="text" :id="'nome-documento-' + key" v-model="value.nome" @change="atualizaDocumentos()">
             </div>
             <div class="col-4">
-              <input class="form-control" type="text" v-model="value.link" @change="atualizaDocumentos()" placeholder="URL (link)">
+              <label :for="'url-documento-' + key">URL (link)</label>
+              <input class="form-control" type="text" :id="'url-documento-' + key" v-model="value.link" @change="atualizaDocumentos()">
             </div>
-            <div class="col-1">
+            <div class="col-1 botao-remover">
               <div class="btn btn-danger" @click="removeDocumento(key)">
                 Remover documento
               </div>
@@ -129,6 +135,20 @@ if (have_posts()) : while (have_posts()) : the_post();
         el: "#appevento",
         data: {
           evento: eventoRaw,
+          listaDeLabels: [{
+            tipo: 'Tipo de evento',
+            tema: 'Tema',
+            titulo: 'Título / Nome do evento',
+            imagem: 'Link da imagem',
+            destaque: 'Texto de destaque',
+            descricao: 'Descrição do evento',
+            data_evento: 'Data do evento',
+            data_termino: 'Término do evento (opcional)',
+            hora_evento: 'Hora do evento',
+            local: 'Local (evento presencial)',
+            link: 'Link da transmissão',
+            descricao_link: 'Texto do link'
+          }],
           listaDeDocumentos: [],
           documentos: ""
         },
@@ -207,8 +227,10 @@ if (have_posts()) : while (have_posts()) : the_post();
         padding-top: 5px !important;
       }
 
+      label,
       .evento .item-nome,
-      .evento input {
+      .evento input,
+      .evento  textarea {
         font-size: 16px;
       }
 
@@ -228,6 +250,19 @@ if (have_posts()) : while (have_posts()) : the_post();
       .evento #created_at,
       .evento #updated_at {
         display: none;
+      }
+
+      .botao-remover {        
+        align-self: flex-end;
+      }
+
+      .botao-remover .btn {
+        font-size: 1.5rem;
+      }
+
+      input[type=time],
+      input[type=date] {
+        width: 180px;
       }
     </style>
 
