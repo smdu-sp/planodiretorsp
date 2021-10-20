@@ -90,8 +90,8 @@ if (have_posts()) : while (have_posts()) : the_post();
             <input type="hidden" name="form_token" value="<?php echo $form_token; ?>" />
             <!-- Validação do formulário -->
 
-            <div class="enquete-pergunta">
-              <p>Se pudesse escolher, você moraria perto de:</p>
+            <fieldset class="enquete-pergunta">
+              <legend><p>Se pudesse escolher, você moraria perto de:</p></legend>
               <div>
                 <div class="row">
                   <div class="col-md-4">
@@ -123,10 +123,10 @@ if (have_posts()) : while (have_posts()) : the_post();
                 </div>
                 <input style="width: 100%" type="text" id="resposta_1" name="resposta_1" :value="resposta_1" required hidden />
               </div>
-            </div>
+            </fieldset>
 
-            <div class="enquete-pergunta">
-              <p>Quais temas você considera prioridade na revisão do Plano Diretor?</p>
+            <fieldset class="enquete-pergunta">
+              <legend><p>Quais temas você considera prioridade na revisão do Plano Diretor?</p></legend>
               <div>
                 <div class="row">
                   <div class="col-md-4">
@@ -154,10 +154,10 @@ if (have_posts()) : while (have_posts()) : the_post();
                 </div>
                 <input style="width: 100%" type="text" id="resposta_2" name="resposta_2" :value="resposta_2" required hidden />
               </div>
-            </div>
+            </fieldset>
 
-            <div class="enquete-pergunta">
-              <p>Na sua opinião, do que seu bairro mais precisa?</p>
+            <fieldset class="enquete-pergunta">
+              <legend><p>Na sua opinião, do que seu bairro mais precisa?</p></legend>
               <div>
                 <div class="row">
                   <div class="col-md-4">
@@ -189,11 +189,11 @@ if (have_posts()) : while (have_posts()) : the_post();
                 </div>
                 <input style="width: 100%" type="text" id="resposta_3" name="resposta_3" :value="resposta_3" required hidden />
               </div>
-            </div>
+            </fieldset>
 
-            <div>
-              <p>O que é mais importante que tenha na São Paulo do futuro ?</p>
-              <div class="enquete-pergunta">
+            <fieldset class="enquete-pergunta">
+              <legend><p>O que é mais importante que tenha na São Paulo do futuro ?</p></legend>
+              <div>
                 <div class="row">
                   <div class="col-md-4">
                     <input type="radio" id="d1" value="Moradia para todos" v-model="resposta_4">
@@ -220,11 +220,11 @@ if (have_posts()) : while (have_posts()) : the_post();
                 </div>
                 <input style="width: 100%" type="text" id="resposta_4" name="resposta_4" :value="resposta_4" required hidden />
               </div>
-            </div>
+            </fieldset>
             
-            <div>
-              <p>Você está participando desta enquete pela busca ativa nas ruas?</p>
-              <div class="enquete-pergunta">
+            <fieldset class="enquete-pergunta">
+              <legend><p>Você está participando desta enquete pela busca ativa nas ruas?</p></legend>
+              <div>
                 <div class="row">
                   <div class="col-md-4">
                     <input type="radio" id="e1" value="Sim" v-model="ativacao">
@@ -237,7 +237,7 @@ if (have_posts()) : while (have_posts()) : the_post();
                   <input style="width: 100%" type="text" id="ativacao" name="ativacao" :value="ativacao" required hidden />
                 </div>
               </div>
-            </div>
+            </fieldset>
 
             <div class="enquete-dados-pessoais">
               <p>Para concluir o envio da sua participação preencha os dados abaixo:</p>
@@ -250,7 +250,7 @@ if (have_posts()) : while (have_posts()) : the_post();
                 <input class="col-sm px-0" type="text" id="pesquisado_email" name="pesquisado_email" placeholder="exemplo@exemplo.com.br" required />
               </div>
               <div class="row mx-0 my-4">
-                <label class="col-sm-auto px-0 mr-1">Distrito:</label>
+                <label class="col-sm-auto px-0 mr-1" for="select_zona">Distrito:</label>
                 <select class="d-inline-flex" id="select_zona" v-model="zonaSelecionada" required>
                   <option value="" disabled selected hidden>Selecione a região</option>
                   <option v-for="zona in todasZonas" :value="zona">{{zona.nome}}</option>
