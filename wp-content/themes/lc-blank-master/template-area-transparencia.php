@@ -9,19 +9,9 @@ if (have_posts()) : while (have_posts()) : the_post();
 
         the_content();
 
-        $vuedev = 'vue.js';
-        $vue = 'vue.min.js';
-
-        $isLocalhost = get_site_url() == 'http://localhost/planodiretorsp';
-
-        // include local
-        if ($isLocalhost) {
-            echo "<script type='text/javascript' src='../wp-content/themes/lc-blank-master/{$vue}'></script>";
-            echo "<script type='text/javascript' src='../wp-content/themes/lc-blank-master/axios.min.js'></script>";
-        } else {
-            echo "<script type='text/javascript' src='../wp-content/themes/lc-blank-master/{$vue}'></script>";
-            echo "<script type='text/javascript' src='../wp-content/themes/lc-blank-master/axios.min.js'></script>";
-        }
+        include_once 'modulo-vue.php';
+        echo "<script type='text/javascript' src='" . $jsPath . "axios.min.js'></script>";
+        
 ?>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -122,6 +112,10 @@ if (have_posts()) : while (have_posts()) : the_post();
                     }
                 },
                 mounted() {
+                    // Esconde conteúdo quando JavaScript não estiver habilitado
+                    var conteudo = document.getElementById("apptransparencia");
+                    conteudo.style.display = "block";
+
                     axios.get(listaVideos)
                         .then(response => {
                             this.videos = response.data.videos.reverse()

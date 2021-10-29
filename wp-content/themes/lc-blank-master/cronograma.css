@@ -1,0 +1,195 @@
+.cronograma-container {
+  width: 100%;
+  background-color: #0a3299;
+  padding: 80px 0;
+}
+
+.cronograma-container * {
+  font-family: "Open Sans";
+  color: white;
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 22px;
+}
+
+.cronograma-container table {
+  border-collapse: collapse;
+  max-width: 1180px;
+  margin: auto;
+}
+
+.cronograma-container caption {  
+  color: #fff;
+  font-family: museo, serif;
+  font-size: 50px;
+  font-weight: 900;
+}
+
+.cronograma-container tr {
+  height: 28px;
+}
+
+.cronograma-container .cronograma-header {
+  color: #0a3299 !important;
+}
+
+.cronograma-container th[scope=col] {
+  color: #f3a8b1;
+  letter-spacing: 1px;
+  font-size: 0.65em;
+  padding-left: 1px;
+  min-width: 24px;
+  text-align: center;
+}
+
+.cronograma-container th:first-child,
+.cronograma-container td:first-child {
+  width: 22px;
+  padding: 0 0 0 2px;
+}
+
+.cronograma-container tr > td {
+  line-height: 28px;
+}
+
+.cronograma-tabela * {
+  border: 0px solid transparent;
+  table-layout: fixed;
+}
+
+.cronograma-tabela .cronograma-meses {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 24px;
+  max-width: 24px;
+  cursor: default;
+}
+
+  
+.cronograma-tabela * > tr > td:nth-child(n+4), .cronograma-tabela * > tr > th:nth-child(n+3) {
+  border-left: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+.cronograma-tabela * > tr > td:nth-child(n+2), .cronograma-tabela th[scope=row] {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+.cronograma-tabela * > tr:nth-child(2n+3) {
+  background-color: #062459;
+}
+
+.cronograma-container .rosa {
+  background-color: #f3a8b1;
+  color: #f3a8b1;
+}
+
+.cronograma-container .laranja {
+  background-color: #f88534;
+  color: #f88534;
+}
+.cronograma-container .vermelho {
+  background-color: #f7664d;
+  color: #f7664d;
+}
+.cronograma-container .azul {
+  background-color: #517bee;
+  color: #517bee;
+}
+
+.cronograma-container .texto-rosa * {
+  color: #f3a8b1;
+}
+
+.cronograma-container .texto-laranja * {
+  color: #f88534;
+}
+
+.cronograma-container .texto-vermelho * {
+  color: #f7664d;
+}
+
+.cronograma-container .texto-azul * {
+  color: #517bee;
+}
+
+.cronograma-container .texto-rosa, .cronograma-container .texto-laranja, .cronograma-container .texto-vermelho, .cronograma-container .texto-azul * {
+  line-height: 15px;
+}
+
+.cronograma-container .container-legenda {
+  margin: auto;
+  max-width: 1180px;
+}
+
+.cronograma-container .legenda-cronograma {
+  font-size: 0; /* Remove whitespace entre os elementos da legenda  */
+  font-weight: bold;
+  max-width: 50%;
+  margin-top: 40px;
+  float: right;
+}
+
+/* Clearfix */
+.cronograma-container .container-legenda::after {
+  clear: both;
+  content: "";
+  display: block;
+}
+
+.cronograma-container .legenda-container {
+  display: inline-block;
+  width: 140px;
+  height: 65px;
+  vertical-align: top;
+}
+
+.cronograma-container .legenda-container * {
+  font-size: 11px;
+  line-height: 15px;
+}
+
+.cronograma-container .legenda-barra {
+  height: 10px;
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+.cronograma-container .legenda-subtitulo {
+  font-weight: 300;
+}
+
+.cronograma-container .cronograma-strong strong {
+  font-weight: 700;
+}
+
+@media (max-width:1200px) {
+  .cronograma-container table {
+    width: 85%;
+  }
+
+  .cronograma-container caption {
+    margin-bottom: 60px;
+  }
+
+  .cronograma-tabela .cronograma-meses {
+    border-color: rgba(255, 255, 255, 1) !important;
+    border-width: 1px !important;
+    color: #fff !important;
+    min-width: 25% !important;
+    max-width: 25% !important;
+    padding-left: 5px !important;
+    white-space: normal;
+    cursor: text;
+  }	
+    
+  td[aria-hidden=true], tr[aria-hidden=true] {
+    display: none;
+  }
+  
+  .cronograma-container .cronograma-header {
+    color: #f3a8b1 !important;
+    font-size: 15px !important;
+    text-transform: uppercase;
+  }
+}

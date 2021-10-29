@@ -11,8 +11,7 @@ get_header(); ?>
     <?php
     the_content();
 
-    $vue = 'vue.min.js';
-    echo "<script type='text/javascript' src='../wp-content/themes/lc-blank-master/{$vue}'></script>";
+    include_once 'modulo-vue.php';
 
     if ($_POST['form_token']) {
       if ($_POST['form_token'] != $_SESSION['form_token']) {
@@ -311,6 +310,9 @@ get_header(); ?>
           }
         },
         created: function() {
+          // Esconde conteúdo quando JavaScript não estiver habilitado
+          var conteudo = document.getElementById("appchamamento");
+          conteudo.style.display = "block";
           // RESGATA TEMÁTICAS ADVINDAS DO POST
           if (this.tematicas_salvas.length > 0) {
             let salvas = this.tematicas_salvas.split(', ');

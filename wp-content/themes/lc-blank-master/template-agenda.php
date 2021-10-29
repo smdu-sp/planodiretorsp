@@ -9,17 +9,8 @@ if (have_posts()) : while (have_posts()) : the_post();
 
         the_content();
 
-        $vue = 'vue.min.js';
-        $vueDev = 'vue.js';
-
-        $isLocalhost = get_site_url() === 'http://localhost';
-        
-        if ($isLocalhost) {
-            echo "<script type='text/javascript' src='../wp-content/themes/lc-blank-master/{$vueDev}'></script>";
-        } else {
-            echo "<script type='text/javascript' src='../wp-content/themes/lc-blank-master/{$vue}'></script>";
-        }
-        echo "<script type='text/javascript' src='../wp-content/themes/lc-blank-master/axios.min.js'></script>";
+        include_once 'modulo-vue.php';
+        echo "<script type='text/javascript' src='" . $jsPath . "axios.min.js'></script>";
 
 ?>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
@@ -27,7 +18,7 @@ if (have_posts()) : while (have_posts()) : the_post();
         <div id="appagenda" class="container-eventos">
             <div v-if="carregando" style="color: gray; height: 2000px; font-size: 2em">Carregando conteúdo...</div>
             <!-- BOTÃO ADICIONAR EVENTO -->
-            <div v-if="!carregando && logado" class="row justify-content-center">
+            <div v-if="!carregando && logado" class="row justify-content-center mb-5">
                 <div class="col-3">
                     <a class="btn btn-success btn-lg btn-block" href="/cadastro-de-evento/?evento=agenda">
                         Adicionar evento
@@ -358,6 +349,9 @@ if (have_posts()) : while (have_posts()) : the_post();
                     }
                 },
                 mounted() {
+                    // Esconde conteúdo quando JavaScript não estiver habilitado
+                    var conteudo = document.getElementById("appagenda");
+                    conteudo.style.display = "block";
                     axios.get(listaEventos)
                         .then(response => {
                             // Impede que eventos da categoria "documento" sejam mostrados na agenda

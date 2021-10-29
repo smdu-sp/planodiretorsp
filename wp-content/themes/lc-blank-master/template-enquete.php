@@ -11,8 +11,7 @@ if (have_posts()) : while (have_posts()) : the_post();
 
     the_content();
 
-    $vue = 'vue.min.js';
-    echo "<script type='text/javascript' src='../wp-content/themes/lc-blank-master/{$vue}'></script>";
+    include_once 'modulo-vue.php';
 
     // Verifica reenvio de formulário
     if ($_POST['form_token']) {
@@ -361,7 +360,7 @@ if (have_posts()) : while (have_posts()) : the_post();
               </div>
               <div>
                 <label for="pesquisado_email">E-mail:</label>
-                <input type="text" id="pesquisado_email" name="pesquisado_email" placeholder="exemplo@exemplo.com.br" required />
+                <input type="email" id="pesquisado_email" name="pesquisado_email" placeholder="exemplo@exemplo.com.br" required />
               </div>
               <div>
                 <label>Distrito:</label>
@@ -559,6 +558,9 @@ if (have_posts()) : while (have_posts()) : the_post();
           ]
         },
         mounted() {
+          // Esconde conteúdo quando JavaScript não estiver habilitado
+          var conteudo = document.getElementById("appenquete");
+          conteudo.style.display = "block";
           this.populaDistritos()
         },
         methods: {
