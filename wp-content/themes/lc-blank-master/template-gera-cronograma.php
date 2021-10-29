@@ -15,9 +15,7 @@ if (have_posts()) : while (have_posts()) : the_post();
 
 <link rel="stylesheet" href="../wp-content/themes/lc-blank-master/cronograma.css">
 
-<noscript>Para acessar este conteúdo é necessário que seu navegador suporte JavaScript.</noscript>
-
-<div id="app" class="cronograma-container">
+<div id="appcronograma" class="cronograma-container">
   <table id="cronograma-tabela">
     <caption>Cronograma</caption>
     <tr>

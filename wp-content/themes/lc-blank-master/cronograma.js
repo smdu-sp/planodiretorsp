@@ -1,5 +1,5 @@
 var app = new Vue({
-  el: '#app',
+  el: '#appcronograma',
   data: {
     meses: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
     mesesAbrev: ['JAN', 'FEV', 'MAR', 'ABR', 'MAI', 'JUN', 'JUL', 'AGO', 'SET', 'OUT', 'NOV', 'DEZ'],
@@ -166,6 +166,10 @@ var app = new Vue({
     ]
   },
   created() {
+    // Esconde conteúdo quando JavaScript não estiver habilitado
+    var conteudo = document.getElementById("appcronograma");
+    conteudo.style.display = "block";
+
     this.processos.forEach((array, index) => {
       let mesesEvento = this.processos[index].meses
       let duracao = mesesEvento.length

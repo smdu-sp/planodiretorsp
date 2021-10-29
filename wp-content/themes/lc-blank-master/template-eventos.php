@@ -71,17 +71,8 @@ if (have_posts()) : while (have_posts()) : the_post();
 
     echo "<script>const eventoRaw = " . json_encode($evento) . ";</script>";
 
-    $vue = 'vue.min.js';
-    $vueDev = 'vue.js';
-
-    $isLocalhost = get_site_url() === 'http://localhost';
-    
-    if ($isLocalhost) {
-        echo "<script type='text/javascript' src='../wp-content/themes/lc-blank-master/{$vueDev}'></script>";
-    } else {
-        echo "<script type='text/javascript' src='../wp-content/themes/lc-blank-master/{$vue}'></script>";
-    }
-    echo "<script type='text/javascript' src='../wp-content/themes/lc-blank-master/axios.min.js'></script>";
+    include_once 'modulo-vue.php';
+    echo "<script type='text/javascript' src='" . $jsPath . "axios.min.js'></script>";
 
 ?>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -205,6 +196,9 @@ if (have_posts()) : while (have_posts()) : the_post();
           }
         },
         mounted() {
+          // Esconde conteúdo quando JavaScript não estiver habilitado
+          var conteudo = document.getElementById("appevento");
+          conteudo.style.display = "block";
           this.listaDeDocumentos = eventoRaw.documentos
           delete eventoRaw.documentos
         }

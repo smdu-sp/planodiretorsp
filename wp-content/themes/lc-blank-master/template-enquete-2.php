@@ -60,8 +60,7 @@ if (have_posts()) : while (have_posts()) : the_post();
 
     the_content();
 
-    $vue = 'vue.min.js';
-    echo "<script type='text/javascript' src='../wp-content/themes/lc-blank-master/{$vue}'></script>";
+    include_once 'modulo-vue.php';
 
 ?>
 
@@ -91,32 +90,32 @@ if (have_posts()) : while (have_posts()) : the_post();
             <!-- Validação do formulário -->
 
             <fieldset class="enquete-pergunta">
-              <legend><p>Se pudesse escolher, você moraria perto de:</p></legend>
+              <legend>Se pudesse escolher, você moraria perto de:</legend>
               <div>
                 <div class="row">
-                  <div class="col-md-4">
+                  <div class="alternativa col-md-4">
                     <input type="radio" id="a1" value="Emprego" v-model="resposta_1">
                     <label for="a1">Emprego</label>
                   </div>
-                  <div class="col-md-4">
+                  <div class="alternativa col-md-4">
                     <input type="radio" id="a2" value="Escola" v-model="resposta_1">
                     <label for="a2">Escola</label>
                   </div>
-                  <div class="col-md-4">
+                  <div class="alternativa col-md-4">
                     <input type="radio" id="a3" value="Parque ou praça" v-model="resposta_1">
                     <label for="a3">Parque ou praça</label>
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-md-4">
+                  <div class="alternativa col-md-4">
                     <input type="radio" id="a4" value="Transporte" v-model="resposta_1">
                     <label for="a4">Transporte (metrô, trem e terminal de ônibus)</label>
                   </div>
-                  <div class="col-md-4">
+                  <div class="alternativa col-md-4">
                     <input type="radio" id="a5" value="Unidade de Saúde" v-model="resposta_1">
                     <label for="a5">Unidade de Saúde</label>
                   </div>
-                  <div class="col-md-4">
+                  <div class="alternativa col-md-4">
                     <input type="radio" id="a6" value="Outro" v-model="resposta_1">
                     <label for="a6">Outro</label>
                   </div>
@@ -126,28 +125,28 @@ if (have_posts()) : while (have_posts()) : the_post();
             </fieldset>
 
             <fieldset class="enquete-pergunta">
-              <legend><p>Quais temas você considera prioridade na revisão do Plano Diretor?</p></legend>
+              <legend>Quais temas você considera prioridade na revisão do Plano Diretor?</legend>
               <div>
                 <div class="row">
-                  <div class="col-md-4">
+                  <div class="alternativa col-md-4">
                     <input type="radio" id="b1" value="Mobilidade" v-model="resposta_2">
                     <label for="b1">Mobilidade</label>
                   </div>
-                  <div class="col-md-4">
+                  <div class="alternativa col-md-4">
                     <input type="radio" id="b2" value="Desenvolvimento econômico e social" v-model="resposta_2">
                     <label for="b2">Desenvolvimento econômico e social</label>
                   </div>
-                  <div class="col-md-4">
+                  <div class="alternativa col-md-4">
                     <input type="radio" id="b3" value="Instrumentos de política urbana" v-model="resposta_2">
                     <label for="b3">Instrumentos de política urbana</label>
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-md-4">
+                  <div class="alternativa col-md-4">
                     <input type="radio" id="b4" value="Habitação" v-model="resposta_2">
                     <label for="b4">Habitação</label>
                   </div>
-                  <div class="col-md-4">
+                  <div class="alternativa col-md-4">
                     <input type="radio" id="b5" value="Meio ambiente" v-model="resposta_2">
                     <label for="b5">Meio ambiente</label>
                   </div>
@@ -157,32 +156,32 @@ if (have_posts()) : while (have_posts()) : the_post();
             </fieldset>
 
             <fieldset class="enquete-pergunta">
-              <legend><p>Na sua opinião, do que seu bairro mais precisa?</p></legend>
+              <legend>Na sua opinião, do que seu bairro mais precisa?</legend>
               <div>
                 <div class="row">
-                  <div class="col-md-4">
+                  <div class="alternativa col-md-4">
                     <input type="radio" id="c1" value="Transporte público" v-model="resposta_3">
                     <label for="c1">Transporte público</label>
                   </div>
-                  <div class="col-md-4">
+                  <div class="alternativa col-md-4">
                     <input type="radio" id="c2" value="Moradia" v-model="resposta_3">
                     <label for="c2">Moradia</label>
                   </div>
-                  <div class="col-md-4">
+                  <div class="alternativa col-md-4">
                     <input type="radio" id="c3" value="Parques e áreas verdes" v-model="resposta_3">
                     <label for="c3">Parques e áreas verdes</label>
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-md-4">
+                  <div class="alternativa col-md-4">
                     <input type="radio" id="c4" value="Emprego" v-model="resposta_3">
                     <label for="c4">Emprego</label>
                   </div>
-                  <div class="col-md-4">
+                  <div class="alternativa col-md-4">
                     <input type="radio" id="c5" value="Iluminação pública" v-model="resposta_3">
                     <label for="c5">Iluminação pública</label>
                   </div>
-                  <div class="col-md-4">
+                  <div class="alternativa col-md-4">
                     <input type="radio" id="c6" value="Equipamentos públicos" v-model="resposta_3">
                     <label for="c6">Equipamentos públicos</label>
                   </div>
@@ -192,28 +191,28 @@ if (have_posts()) : while (have_posts()) : the_post();
             </fieldset>
 
             <fieldset class="enquete-pergunta">
-              <legend><p>O que é mais importante que tenha na São Paulo do futuro ?</p></legend>
+              <legend>O que é mais importante que tenha na São Paulo do futuro ?</legend>
               <div>
                 <div class="row">
-                  <div class="col-md-4">
+                  <div class="alternativa col-md-4">
                     <input type="radio" id="d1" value="Moradia para todos" v-model="resposta_4">
                     <label for="d1">Moradia para todos</label>
                   </div>
-                  <div class="col-md-4">
+                  <div class="alternativa col-md-4">
                     <input type="radio" id="d2" value="Centro da cidade requalificado" v-model="resposta_4">
                     <label for="d2">Centro da cidade requalificado</label>
                   </div>
-                  <div class="col-md-4">
+                  <div class="alternativa col-md-4">
                     <input type="radio" id="d3" value="Transporte público perto de casa" v-model="resposta_4">
                     <label for="d3">Transporte público perto de casa</label>
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-md-4">
+                  <div class="alternativa col-md-4">
                     <input type="radio" id="d4" value="Soluções para enfrentar novas pandemias" v-model="resposta_4">
                     <label for="d4">Soluções para enfrentar novas pandemias</label>
                   </div>
-                  <div class="col-md-4">
+                  <div class="alternativa col-md-4">
                     <input type="radio" id="d5" value="Área verdes preservadas" v-model="resposta_4">
                     <label for="d5">Área verdes preservadas</label>
                   </div>
@@ -223,18 +222,18 @@ if (have_posts()) : while (have_posts()) : the_post();
             </fieldset>
             
             <fieldset class="enquete-pergunta">
-              <legend><p>Você está participando desta enquete pela busca ativa nas ruas?</p></legend>
+              <legend>Você está participando desta enquete pela busca ativa nas ruas?</legend>
               <div>
                 <div class="row">
-                  <div class="col-md-4">
+                  <div class="alternativa col-md-4">
                     <input type="radio" id="e1" value="Sim" v-model="ativacao">
                     <label for="e1">Sim</label>
                   </div>
-                  <div class="col-md-4">
+                  <div class="alternativa col-md-4">
                     <input type="radio" id="e2" value="Não" v-model="ativacao">
                     <label for="e2">Não</label>
                   </div>
-                  <input style="width: 100%" type="text" id="ativacao" name="ativacao" :value="ativacao" required hidden />
+                  <input style="width: 100%" type="text" id="ativacao" name="ativacao" :value="ativacao" hidden required />
                 </div>
               </div>
             </fieldset>
@@ -247,7 +246,7 @@ if (have_posts()) : while (have_posts()) : the_post();
               </div>
               <div class="row mx-0 my-4">
                 <label class="col-sm-auto px-0 mr-1" for="pesquisado_email">E-mail:</label>
-                <input class="col-sm px-0" type="text" id="pesquisado_email" name="pesquisado_email" placeholder="exemplo@exemplo.com.br" required />
+                <input class="col-sm px-0" type="email" id="pesquisado_email" name="pesquisado_email" placeholder="exemplo@exemplo.com.br" required />
               </div>
               <div class="row mx-0 my-4">
                 <label class="col-sm-auto px-0 mr-1" for="select_zona">Distrito:</label>
@@ -438,6 +437,9 @@ if (have_posts()) : while (have_posts()) : the_post();
           ]
         },
         mounted() {
+          // Esconde conteúdo quando JavaScript não estiver habilitado
+          var conteudo = document.getElementById("appenquete");
+          conteudo.style.display = "block";
           this.populaDistritos()
         },
         methods: {

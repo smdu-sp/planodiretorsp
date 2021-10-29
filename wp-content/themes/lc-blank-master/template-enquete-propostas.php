@@ -40,10 +40,16 @@ if (have_posts()) : while (have_posts()) : the_post();
       $wpdb->show_errors();
 
       // INSERT RESPOSTAS
+      if (strlen($sqlData['proposta']) > 1000) {
+        echo "<div class='mensagem-erro' style='margin-top: 300px'>Erro: os dados preenchidos não são válidos.</div>";
+        return;
+      }      
+
       $wpdb->insert('registros_propostas', $sqlData);
       $idRegistro = $wpdb->insert_id;
+
       if (!is_int($idRegistro)) {
-        echo "<div class='mensagem-erro' style='margin-top: 300px'>Falha no envio do formulário, tente novamente mais tarde.</div>";
+        echo "<div class='mensagem-erro' style='margin-top: 300px'>Erro: falha no envio do formulário, tente novamente mais tarde.</div>";
         return;
       }
 
@@ -59,8 +65,7 @@ if (have_posts()) : while (have_posts()) : the_post();
 
     the_content();
 
-    $vue = 'vue.min.js';
-    echo "<script type='text/javascript' src='../wp-content/themes/lc-blank-master/{$vue}'></script>";
+    include_once 'modulo-vue.php';
 
 ?>
 
@@ -92,7 +97,7 @@ if (have_posts()) : while (have_posts()) : the_post();
             <div class="row mt-0 mx-0 mb-4 obrigatorio" aria-hidden="true">*Obrigatório</div>
             <div class="enquete-dados-pessoais">
               <div class="row mx-0 my-4">
-                <label class="col-sm-auto px-0 mr-1">Subprefeitura:<span class="campo_obrigatorio" aria-label="Pergunta obrigatória">*</span></label>
+                <label class="col-sm-auto px-0 mr-1" for="select_subpref">Subprefeitura:<span class="campo_obrigatorio" aria-label="Pergunta obrigatória">*</span></label>
                 <select class="d-inline-flex" id="select_subpref" v-model="subprefeituraSelecionada" required>
                   <option value="" disabled selected hidden>Selecione a subprefeitura</option>
                   <option v-for="subprefeitura in subprefeituras" :value="subprefeitura">{{subprefeitura}}</option>
@@ -105,7 +110,7 @@ if (have_posts()) : while (have_posts()) : the_post();
               </div>
               <div class="row mx-0 my-4">
                 <label class="col-sm-auto px-0 mr-1" for="email">E-mail:<span class="campo_obrigatorio" aria-label="Pergunta obrigatória">*</span></label>
-                <input class="col-sm px-0" type="text" id="email" name="email" required />
+                <input class="col-sm px-0" type="email" id="email" name="email" required />
               </div>
               <div class="row mx-0 my-4">
                 <label class="col-sm-auto px-0 mr-1" for="entidade">Entidade:</label>
@@ -116,21 +121,21 @@ if (have_posts()) : while (have_posts()) : the_post();
             <div class="enquete-pergunta">
               <div>
                 <h2>O QUE PRECISAMOS PARA MELHORAR SUA IMPLEMENTAÇÃO ATÉ 2029?<span class="campo_obrigatorio" aria-label="Pergunta obrigatória"> *</span></h2>
-                <p class="propostas-subtitulo">Relacione sua contribuição com apenas um dos objetivos abaixo:</p>
-                <div class="row">
+                <fieldset class="row mt-0 ml-0">
+                  <legend class="propostas-subtitulo">Relacione sua contribuição com apenas um dos objetivos abaixo:</legend>
                   <div class="col-lg-6">
-                    <div v-for="(resposta, valor) in respostas_1_esq" class="mb-5">
+                    <div v-for="(resposta, valor) in respostas_1_esq" class="alternativa mb-5">
                       <input type="radio" :id="'r_1_' + parseInt(valor + 1)" :value="parseInt(valor + 1)" v-model="resposta_1">
                       <label :for="'r_1_' +  parseInt(valor + 1)"><strong>{{valor + 1}})</strong> {{resposta}}</label>
                     </div>
                   </div>
                   <div class="col-lg-6">
-                    <div v-for="(resposta, valor) in respostas_1_dir" class="mb-5">
+                    <div v-for="(resposta, valor) in respostas_1_dir" class="alternativa mb-5">
                       <input type="radio" :id="'r_1_' + parseInt(valor + respostas_1_esq.length + 1)" :value="parseInt(valor + respostas_1_esq.length + 1)" v-model="resposta_1">
                       <label :for="'r_1_' + parseInt(valor + respostas_1_esq.length + 1)"><strong>{{valor + respostas_1_esq.length + 1}})</strong> {{resposta}}</label>
                     </div>
                   </div>
-                </div>
+                </fieldset>
                 <input style="width: 100%" type="text" id="resposta_1" name="resposta_1" :value="resposta_1" required hidden />
 
                 <h2 class="pt-0">Escreva aqui a sua proposta<span class="campo_obrigatorio" aria-label="Pergunta obrigatória"> *</span></h2>
@@ -138,11 +143,13 @@ if (have_posts()) : while (have_posts()) : the_post();
                   <textarea class="col-sm px-0" id="proposta" name="proposta" maxlength="1000" required></textarea>
                 </div>
 
-                <p>Desde o início de 2020 a cidade de São Paulo e todo o mundo estão enfrentando a pandemia da COVID-19. Os efeitos sobre as cidades e a vida urbana já podem ser percebidos evidenciando a necessidade de se buscar soluções mais adequadas diante desta situação. Nesse sentido, diante destes impactos que tendem a se tornar permanentes na cidade de São Paulo, o que você entende que seria importante melhorar nessa revisão intermediária do Plano Diretor:<span class="campo_obrigatorio" aria-label="Pergunta obrigatória"> *</span></p>
-                <div v-for="(resposta, valor) in respostas_2" class="row">
-                  <input type="radio" :id="'r_2_' +  parseInt(valor + 1)" :value="parseInt(valor + 1)" v-model="resposta_2">
-                  <label :for="'r_2_' + parseInt(valor + 1)"><strong>{{valor + 1}})</strong> {{resposta}}</label>
-                </div>
+                <fieldset class="row mb-0 ml-0">
+                  <legend>Desde o início de 2020 a cidade de São Paulo e todo o mundo estão enfrentando a pandemia da COVID-19. Os efeitos sobre as cidades e a vida urbana já podem ser percebidos evidenciando a necessidade de se buscar soluções mais adequadas diante desta situação. Nesse sentido, diante destes impactos que tendem a se tornar permanentes na cidade de São Paulo, o que você entende que seria importante melhorar nessa revisão intermediária do Plano Diretor:<span class="campo_obrigatorio" aria-label="Pergunta obrigatória"> *</span></legend>
+                  <div v-for="(resposta, valor) in respostas_2" class="alternativa row">
+                    <input type="radio" :id="'r_2_' +  parseInt(valor + 1)" :value="parseInt(valor + 1)" v-model="resposta_2">
+                    <label :for="'r_2_' + parseInt(valor + 1)"><strong>{{valor + 1}})</strong> {{resposta}}</label>
+                  </div>
+                </fieldset>
                 <input style="width: 100%" type="text" id="resposta_2" name="resposta_2" :value="resposta_2" required hidden />
 
                 <center>
@@ -223,6 +230,11 @@ if (have_posts()) : while (have_posts()) : the_post();
             var modal = document.getElementById("modalEnvio");
             modal.style.display = "flex";
           }
+        },
+        mounted() {
+          // Esconde conteúdo quando JavaScript não estiver habilitado
+          var conteudo = document.getElementById("appenquete");
+          conteudo.style.display = "block";
         }
       })
     </script>

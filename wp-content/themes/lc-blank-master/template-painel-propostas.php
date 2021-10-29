@@ -29,6 +29,7 @@ get_header(); ?>
                         ORDER BY a.id ASC;";
         $registros = $wpdb->get_results($comandoquery);
         echo "<script>const registros=" . json_encode($registros) . "</script>";
+        include_once 'modulo-vue.php';
 
         ?>
 
@@ -58,7 +59,6 @@ get_header(); ?>
                 </tr>
             </table>
         </div>
-        <script type='text/javascript' src='../wp-content/themes/lc-blank-master/vue.min.js'></script>
         <script src="../wp-content/themes/lc-blank-master/xlsx.full.min.js"></script>
         <script type="text/javascript">
             var app = new Vue({
@@ -80,6 +80,10 @@ get_header(); ?>
                     }
                 },
                 created: function() {
+                    // Esconde conteúdo quando JavaScript não estiver habilitado
+                    var conteudo = document.getElementById("apppainel");
+                    conteudo.style.display = "block";
+
                     for (let coluna in this.registros[0]) {
                         this.colunas.push(coluna)
                         for (let linha in this.registros) {

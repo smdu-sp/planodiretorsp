@@ -37,6 +37,7 @@ get_header(); ?>
         }
 
         echo "<script>const entidades=" . json_encode($entidades) . ";</script>";
+        include_once 'modulo-vue.php';
 
         ?>
 
@@ -60,7 +61,6 @@ get_header(); ?>
                 </tr>
             </table>
         </div>
-        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
         <script type="text/javascript">
             var app = new Vue({
                 el: '#apppainel',
@@ -116,6 +116,10 @@ get_header(); ?>
                     }
                 },
                 created: function() {
+                    // Esconde conteúdo quando JavaScript não estiver habilitado
+                    var conteudo = document.getElementById("apppainel");
+                    conteudo.style.display = "block";
+
                     for (coluna in this.entidades[0]) {
                         this.colunas.push(coluna);
                     }

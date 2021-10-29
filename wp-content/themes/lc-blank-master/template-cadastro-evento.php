@@ -72,18 +72,8 @@ if (have_posts()) : while (have_posts()) : the_post();
             echo "<script>window.alert('Evento cadastrado com sucesso.');</script>";
         }
 
-        $vue = 'vue.min.js';
-        $vuedev = 'vue.js';
-
-        $isLocalhost = get_site_url() == 'http://localhost/planodiretorsp';
-
-        // include local
-        if ($isLocalhost) {
-            echo "<script type='text/javascript' src='../wp-content/themes/lc-blank-master/{$vuedev}'></script>";
-        } else {
-            echo "<script type='text/javascript' src='../wp-content/themes/lc-blank-master/{$vue}'></script>";
-        }
-        echo "<script type='text/javascript' src='../wp-content/themes/lc-blank-master/axios.min.js'></script>";
+        include_once 'modulo-vue.php';
+        echo "<script type='text/javascript' src='" . $jsPath . "axios.min.js'></script>";
 
 ?>
 
@@ -223,10 +213,6 @@ if (have_posts()) : while (have_posts()) : the_post();
             </form>
         </div>
         <style>
-            #appcadastro {
-                margin-top: 130px;
-            }
-
             h1 {
                 font-family: sans-serif !important;
                 padding: 0;
@@ -284,6 +270,9 @@ if (have_posts()) : while (have_posts()) : the_post();
                     }
                 },
                 mounted() {
+                    // Esconde conteúdo quando JavaScript não estiver habilitado
+                    var conteudo = document.getElementById("appcadastro");
+                    conteudo.style.display = "block";
                     this.checaCategoria()
                 }
             })
