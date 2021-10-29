@@ -1,10 +1,10 @@
-#app {
+.cronograma-container {
   width: 100%;
   background-color: #0a3299;
   padding: 80px 0;
 }
 
-#app * {
+.cronograma-container * {
   font-family: "Open Sans";
   color: white;
   font-weight: 600;
@@ -12,28 +12,28 @@
   line-height: 22px;
 }
 
-#app table {
+.cronograma-container table {
   border-collapse: collapse;
   max-width: 1180px;
   margin: auto;
 }
 
-#app caption {  
+.cronograma-container caption {  
   color: #fff;
   font-family: museo, serif;
   font-size: 50px;
   font-weight: 900;
 }
 
-#app tr {
+.cronograma-container tr {
   height: 28px;
 }
 
-#app .header-cronograma {
+.cronograma-container .cronograma-header {
   color: #0a3299 !important;
 }
 
-#app th[scope=col] {
+.cronograma-container th[scope=col] {
   color: #f3a8b1;
   letter-spacing: 1px;
   font-size: 0.65em;
@@ -42,134 +42,137 @@
   text-align: center;
 }
 
-#app th:first-child,
-#app td:first-child {
+.cronograma-container th:first-child,
+.cronograma-container td:first-child {
   width: 22px;
   padding: 0 0 0 2px;
 }
 
-#app tr > td {
+.cronograma-container tr > td {
   line-height: 28px;
 }
 
-#app #tabela-cronograma * {
+.cronograma-tabela * {
   border: 0px solid transparent;
   table-layout: fixed;
 }
 
-#app #tabela-cronograma .cronograma-meses {
+.cronograma-tabela .cronograma-meses {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   min-width: 24px;
   max-width: 24px;
+  cursor: default;
 }
 
   
-#app #tabela-cronograma * > tr > td:nth-child(n+4), #app #tabela-cronograma * > tr > th:nth-child(n+3) {
+.cronograma-tabela * > tr > td:nth-child(n+4), .cronograma-tabela * > tr > th:nth-child(n+3) {
   border-left: 1px solid rgba(255, 255, 255, 0.6);
 }
 
-#app #tabela-cronograma * > tr > td:nth-child(n+2), #app #tabela-cronograma th[scope=row] {
+.cronograma-tabela * > tr > td:nth-child(n+2), .cronograma-tabela th[scope=row] {
   border-bottom: 1px solid rgba(255, 255, 255, 0.6);
 }
 
-#app #tabela-cronograma * > tr:nth-child(2n+3) {
+.cronograma-tabela * > tr:nth-child(2n+3) {
   background-color: #062459;
 }
 
-#app .rosa {
+.cronograma-container .rosa {
   background-color: #f3a8b1;
   color: #f3a8b1;
 }
 
-#app .laranja {
+.cronograma-container .laranja {
   background-color: #f88534;
   color: #f88534;
 }
-#app .vermelho {
+.cronograma-container .vermelho {
   background-color: #f7664d;
   color: #f7664d;
 }
-#app .azul {
+.cronograma-container .azul {
   background-color: #517bee;
   color: #517bee;
 }
 
-#app .texto-rosa * {
+.cronograma-container .texto-rosa * {
   color: #f3a8b1;
 }
 
-#app .texto-laranja * {
+.cronograma-container .texto-laranja * {
   color: #f88534;
 }
 
-#app .texto-vermelho * {
+.cronograma-container .texto-vermelho * {
   color: #f7664d;
 }
 
-#app .texto-azul * {
+.cronograma-container .texto-azul * {
   color: #517bee;
 }
 
-#app .texto-rosa, #app .texto-laranja, #app .texto-vermelho, #app .texto-azul * {
+.cronograma-container .texto-rosa, .cronograma-container .texto-laranja, .cronograma-container .texto-vermelho, .cronograma-container .texto-azul * {
   line-height: 15px;
 }
 
-#app .container-legenda {
+.cronograma-container .container-legenda {
   margin: auto;
   max-width: 1180px;
 }
 
-#app .legenda-cronograma {
+.cronograma-container .legenda-cronograma {
+  font-size: 0; /* Remove whitespace entre os elementos da legenda  */
   font-weight: bold;
   max-width: 50%;
   margin-top: 40px;
   float: right;
 }
 
-#app .container-legenda::after {
+/* Clearfix */
+.cronograma-container .container-legenda::after {
   clear: both;
   content: "";
   display: block;
 }
 
-#app .legenda-container {
+.cronograma-container .legenda-container {
   display: inline-block;
   width: 140px;
   height: 65px;
   vertical-align: top;
 }
 
-#app .legenda-container * {
+.cronograma-container .legenda-container * {
   font-size: 11px;
   line-height: 15px;
 }
 
-#app .legenda-barra {
+.cronograma-container .legenda-barra {
   height: 10px;
   width: 100%;
   margin-bottom: 12px;
 }
 
-#app .legenda-subtitulo {
+.cronograma-container .legenda-subtitulo {
   font-weight: 300;
 }
 
-#app .cronograma-strong strong {
+.cronograma-container .cronograma-strong strong {
   font-weight: 700;
 }
 
 @media (max-width:1200px) {
-  #app table {
+  .cronograma-container table {
     width: 85%;
   }
 
-  #app caption {
+  .cronograma-container caption {
     margin-bottom: 60px;
   }
 
-  #app #tabela-cronograma .cronograma-meses {
+  .cronograma-tabela .cronograma-meses {
     border-color: rgba(255, 255, 255, 1) !important;
     border-width: 1px !important;
     color: #fff !important;
@@ -177,13 +180,14 @@
     max-width: 25% !important;
     padding-left: 5px !important;
     white-space: normal;
+    cursor: text;
   }	
     
   td[aria-hidden=true], tr[aria-hidden=true] {
     display: none;
   }
   
-  #app .header-cronograma {
+  .cronograma-container .cronograma-header {
     color: #f3a8b1 !important;
     font-size: 15px !important;
     text-transform: uppercase;
