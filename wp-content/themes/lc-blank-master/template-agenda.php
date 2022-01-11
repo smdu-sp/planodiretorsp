@@ -167,76 +167,79 @@ if (have_posts()) : while (have_posts()) : the_post();
                 methods: {
                     criaMeses: function() {
                         // POSTERIORES
-                        this.mesesPosteriores = []
-                        let corAtual = 0
+                        this.mesesPosteriores = [];
+                        let corAtual = 0;
 
                         if (this.eventosPosteriores.length > 0) {
                             for (let index = 0; index < this.eventosPosteriores.length; index++) {
                                 let evento = this.eventosPosteriores[index];
-                                let mesAtual = new Date().getUTCMonth()
-                                let mesInicio = new Date(evento.data_evento).getUTCMonth()
-                                let nomeMes = this.arrayMeses[mesInicio]
+                                let mesAtual = new Date().getUTCMonth();
+                                let mesInicio = new Date(evento.data_evento).getUTCMonth();
+                                let nomeMes = this.arrayMeses[mesInicio];
+                                let dataInicio = "" + new Date(evento.data_evento).getUTCFullYear() + mesInicio.toString().padStart(2, "0");
 
                                 if (evento.data_termino) {
-                                    let mesTermino = new Date(evento.data_termino).getUTCMonth()
-                                    let dataAtual = "" + new Date().getUTCFullYear() + ("0" + mesAtual).slice(-2)
-                                    let dataInicio = "" + new Date(evento.data_evento).getUTCFullYear() + ("0" + mesInicio).slice(-2)
-                                    let dataTermino = "" + new Date(evento.data_termino).getUTCFullYear() + ("0" + mesTermino).slice(-2)
+                                    let mesTermino = new Date(evento.data_termino).getUTCMonth();
+                                    let dataAtual = new Date().getUTCFullYear() + mesAtual.toString().padStart(2, "0");
+                                    let dataTermino = new Date(evento.data_termino).getUTCFullYear() + mesTermino.toString().padStart(2, "0");
 
                                     if (dataTermino > dataInicio && dataAtual > dataInicio) {
-                                        nomeMes = this.arrayMeses[mesAtual]
+                                        nomeMes = this.arrayMeses[mesAtual];
+                                        dataInicio = dataAtual;
                                     }
                                 }
 
-                                let mesExistente = false
+                                let mesExistente = false;
 
                                 // ITERA mesesPosteriores PARA VERIFICAR SE MES JA FOI ADICIONADO
                                 for (mes in this.mesesPosteriores) {
-                                    if (this.mesesPosteriores[mes].nome === nomeMes) {
-                                        mesExistente = true
-                                        this.mesesPosteriores[mes].eventos.push(evento)
-                                        break
+                                    if (this.mesesPosteriores[mes].data === dataInicio) {
+                                        mesExistente = true;
+                                        this.mesesPosteriores[mes].eventos.push(evento);
+                                        break;
                                     }
                                 }
                                 if (!mesExistente) {
                                     let novoMes = {
+                                        data: dataInicio,
                                         nome: nomeMes,
                                         eventos: [evento],
                                         cor: this.cores[corAtual]
-                                    }
-                                    corAtual++
-                                    corAtual = corAtual >= this.cores.length ? 0 : corAtual
+                                    };
+                                    corAtual++;
+                                    corAtual = corAtual >= this.cores.length ? 0 : corAtual;
 
-                                    this.mesesPosteriores.push(novoMes)
+                                    this.mesesPosteriores.push(novoMes);
                                 }
                             }
 
                             // SEPARA O PRIMEIRO ITEM DA LISTA PARA MOSTRAR COM DESTAQUE
                             if (this.mesesPosteriores[0].eventos[0].id > 0) {
-                                this.eventoAtual = this.mesesPosteriores[0].eventos[0]
-                                // this.eventoAtual = this.mesesPosteriores[0].eventos.shift()
+                                this.eventoAtual = this.mesesPosteriores[0].eventos[0];
+                                // this.eventoAtual = this.mesesPosteriores[0].eventos.shift();
                                 // if (!this.mesesPosteriores[0].eventos[0]) {
-                                //     this.mesesPosteriores.shift()
+                                //     this.mesesPosteriores.shift();
                                 // }
                             }
 
                             for (var i = 0; i < this.mesesPosteriores.length; i++) {
                                 if (i % 2 === 0)
-                                    this.colEsqPosteriores.push(this.mesesPosteriores[i])
+                                    this.colEsqPosteriores.push(this.mesesPosteriores[i]);
                                 else
-                                    this.colDirPosteriores.push(this.mesesPosteriores[i])
+                                    this.colDirPosteriores.push(this.mesesPosteriores[i]);
                             }
                         }
 
                         // ANTERIORES
-                        this.mesesAnteriores = []
-                        corAtual = 0
+                        this.mesesAnteriores = [];
+                        corAtual = 0;
 
                         for (let index = 0; index < this.eventosAnteriores.length; index++) {
                             let evento = this.eventosAnteriores[index];
-                            const dataGmt = new Date(evento.data_evento)
-                            const nomeMes = this.arrayMeses[dataGmt.getUTCMonth()]
-                            let mesExistente = false
+                            const dataGmt = new Date(evento.data_evento);
+                            const nomeMes = this.arrayMeses[dataGmt.getUTCMonth()];
+                            const dataInicio = dataGmt.getUTCFullYear() + dataGmt.getUTCMonth().toString().padStart(2, "0");
+                            let mesExistente = false;
 
                             const options = {
                                 weekday: 'long',
@@ -246,106 +249,107 @@ if (have_posts()) : while (have_posts()) : the_post();
                                 timeZone: 'UTC'
                             };
 
-                            evento.data_completa = dataGmt.toLocaleDateString('pt-BR', options)
+                            evento.data_completa = dataGmt.toLocaleDateString('pt-BR', options);
 
                             if (evento.data_termino) {
-                                const dataTermGmt = new Date(evento.data_termino)
+                                const dataTermGmt = new Date(evento.data_termino);
                                 let options_1 = {
                                     month: 'long',
                                     day: 'numeric',
                                     timeZone: 'UTC'
-                                }
+                                };
                                 const options_2 = {
                                     year: 'numeric',
                                     month: 'long',
                                     day: 'numeric',
                                     timeZone: 'UTC'
-                                }
+                                };
 
                                 if (dataTermGmt.getUTCFullYear() > dataGmt.getUTCFullYear()) {
-                                    options_1 = options_2
+                                    options_1 = options_2;
                                 }
 
-                                evento.data_completa = dataGmt.toLocaleDateString('pt-BR', options_1) + " a " + dataTermGmt.toLocaleDateString('pt-BR', options_2)
+                                evento.data_completa = dataGmt.toLocaleDateString('pt-BR', options_1) + " a " + dataTermGmt.toLocaleDateString('pt-BR', options_2);
                             }
 
                             // ITERA mesesAnteriores PARA VERIFICAR SE MES JA FOI ADICIONADO
                             for (mes in this.mesesAnteriores) {
-                                if (this.mesesAnteriores[mes].nome === nomeMes) {
-                                    mesExistente = true
-                                    this.mesesAnteriores[mes].eventos.push(evento)
-                                    break
+                                if (this.mesesAnteriores[mes].data === dataInicio) {
+                                    mesExistente = true;
+                                    this.mesesAnteriores[mes].eventos.push(evento);
+                                    break;
                                 }
                             }
                             if (!mesExistente) {
                                 let novoMes = {
+                                    data: dataInicio,
                                     nome: nomeMes,
                                     eventos: [evento],
                                     cor: this.cores[corAtual]
-                                }
-                                corAtual++
-                                corAtual = corAtual >= this.cores.length ? 0 : corAtual
+                                };
+                                corAtual++;
+                                corAtual = corAtual >= this.cores.length ? 0 : corAtual;
 
-                                this.mesesAnteriores.push(novoMes)
+                                this.mesesAnteriores.push(novoMes);
                             }
                         }
 
-                        this.mesesAnteriores = this.mesesAnteriores.slice().reverse()
+                        this.mesesAnteriores = this.mesesAnteriores.slice().reverse();
 
                         for (var i = 0; i < this.mesesAnteriores.length; i++) {
                             if (i % 2 === 0)
-                                this.colEsqAnteriores.push(this.mesesAnteriores[i])
+                                this.colEsqAnteriores.push(this.mesesAnteriores[i]);
                             else
-                                this.colDirAnteriores.push(this.mesesAnteriores[i])
+                                this.colDirAnteriores.push(this.mesesAnteriores[i]);
                         }
                     },
                     formataData: function(dataInicio, dataTermino = false) {
-                        let diaInicio = new Date(dataInicio).getUTCDate()
-                        let mesInicio = this.arrayMeses[new Date(dataInicio).getUTCMonth()]
-                        let dataRetorno = ""
+                        let diaInicio = new Date(dataInicio).getUTCDate();
+                        let mesInicio = this.arrayMeses[new Date(dataInicio).getUTCMonth()];
+                        let dataRetorno = "";
 
                         if (!dataTermino) {
-                            dataRetorno += diaInicio + " de " + mesInicio
-                            return dataRetorno.toLowerCase()
+                            dataRetorno += diaInicio + " de " + mesInicio;
+                            return dataRetorno.toLowerCase();
                         }
 
-                        let diaTermino = new Date(dataTermino).getUTCDate()
-                        let mesTermino = this.arrayMeses[new Date(dataTermino).getUTCMonth()]
+                        let diaTermino = new Date(dataTermino).getUTCDate();
+                        let mesTermino = this.arrayMeses[new Date(dataTermino).getUTCMonth()];
 
                         if (mesInicio === mesTermino) {
-                            dataRetorno += diaInicio + " a " + diaTermino + " de " + mesTermino
+                            dataRetorno += diaInicio + " a " + diaTermino + " de " + mesTermino;
                         } else {
-                            dataRetorno += diaInicio + " de " + mesInicio + " a <br>" + diaTermino + " de " + mesTermino
+                            dataRetorno += diaInicio + " de " + mesInicio + " a <br>" + diaTermino + " de " + mesTermino;
                         }
 
-                        return dataRetorno.toLowerCase()
+                        return dataRetorno.toLowerCase();
                     },
                     formataHora: function(hourStr) {
-                        let minutos = hourStr.substr(3, 2)
-                        let horaRetorno = hourStr.substr(0, 2) + "h" + (minutos === "00" ? "" : minutos)
-                        return horaRetorno
+                        let minutos = hourStr.substr(3, 2);
+                        let horaRetorno = hourStr.substr(0, 2) + "h" + (minutos === "00" ? "" : minutos);
+                        return horaRetorno;
                     },
                     toggleEvento: function(evento) {
-                        evento.aberto = !evento.aberto
-                        this.$forceUpdate()
+                        evento.aberto = !evento.aberto;
+                        this.$forceUpdate();
                     },
                     checaDataProxima: function() {
-                        let dataAtual = new Date()
-                        let dataEvento = new Date(app.eventoAtual.data_evento)
+                        let dataAtual = new Date();
+                        let dataEvento = new Date(app.eventoAtual.data_evento);
 
                         if (dataAtual.getMonth() === dataEvento.getUTCMonth()) {
                             if (dataAtual.getDate() === dataEvento.getUTCDate()) {
-                                this.dataProxima = "HOJE"
+                                this.dataProxima = "HOJE";
                             }
                             if (dataAtual.getDate() + 1 === dataEvento.getUTCDate()) {
-                                this.dataProxima = "AMANHÃ"
+                                this.dataProxima = "AMANHÃ";
                             }
                             return
                         }
                     },
                     checaLogin: function() {
                         if ("<?php echo is_user_logged_in() ?>")
-                            this.logado = true
+                            this.logado = true;
                     }
                 },
                 mounted() {
@@ -355,29 +359,29 @@ if (have_posts()) : while (have_posts()) : the_post();
                     axios.get(listaEventos)
                         .then(response => {
                             // Impede que eventos da categoria "documento" sejam mostrados na agenda
-                            this.eventos = response.data.eventos.filter(evento => evento.tipo !== "documento")
+                            this.eventos = response.data.eventos.filter(evento => evento.tipo !== "documento");
                             for (evento in this.eventos) {
-                                this.eventos[evento].aberto = false
-                                let dataEvento = new Date(this.eventos[evento].data_evento + " " + "23:59:59")
+                                this.eventos[evento].aberto = false;
+                                let dataEvento = new Date(this.eventos[evento].data_evento + " " + "23:59:59");
 
                                 if (this.eventos[evento].data_termino) {
-                                    dataEvento = new Date(this.eventos[evento].data_termino + " " + "23:59:59")
+                                    dataEvento = new Date(this.eventos[evento].data_termino + " " + "23:59:59");
                                 }
 
                                 if (dataEvento.getTime() > new Date().getTime())
-                                    this.eventosPosteriores.push(this.eventos[evento])
+                                    this.eventosPosteriores.push(this.eventos[evento]);
                                 else
-                                    this.eventosAnteriores.push(this.eventos[evento])
+                                    this.eventosAnteriores.push(this.eventos[evento]);
                             }
-                            this.criaMeses()
-                            this.checaDataProxima()
-                            this.checaLogin()
+                            this.criaMeses();
+                            this.checaDataProxima();
+                            this.checaLogin();
                         })
                         .catch(error => {
-                            console.error("ERRO AO OBTER EVENTOS DA AGENDA")
-                            console.log(error)
+                            console.error("ERRO AO OBTER EVENTOS DA AGENDA");
+                            console.log(error);
                         })
-                        .finally(() => this.carregando = false)
+                        .finally(() => this.carregando = false);
                 }
             });
         </script>
