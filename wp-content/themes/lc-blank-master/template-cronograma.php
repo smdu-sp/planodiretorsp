@@ -11,7 +11,7 @@ if (have_posts()) : while (have_posts()) : the_post();
 
 ?>
 
-    <link rel="stylesheet" href="../wp-content/themes/lc-blank-master/cronograma.css">
+    <link rel="stylesheet" href="../wp-content/themes/lc-blank-master/cronograma-v1.4.css">
 
     <div class="cronograma-corpo">
       <div class="cronograma-container">
@@ -232,11 +232,15 @@ if (have_posts()) : while (have_posts()) : the_post();
             </tr>
           </tbody>
         </table>
-        <table class="cronograma-tabela">
-          <caption>2022</caption>
+        <table class="cronograma-tabela tabela-2022">
+          <caption>
+            2022
+          </caption>
           <tbody>
             <tr>
-              <th scope="col" colspan="2" id="etapa" class="cronograma-header">Etapa</th>
+              <th scope="col" colspan="2" id="etapa" class="cronograma-header">
+                Etapa
+              </th>
               <th scope="col" colspan="12" class="cronograma-header">Período</th>
             </tr>
             <tr aria-hidden="true">
@@ -248,22 +252,20 @@ if (have_posts()) : while (have_posts()) : the_post();
               <th scope="col" class="cronograma-meses">MAI</th>
               <th scope="col" class="cronograma-meses">JUN</th>
               <th scope="col" class="cronograma-meses">JUL</th>
-              <th scope="col" class="cronograma-meses">AGO</th>
-              <th scope="col" class="cronograma-meses">SET</th>
-              <th scope="col" class="cronograma-meses">OUT</th>
-              <th scope="col" class="cronograma-meses">NOV</th>
-              <th scope="col" class="cronograma-meses">DEZ</th>
             </tr>
             <tr>
               <th scope="row">13</th>
-              <td class="cronograma-evento"><span class="cronograma-strong">Realização de oficina live</span></td>
-              <td title="Não definido" class="nao-definido cronograma-meses">Não definido</td>
+              <td class="cronograma-evento">
+                <span class="cronograma-strong"
+                  >Constituição de Grupo de Trabalho composto por membros do CMPU e da
+                  SMUL para definição dos limites da revisão e detalhamento dos métodos
+                  de participação social das diversas etapas</span
+                >
+              </td>
               <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
+              <td title="Participação Social" class="vermelho cronograma-meses">
+                Fevereiro
+              </td>
               <td aria-hidden="true" class="cronograma-meses"></td>
               <td aria-hidden="true" class="cronograma-meses"></td>
               <td aria-hidden="true" class="cronograma-meses"></td>
@@ -272,15 +274,15 @@ if (have_posts()) : while (have_posts()) : the_post();
             </tr>
             <tr>
               <th scope="row">14</th>
-              <td class="cronograma-evento"><span class="cronograma-strong">Apresentação dos resultados do diagnóstico técnico do PDE e do escopo da revisão</span></td>
-              <td title="Não definido" class="nao-definido cronograma-meses">Não definido</td>
+              <td class="cronograma-evento">
+                <span class="cronograma-strong"
+                  >Apresentação do Relatório de Monitoramento do Plano Diretor e
+                  identificação dos temas prioritários</span
+                >
+              </td>
               <td aria-hidden="true" class="cronograma-meses"></td>
               <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
+              <td title="Diagnóstico" class="laranja cronograma-meses">Março</td>
               <td aria-hidden="true" class="cronograma-meses"></td>
               <td aria-hidden="true" class="cronograma-meses"></td>
               <td aria-hidden="true" class="cronograma-meses"></td>
@@ -288,15 +290,16 @@ if (have_posts()) : while (have_posts()) : the_post();
             </tr>
             <tr>
               <th scope="row">15</th>
-              <td class="cronograma-evento"><span class="cronograma-strong">Elaboração da primeira proposta <strong>(P1)</strong> de revisão do PDE, baseada no diagnóstico técnico e nas contribuições. </span></td>
-              <td title="Não definido" class="nao-definido cronograma-meses">Não definido</td>
+              <td class="cronograma-evento">
+                <span class="cronograma-strong"
+                  >Realização de Reuniões Temáticas virtuais</span
+                >
+              </td>
               <td aria-hidden="true" class="cronograma-meses"></td>
               <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
+              <td title="Participação Social" class="vermelho cronograma-meses">
+                Março
+              </td>
               <td aria-hidden="true" class="cronograma-meses"></td>
               <td aria-hidden="true" class="cronograma-meses"></td>
               <td aria-hidden="true" class="cronograma-meses"></td>
@@ -304,15 +307,16 @@ if (have_posts()) : while (have_posts()) : the_post();
             </tr>
             <tr>
               <th scope="row">16</th>
-              <td class="cronograma-evento"><span class="cronograma-strong">Publicação da primeira proposta <strong>(P1)</strong> na plataforma digital e recebimento de contribuições </span></td>
-              <td title="Não definido" class="nao-definido cronograma-meses">Não definido</td>
+              <td class="cronograma-evento">
+                <span class="cronograma-strong"
+                  >Consulta pública na plataforma Participe+</span
+                >
+              </td>
               <td aria-hidden="true" class="cronograma-meses"></td>
               <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
+              <td title="Participação Social" class="vermelho cronograma-meses">
+                Março
+              </td>
               <td aria-hidden="true" class="cronograma-meses"></td>
               <td aria-hidden="true" class="cronograma-meses"></td>
               <td aria-hidden="true" class="cronograma-meses"></td>
@@ -320,198 +324,155 @@ if (have_posts()) : while (have_posts()) : the_post();
             </tr>
             <tr>
               <th scope="row">17</th>
-              <td class="cronograma-evento"><span class="cronograma-strong">Apresentação da primeira proposta de revisão <strong>(P1)</strong> aos órgãos colegiados</span></td>
-              <td title="Não definido" class="nao-definido cronograma-meses">Não definido</td>
+              <td class="cronograma-evento">
+                <span class="cronograma-strong"
+                  >Elaboração coletiva de propostas para a revisão intermediária sobre
+                  os temas identificados em etapa anterior</span
+                >
+              </td>
               <td aria-hidden="true" class="cronograma-meses"></td>
               <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
+              <td title="Participação Social" class="vermelho cronograma-meses">
+                Março à Maio
+              </td>
+              <td
+                title="Participação Social"
+                aria-hidden="true"
+                class="vermelho cronograma-meses"
+              ></td>
+              <td
+                title="Participação Social"
+                aria-hidden="true"
+                class="vermelho cronograma-meses"
+              ></td>
               <td aria-hidden="true" class="cronograma-meses"></td>
               <td aria-hidden="true" class="cronograma-meses"></td>
             </tr>
             <tr>
               <th scope="row">18</th>
-              <td class="cronograma-evento"><span class="cronograma-strong">Realização de eventuais ajustes propostos pelos órgãos colegiados e formação da segunda versão <strong>(P2)</strong> de proposta de revisão</span></td>
-              <td title="Não definido" class="nao-definido cronograma-meses">Não definido</td>
+              <td class="cronograma-evento">
+                <span class="cronograma-strong"
+                  >Realização de Oficinas regionalizadas</span
+                >
+              </td>
               <td aria-hidden="true" class="cronograma-meses"></td>
               <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
+              <td title="Participação Social" class="vermelho cronograma-meses">
+                Março à Maio
+              </td>
+              <td
+                title="Participação Social"
+                aria-hidden="true"
+                class="vermelho cronograma-meses"
+              ></td>
+              <td
+                title="Participação Social"
+                aria-hidden="true"
+                class="vermelho cronograma-meses"
+              ></td>
               <td aria-hidden="true" class="cronograma-meses"></td>
               <td aria-hidden="true" class="cronograma-meses"></td>
             </tr>
             <tr>
               <th scope="row">19</th>
-              <td class="cronograma-evento"><span class="cronograma-strong">Publicação da proposta de revisão na plataforma digital da revisão <strong>(P2)</strong> e recebimento das contribuições</span></td>
-              <td title="Não definido" class="nao-definido cronograma-meses">Não definido</td>
+              <td class="cronograma-evento">
+                <span class="cronograma-strong"
+                  >Consulta pública na plataforma Participe+</span
+                >
+              </td>
               <td aria-hidden="true" class="cronograma-meses"></td>
               <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
+              <td title="Participação Social" class="vermelho cronograma-meses">
+                Março à Maio
+              </td>
+              <td
+                title="Participação Social"
+                aria-hidden="true"
+                class="vermelho cronograma-meses"
+              ></td>
+              <td
+                title="Participação Social"
+                aria-hidden="true"
+                class="vermelho cronograma-meses"
+              ></td>
               <td aria-hidden="true" class="cronograma-meses"></td>
               <td aria-hidden="true" class="cronograma-meses"></td>
             </tr>
             <tr>
               <th scope="row">20</th>
-              <td class="cronograma-evento"><span class="cronograma-strong">Realização de audiências públicas, regionais e temáticas, para apresentação da proposta de revisão <strong>(P2)</strong></span></td>
-              <td title="Não definido" class="nao-definido cronograma-meses">Não definido</td>
+              <td class="cronograma-evento">
+                <span class="cronograma-strong"
+                  >Realização de Audiências públicas regionalizadas com apresentação da
+                  minuta inicial</span
+                >
+              </td>
               <td aria-hidden="true" class="cronograma-meses"></td>
               <td aria-hidden="true" class="cronograma-meses"></td>
               <td aria-hidden="true" class="cronograma-meses"></td>
               <td aria-hidden="true" class="cronograma-meses"></td>
               <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
+              <td title="Participação Social" class="vermelho cronograma-meses">
+                Junho
+              </td>
               <td aria-hidden="true" class="cronograma-meses"></td>
             </tr>
             <tr>
               <th scope="row">21</th>
-              <td class="cronograma-evento"><span class="cronograma-strong">Sistematização das contribuições recebidas via plataforma digital, oficinas e no âmbito das audiências públicas</span></td>
-              <td title="Não definido" class="nao-definido cronograma-meses">Não definido</td>
+              <td class="cronograma-evento">
+                <span class="cronograma-strong"
+                  >Consulta pública na plataforma Participe+</span
+                >
+              </td>
               <td aria-hidden="true" class="cronograma-meses"></td>
               <td aria-hidden="true" class="cronograma-meses"></td>
               <td aria-hidden="true" class="cronograma-meses"></td>
               <td aria-hidden="true" class="cronograma-meses"></td>
               <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
+              <td title="Participação Social" class="vermelho cronograma-meses">
+                Junho
+              </td>
               <td aria-hidden="true" class="cronograma-meses"></td>
             </tr>
             <tr>
               <th scope="row">22</th>
-              <td class="cronograma-evento"><span class="cronograma-strong">Elaboração da terceira proposta de revisão <strong>(P3)</strong>, consideradas as contribuições recebidas</span></td>
-              <td title="Não definido" class="nao-definido cronograma-meses">Não definido</td>
+              <td class="cronograma-evento">
+                <span class="cronograma-strong"
+                  >Elaboração de Minuta participativa online</span
+                >
+              </td>
               <td aria-hidden="true" class="cronograma-meses"></td>
               <td aria-hidden="true" class="cronograma-meses"></td>
               <td aria-hidden="true" class="cronograma-meses"></td>
               <td aria-hidden="true" class="cronograma-meses"></td>
               <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
+              <td title="Participação Social" class="vermelho cronograma-meses">
+                Junho
+              </td>
               <td aria-hidden="true" class="cronograma-meses"></td>
             </tr>
             <tr>
               <th scope="row">23</th>
-              <td class="cronograma-evento"><span class="cronograma-strong">Apresentação da terceira proposta de revisão <strong>(P3)</strong> aos órgãos colegiados e publicação na plataforma digital</span></td>
-              <td title="Não definido" class="nao-definido cronograma-meses">Não definido</td>
+              <td class="cronograma-evento">
+                <span class="cronograma-strong"
+                  >Audiência geral devolutiva com apresentação da minuta final</span
+                >
+              </td>
               <td aria-hidden="true" class="cronograma-meses"></td>
               <td aria-hidden="true" class="cronograma-meses"></td>
               <td aria-hidden="true" class="cronograma-meses"></td>
               <td aria-hidden="true" class="cronograma-meses"></td>
               <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-            </tr>
-            <tr>
-              <th scope="row">24</th>
-              <td class="cronograma-evento"><span class="cronograma-strong">Realização de eventuais ajustes propostos pelos órgãos colegiados à <strong>(P3)</strong> e formação da quarta versão <strong>(P4)</strong> de proposta de revisão do PDE</span></td>
-              <td title="Não definido" class="nao-definido cronograma-meses">Não definido</td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-            </tr>
-            <tr>
-              <th scope="row">25</th>
-              <td class="cronograma-evento"><span class="cronograma-strong">Publicação da quarta proposta <strong>(P4)</strong> de revisão na plataforma digital da revisão</span></td>
-              <td title="Não definido" class="nao-definido cronograma-meses">Não definido</td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-            </tr>
-            <tr>
-              <th scope="row">26</th>
-              <td class="cronograma-evento"><span class="cronograma-strong">Realização da devolutiva das audiências públicas para apresentação da quarta versão <strong>(P4)</strong> da proposta de revisão</span></td>
-              <td title="Não definido" class="nao-definido cronograma-meses">Não definido</td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-            </tr>
-            <tr>
-              <th scope="row">27</th>
-              <td class="cronograma-evento"><span class="cronograma-strong">Sistematização final das contribuições, finalização da instrução do respectivo processo administrativo de revisão</span></td>
-              <td title="Não definido" class="nao-definido cronograma-meses">Não definido</td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-            </tr>
-            <tr>
-              <th scope="row">28</th>
-              <td class="cronograma-evento"><span class="cronograma-strong"><strong>Envio da minuta final a Câmara Municipal</strong></span></td>
-              <td title="Não definido" class="nao-definido cronograma-meses">Não definido</td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
-              <td aria-hidden="true" class="cronograma-meses"></td>
+              <td
+                title="Elaboração da Minuta Final de PL"
+                class="azul cronograma-meses"
+              >
+                Junho
+              </td>
               <td aria-hidden="true" class="cronograma-meses"></td>
             </tr>
           </tbody>
         </table>
+
         <div class="container-legenda">
           <div aria-hidden="true" class="legenda-cronograma">
             <div class="legenda-container">
