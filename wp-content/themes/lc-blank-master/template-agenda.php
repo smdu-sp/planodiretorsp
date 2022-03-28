@@ -15,25 +15,29 @@ if (have_posts()) : while (have_posts()) : the_post();
 ?>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <div id="appagenda" class="container-eventos">
-            <div v-if="carregando" style="color: gray; height: 2000px; font-size: 2em">Carregando conteúdo...</div>
+        <div id="appagenda" class="container container-eventos">
             <!-- BOTÃO ADICIONAR EVENTO -->
             <div v-if="!carregando && logado" class="row justify-content-center mb-5">
                 <div class="col-3">
                     <a class="btn btn-success btn-lg btn-block" href="/cadastro-de-evento/?evento=agenda">
-                        Adicionar evento
+                    Adicionar evento
                     </a>
                 </div>
                 <div>
                     <br>
                     <br>
-                    <br>
-                    <br>
                 </div>
-
             </div>
+
+            <div  class="banner-agenda row">
+                <div class="col">
+                    <h1>Próximas agendas</h1>
+                </div>
+            </div>
+
+            <div v-if="carregando" style="color: gray; height: 2000px; font-size: 2em">Carregando conteúdo...</div>
             <!-- EVENTO DE DESTAQUE -->
-            <div v-if="!carregando && (eventoAtual.id)" class="row evento-destaque">
+            <!-- <div v-if="!carregando && (eventoAtual.id)" class="row evento-destaque"> -->
                 <!-- <div class="col-md-4 destaque-imagem">
                     <img :src="eventoAtual.imagem" :alt="eventoAtual.titulo">
                 </div>
@@ -70,7 +74,7 @@ if (have_posts()) : while (have_posts()) : the_post();
                         </a>
                     </div>
                 </div> -->
-            </div>
+            <!-- </div> -->
 
             <!-- MESES POSTERIORES -->
             <div class="row">
@@ -108,36 +112,42 @@ if (have_posts()) : while (have_posts()) : the_post();
                 <div class="col">
                     <h2>Agendas anteriores</h2>
                 </div>
-                <div class="col">
-                    <p>Confira aqui as reuniões realizadas e acesse seus respectivos documentos</p>
-                </div>
             </div>
-            <div class="row cidade-background">
-                <div class="col coluna-desktop coluna-esquerda">
-                    <div v-for="(mes, index) in colEsqAnteriores" class="card-mes" :key="index">
-                        <div class="tag-mes" :style="'background-color: '+mes.cor">
-                            <h2>{{mes.nome}}</h2>
+            <div v-for="ano in anos">
+                <div class="container-ano row"><h2 class="col">{{ano.ano}}</h2></div>
+                <div class="row cidade-background">
+                    <div class="col coluna-desktop coluna-esquerda">
+                        <div v-for="(mes, index) in colEsqAnteriores">
+                            <div v-if="ano.ano == mes.data.slice(0, 4)" class="card-mes" :key="index">
+                                <div class="tag-mes" :style="'background-color: '+mes.cor">
+                                    <h2>{{mes.nome}}</h2>
+                                </div>
+                                <br>
+                                <?php require('modulo-mes.php'); ?>
+                            </div>
                         </div>
-                        <br>
-                        <?php require('modulo-mes.php'); ?>
                     </div>
-                </div>
-                <div class="col coluna-desktop">
-                    <div v-for="(mes, index) in colDirAnteriores" class="card-mes mt-10" :key="index">
-                        <div class="tag-mes" :style="'background-color: '+mes.cor">
-                            <h2>{{mes.nome}}</h2>
+                    <div class="col coluna-desktop">
+                        <div v-for="(mes, index) in colDirAnteriores">
+                            <div v-if="ano.ano == mes.data.slice(0, 4)" class="card-mes" :key="index">
+                                <div class="tag-mes" :style="'background-color: '+mes.cor">
+                                    <h2>{{mes.nome}}</h2>
+                                </div>
+                                <br>
+                                <?php require('modulo-mes.php'); ?>
+                            </div>
                         </div>
-                        <br>
-                        <?php require('modulo-mes.php'); ?>
                     </div>
-                </div>
-                <div class="col coluna-mobile">
-                    <div v-for="(mes, index) in mesesAnteriores" class="card-mes" :key="index">
-                        <div class="tag-mes" :style="'background-color: '+mes.cor">
-                            <h2>{{mes.nome}}</h2>
+                    <div class="col coluna-mobile">
+                        <div v-for="(mes, index) in mesesAnteriores">
+                           <div v-if="ano.ano == mes.data.slice(0, 4)" class="card-mes" :key="index">
+                                <div class="tag-mes" :style="'background-color: '+mes.cor">
+                                    <h2>{{mes.nome}}</h2>
+                                </div>
+                                <br>
+                                <?php require('modulo-mes.php'); ?>
+                            </div>
                         </div>
-                        <br>
-                        <?php require('modulo-mes.php'); ?>
                     </div>
                 </div>
             </div>
@@ -148,6 +158,7 @@ if (have_posts()) : while (have_posts()) : the_post();
             var app = new Vue({
                 el: '#appagenda',
                 data: {
+                    anos: [],
                     eventos: [],
                     eventosPosteriores: [],
                     eventosAnteriores: [],
@@ -302,6 +313,16 @@ if (have_posts()) : while (have_posts()) : the_post();
                             else
                                 this.colDirAnteriores.push(this.mesesAnteriores[i]);
                         }
+
+                        let arrayAnos = []
+
+                        this.mesesAnteriores.forEach(mes => {
+                            arrayAnos.push(mes.data.slice(0, 4));
+                        });
+                        arrayAnos = [... new Set(arrayAnos)];
+                        arrayAnos.forEach(valor => {
+                            this.anos.push({ano: valor});
+                        })
                     },
                     formataData: function(dataInicio, dataTermino = false) {
                         let diaInicio = new Date(dataInicio).getUTCDate();
@@ -331,6 +352,10 @@ if (have_posts()) : while (have_posts()) : the_post();
                     },
                     toggleEvento: function(evento) {
                         evento.aberto = !evento.aberto;
+                        this.$forceUpdate();
+                    },
+                    abreEvento: function(evento) {
+                        evento.aberto = true;
                         this.$forceUpdate();
                     },
                     checaDataProxima: function() {
