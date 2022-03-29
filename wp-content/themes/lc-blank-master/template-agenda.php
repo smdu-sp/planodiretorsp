@@ -113,39 +113,41 @@ if (have_posts()) : while (have_posts()) : the_post();
                     <h2>Agendas anteriores</h2>
                 </div>
             </div>
-            <div v-for="ano in anos">
-                <div class="container-ano row"><h2 class="col">{{ano.ano}}</h2></div>
-                <div class="row cidade-background">
-                    <div class="col coluna-desktop coluna-esquerda">
-                        <div v-for="(mes, index) in colEsqAnteriores">
-                            <div v-if="ano.ano == mes.data.slice(0, 4)" class="card-mes" :key="index">
-                                <div class="tag-mes" :style="'background-color: '+mes.cor">
-                                    <h2>{{mes.nome}}</h2>
+            <div class="cidade-background">
+                <div v-for="ano in anos">
+                    <div class="container-ano row"><h2 class="col">{{ano.ano}}</h2></div>
+                    <div class="row">
+                        <div class="col coluna-desktop coluna-esquerda">
+                            <div v-for="(mes, index) in colEsqAnteriores">
+                                <div v-if="ano.ano == mes.data.slice(0, 4)" class="card-mes" :key="index">
+                                    <div class="tag-mes" :style="'background-color: '+mes.cor">
+                                        <h2>{{mes.nome}}</h2>
+                                    </div>
+                                    <br>
+                                    <?php require('modulo-mes.php'); ?>
                                 </div>
-                                <br>
-                                <?php require('modulo-mes.php'); ?>
                             </div>
                         </div>
-                    </div>
-                    <div class="col coluna-desktop">
-                        <div v-for="(mes, index) in colDirAnteriores">
-                            <div v-if="ano.ano == mes.data.slice(0, 4)" class="card-mes" :key="index">
-                                <div class="tag-mes" :style="'background-color: '+mes.cor">
-                                    <h2>{{mes.nome}}</h2>
+                        <div class="col coluna-desktop">
+                            <div v-for="(mes, index) in colDirAnteriores">
+                                <div v-if="ano.ano == mes.data.slice(0, 4)" class="card-mes" :key="index">
+                                    <div class="tag-mes" :style="'background-color: '+mes.cor">
+                                        <h2>{{mes.nome}}</h2>
+                                    </div>
+                                    <br>
+                                    <?php require('modulo-mes.php'); ?>
                                 </div>
-                                <br>
-                                <?php require('modulo-mes.php'); ?>
                             </div>
                         </div>
-                    </div>
-                    <div class="col coluna-mobile">
-                        <div v-for="(mes, index) in mesesAnteriores">
-                           <div v-if="ano.ano == mes.data.slice(0, 4)" class="card-mes" :key="index">
-                                <div class="tag-mes" :style="'background-color: '+mes.cor">
-                                    <h2>{{mes.nome}}</h2>
+                        <div class="col coluna-mobile">
+                            <div v-for="(mes, index) in mesesAnteriores">
+                               <div v-if="ano.ano == mes.data.slice(0, 4)" class="card-mes" :key="index">
+                                    <div class="tag-mes" :style="'background-color: '+mes.cor">
+                                        <h2>{{mes.nome}}</h2>
+                                    </div>
+                                    <br>
+                                    <?php require('modulo-mes.php'); ?>
                                 </div>
-                                <br>
-                                <?php require('modulo-mes.php'); ?>
                             </div>
                         </div>
                     </div>
@@ -243,13 +245,13 @@ if (have_posts()) : while (have_posts()) : the_post();
 
                         // ANTERIORES
                         this.mesesAnteriores = [];
-                        corAtual = 0;
 
                         for (let index = 0; index < this.eventosAnteriores.length; index++) {
                             let evento = this.eventosAnteriores[index];
                             const dataGmt = new Date(evento.data_evento);
                             const nomeMes = this.arrayMeses[dataGmt.getUTCMonth()];
                             const dataInicio = dataGmt.getUTCFullYear() + dataGmt.getUTCMonth().toString().padStart(2, "0");
+                            const anoInicio = dataGmt.getUTCFullYear();
                             let mesExistente = false;
 
                             const options = {
@@ -293,6 +295,7 @@ if (have_posts()) : while (have_posts()) : the_post();
                             }
                             if (!mesExistente) {
                                 let novoMes = {
+                                    ano: anoInicio,
                                     data: dataInicio,
                                     nome: nomeMes,
                                     eventos: [evento],
@@ -306,14 +309,6 @@ if (have_posts()) : while (have_posts()) : the_post();
                         }
 
                         this.mesesAnteriores = this.mesesAnteriores.slice().reverse();
-
-                        for (var i = 0; i < this.mesesAnteriores.length; i++) {
-                            if (i % 2 === 0)
-                                this.colEsqAnteriores.push(this.mesesAnteriores[i]);
-                            else
-                                this.colDirAnteriores.push(this.mesesAnteriores[i]);
-                        }
-
                         let arrayAnos = []
 
                         this.mesesAnteriores.forEach(mes => {
@@ -322,7 +317,17 @@ if (have_posts()) : while (have_posts()) : the_post();
                         arrayAnos = [... new Set(arrayAnos)];
                         arrayAnos.forEach(valor => {
                             this.anos.push({ano: valor});
-                        })
+                        });
+
+                        this.anos.forEach(ano => {
+                            this.mesesAnteriores.filter(mes => mes.ano != ano.ano).forEach((mes, indice) => {
+                                if(indice % 2 === 0) {
+                                    this.colEsqAnteriores.push(mes);
+                                } else {
+                                    this.colDirAnteriores.push(mes);
+                                }
+                            });
+                        });
                     },
                     formataData: function(dataInicio, dataTermino = false) {
                         let diaInicio = new Date(dataInicio).getUTCDate();
