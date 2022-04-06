@@ -1,9 +1,14 @@
 var app = new Vue({
   el: "#appcronograma",
   data: {
-    anos: [
-      2021,
-      2022,
+    anosCronograma: [],
+    anosCalendario: [],
+    mesesCronograma: [],
+    mesesCalendario: [],
+    mesesCores: [
+      "rosa",
+      "laranja",
+      "azul",
     ],
     meses: [
       "Janeiro",
@@ -35,226 +40,301 @@ var app = new Vue({
     ],
     processos: [
       {
+        tipo: "cronograma",
         nome: "<p>Planejamento da revisão intermediária do PDE</p>",
         meses: [0, 1, 2],
         etapa: 0,
         ano: 2021,
       },
       {
+        tipo: "cronograma",
         nome: "<p>Apresentação do cronograma revisão intermediária do PDE</p>",
         meses: [2],
         etapa: 0,
         ano: 2021,
       },
       {
+        tipo: "cronograma",
         nome: "<p>Reunião e providências iniciais no âmbito do CMPU</p>",
         meses: [3],
         etapa: 2,
         ano: 2021,
       },
       {
+        tipo: "cronograma",
         nome: "<p>Atualização dos dados de monitoramento do PDE (Planurb)</p>",
         meses: [0, 1, 2, 3],
         etapa: 1,
         ano: 2021,
       },
       {
+        tipo: "cronograma",
         nome: "<p>Chamamento Público para divulgação e estímulo da participação de entidades da sociedade civil</p>",
         meses: [3, 4],
         etapa: 2,
         ano: 2021,
       },
       {
+        tipo: "cronograma",
         nome: "<p>Operação da plataforma digital da revisão</p>",
         meses: [2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
         etapa: 2,
         ano: 2021,
       },
       {
+        tipo: "cronograma",
         nome: "<p>Realização dos estudos técnicos para apoio no diagnóstico e avaliação do PDE</p>",
         meses: [],
         etapa: 1,
         ano: 2021,
       },
       {
+        tipo: "cronograma",
         nome: "<p>Recebimento da participação popular pela plataforma digital</p>",
         meses: [4, 5, 6, 7, 8, 9],
         etapa: 2,
         ano: 2021,
       },
       {
+        tipo: "cronograma",
         nome: "<p>Elaboração de relatório de diagnóstico inicial do PDE - Planurb</p>",
         meses: [3, 4, 5, 6],
         etapa: 1,
         ano: 2021,
       },
       {
+        tipo: "cronograma",
         nome: "<p>Reuniões com órgãos técnicos das secretarias municipais e do Comitê Intersecretarial para Revisão do PDE</p>",
         meses: [4, 5, 6, 7, 8, 9, 10, 11],
         etapa: 1,
         ano: 2021,
       },
       {
+        tipo: "cronograma",
         nome: "<p>Reuniões com segmentos da sociedade civil cadastradas no chamamento público</p>",
         meses: [7, 8, 9],
         etapa: 2,
         ano: 2021,
       },
       {
+        tipo: "cronograma",
         nome: "<p>Sistematização das contribuições recebidas via plataforma digital e no âmbito das reuniões temáticas com a sociedade civil</p>",
         meses: [9, 10, 11],
         etapa: 1,
         ano: 2021,
       },
       {
-        nome: "<p>Reunião GT CMPU</p>Debate sobre a proposta de Cronorama da Participação Social - Etapa 1",
+        tipo: "calendario",
+        ano: 2022,
         meses: [2],
-        etapa: 8,
-        ano: 2022,
+        dia_semana: "SEG",
+        dia: "14",
+        nome: "Reunião GT CMPU",
+        descricao: "Debate sobre a proposta de Cronograma da participação Social - Etapa 1"
       },
       {
-        nome: "<p>Extraordinária CMPU</p>Deliberação sobre o Cronograma da Etapa 1",
+        tipo: "calendario",
+        ano: 2022,
         meses: [2],
-        etapa: 8,
-        ano: 2022,
+        dia_semana: "QUI",
+        dia: "21",
+        nome: "Extraordinária CMPU",
+        descricao: "Deliberação sobre o Cronograma da Etapa 1"
       },
       {
-        nome: "<p>Reunião Virtual noturna <span>com os Representantes dos</span> 32 Conselhos Participativos Municipais</p>",
+        tipo: "calendario",
+        ano: 2022,
         meses: [3],
-        etapa: 3,
-        ano: 2022,
+        dia_semana: "QUA",
+        dia: "6",
+        nome: "Reunião Virtual noturna",
+        descricao: "Com os representantes dos 32 Conselhos Participativos Municipais"
       },
       {
-        nome: "<p>Abertura da 1ª Consulta Pública Participe+ <span>(41 dias)</span></p> Apresentação do Diagnóstico, Identificação dos Limites da Revisão e Temas Prioritários / Contribuições",
+        tipo: "calendario",
+        ano: 2022,
         meses: [3],
-        etapa: 7,
-        ano: 2022,
+        dia_semana: "QUI",
+        dia: "14",
+        nome: "Reunião Ordinária do CMPU"
       },
       {
-        nome: "<p>Reunião Ordinária do CMPU</p> Apresentação do Diagnóstico",
+        tipo: "calendario",
+        ano: 2022,
         meses: [3],
-        etapa: 8,
-        ano: 2022,
+        dia_semana: "SEG",
+        dia: "18",
+        nome: "Abertura da 1ª Consulta Pública Participe+ (41 dias)",
+        descricao: "Apresentação do Diagnóstico, Identificação dos Limites da Revisão e Temas Prioritários / Contribuições"
       },
       {
-        nome: "<p>Audiência Temática virtual noturna</p> Ordenamento Territorial: Instrumentos de Ordenamento e Reestruturação Urbana e do Direito de Construir",
+        tipo: "calendario",
+        ano: 2022,
         meses: [3],
-        etapa: 4,
-        ano: 2022,
+        dia_semana: "QUA",
+        dia: "20",
+        nome: "Reunião Extraordinária do CMPU",
+        descricao: "Apresentação do Diagnóstico"
       },
       {
-        nome: "<p>Audiência Temática virtual noturna</p> Mobilidade Urbana: Objetivos Setoriais, Elementos Constituintes, Planos e Ações prioritárias",
+        tipo: "calendario",
+        ano: 2022,
         meses: [3],
-        etapa: 4,
-        ano: 2022,
+        dia_semana: "QUI",
+        dia: "28",
+        nome: "Audiência Temática virtual noturna",
+        descricao: "Ordenamento Territorial: Instrumentos de Ordenamento e Reestruturação Urbana e do Direito de Construir"
       },
       {
-        nome: "<p>Audiência Temática virtual noturna</p> Habitação Social e Política Fundiária:  Instrumentos da Função Social da Propriedade, de Regularização Fundiária e do Direito de Construir, áreas de risco",
+        tipo: "calendario",
+        ano: 2022,
         meses: [3],
-        etapa: 4,
-        ano: 2022,
+        dia_semana: "SÁB",
+        dia: "30",
+        nome: "07 (sete) Oficinas presenciais com transmissão pelo YouTube (uma em cada Subprefeitura)",
+        descricao: "Perus, Pirituba/Jaraguá, Freguesia/Brasilândia, Casa Verde/Cachoeirinha, Santana/Tucuruvi, Jaçanã/Tremembé, Vila Maria/Vila Guilherme"
       },
       {
-        nome: "<p>02 (duas) Oficinas presenciais + YouTube</p><ul><li>Perus, Pirituba/ Jaraguá, Freguesia/ Brasilândia, Casa Verde/ Cachoeirinha;</li><li>Santana/ Tucuruvi, Jaçanã/ Tremembé, Vila Maria/ Vila Guilherme;</ul></li>",
-        meses: [3],
-        etapa: 6,
+        tipo: "calendario",
         ano: 2022,
-      },
-      {
-        nome: "<p>Audiência Temática virtual noturna</p> Desenvolvimento Econômico Sustentável: Objetivos Setoriais, Elementos Constituintes, Planos e Ações Prioritárias nas Zonas Urbana e Rural",
         meses: [4],
-        etapa: 4,
-        ano: 2022,
+        dia_semana: "TER",
+        dia: "3",
+        nome: "Audiência Temática virtual noturna",
+        descricao: "Mobilidade Urbana: Objetivos Setoriais, Elementos Constituintes, Planos e Ações prioritárias"
       },
       {
-        nome: "<p>Reunião Virtual vespertina</p> Segmento Empresarial",
-        meses: [4],
-        etapa: 5,
+        tipo: "calendario",
         ano: 2022,
+        meses: [4],
+        dia_semana: "QUI",
+        dia: "5",
+        nome: "Audiência Temática virtual noturna",
+        descricao: "Habitação Social e Política Fundiária: Instrumentos da Função Social da Propriedade, de Regularização Fundiária e do Direito de Construir, Áreas de risco"
       },
       {
-        nome: "<p>Audiência Temática virtual noturna</p> Meio Ambiente e Mudanças Climáticas: Instrumentos de Gestão Ambiental nas Zonas Urbana e Rural",
-        meses: [4],
-        etapa: 4,
+        tipo: "calendario",
         ano: 2022,
+        meses: [4],
+        dia_semana: "SÁB",
+        dia: "7",
+        nome: "08 (oito) Oficinas presenciais com transmissão pelo YouTube (uma em cada Subprefeitura)",
+        descricao: " Penha, Mooca, Aricanduva/Formosa/Carrão, Vila Prudente, Sapopemba, São Mateus, Itaquera, Cidade Tiradentes"
       },
       {
-        nome: "<p>Reunião Virtual vespertina</p> Segmento Movimentos Polulares",
-        meses: [4],
-        etapa: 5,
+        tipo: "calendario",
         ano: 2022,
+        meses: [4],
+        dia_semana: "SEG",
+        dia: "9",
+        nome: "Audiência Temática virtual noturna",
+        descricao: "Gestão Democrática e Sistema de Planejamento: Elementos do Sistema, Instâncias e Instrumentos de Participação Social, Fundurb e Monitoramento do PDE"
       },
       {
-        nome: "<p>Reunião CIMPDE</p>",
-        meses: [4],
-        etapa: 8,
+        tipo: "calendario",
         ano: 2022,
+        meses: [4],
+        dia_semana: "TER",
+        dia: "10",
+        nome: "Reunião Virtual vespertina",
+        descricao: "Segmento Empresarial"
       },
       {
-        nome: "<p>02 (duas) Oficinas presenciais + YouTube</p><ul><li>Penha, Mooca, Aricanduva/ Formosa/ Carrão, Vila Prudente;K/li><li>Sapopemba, São Mateus, Itaquera, Cidade Tiradentes;</li></ul>",
-        meses: [4],
-        etapa: 6,
+        tipo: "calendario",
         ano: 2022,
+        meses: [4],
+        dia_semana: "QUA",
+        dia: "11",
+        nome: "Audiência Temática virtual noturna",
+        descricao: "Meio ambiente e mudanças climáticas: Instrumentos de Gestão Ambiental nas Zonas Urbana e Rural"
       },
       {
-        nome: "<p>Audiência Temática virtual noturna</p> Desenvolvimento Econômico Sustentável: Objetivos Setoriais, Elementos Constituintes, Planos e Ações Prioritárias nas Zonas Urbana e Rural",
-        meses: [4],
-        etapa: 4,
+        tipo: "calendario",
         ano: 2022,
+        meses: [4],
+        dia_semana: "QUI",
+        dia: "12",
+        nome: "Reunião Virtual vespertina",
+        descricao: "Segmento Movimentos Populares"
       },
       {
-        nome: "<p>Reunião Virtual vespertina</p> Segmento Acadêmico / Entidades de Classes",
-        meses: [4],
-        etapa: 5,
+        tipo: "calendario",
         ano: 2022,
+        meses: [4],
+        dia_semana: "SÁB",
+        dia: "14",
+        nome: "08 (oito) Oficinas presenciais com transmissão pelo YouTube (uma em cada Subprefeitura)",
+        descricao: "Lapa, Sé, Pinheiros, Butantã, Vila Mariana, Ipiranga, Jabaquara, Santo Amaro"
       },
       {
-        nome: "<p>Audiência Temática virtual noturna</p> Desenvolvimento Social, Sistema de Equipamentos e Segurança Alimentar: Objetivos Setoriais, Elementos Constituintes, Planos e Ações Prioritárias",
-        meses: [4],
-        etapa: 4,
+        tipo: "calendario",
         ano: 2022,
+        meses: [4],
+        dia_semana: "TER",
+        dia: "17",
+        nome: "Audiência Temática virtual noturna",
+        descricao: "Desenvolvimento Econômico Sustentável: Objetivos Setoriais, Elementos Constituintes, Planos e Ações Prioritárias nas Zonas Urbana e Rural"
       },
       {
-        nome: "<p>02 (duas) Oficinas presenciais + YouTube</p><ul><li>Lapa, Sé, Pinheiros, Butantã;</li><li>Vila Mariana, Ipiranga, Jabaquara, Santo Amaro;</li></ul>",
-        meses: [4],
-        etapa: 6,
+        tipo: "calendario",
         ano: 2022,
+        meses: [4],
+        dia_semana: "QUA",
+        dia: "18",
+        nome: "Reunião Virtual Vespertina",
+        descricao: "Segmento Acadêmico / Entidades de Classe"
       },
       {
-        nome: "<p>Audência Temática virtual noturna</p> Patrimônio e Políticas Culturais: Instrumentos de Proteção ao Patrimônio Cultural",
-        meses: [4],
-        etapa: 4,
+        tipo: "calendario",
         ano: 2022,
+        meses: [4],
+        dia_semana: "QUI",
+        dia: "19",
+        nome: "Audiência Temática virtual noturna",
+        descricao: "Desenvolvimento Social, Sistema de Equipamentos e Segurança Alimentar: Objetivos Setoriais, Elementos Constituintes, Planos e Ações Prioritárias"
       },
       {
-        nome: "<p>Audência Temática virtual noturna</p> Gestão Democrática e Sistema de Planejamento: Elementos do Sistema, Instâncias e Instrumentos de Participação Social, Fundurb e Monitoramento do PDE",
-        meses: [4],
-        etapa: 4,
+        tipo: "calendario",
         ano: 2022,
+        meses: [4],
+        dia_semana: "SEX",
+        dia: "20",
+        nome: "Reunião CIMPDE"
       },
       {
-        nome: "<p>Audência Temática virtual noturna</p> Instrumentos de Política Urbana e Gestão Ambiental: Grupos de Instrumentos",
-        meses: [4],
-        etapa: 4,
+        tipo: "calendario",
         ano: 2022,
+        meses: [4],
+        dia_semana: "SÁB",
+        dia: "21",
+        nome: "09 (nove) Oficinas presenciais com transmissão pelo YouTube (uma em cada Subprefeitura)",
+        descricao: "Ermelino Matarazzo, São Miguel, Itaim Paulista, Guaianases, Campo Limpo, M'Boi Mirim, Cidade Ademar, Capela do Socorro, Parelheiros"
       },
       {
-        nome: "<p>Reunião CIMPDE</p>",
-        meses: [4],
-        etapa: 8,
+        tipo: "calendario",
         ano: 2022,
+        meses: [4],
+        dia_semana: "SEG",
+        dia: "23",
+        nome: "Audiência Temática virtual noturna",
+        descricao: "Patrimônio e Políticas Culturais: Instrumentos de Proteção ao Patrimônio Cultural"
       },
       {
-        nome: "<p>02 (duas) Oficinas presenciais + YouTube</p><ul><li>Ermelino Matarazzo, São Miguel, Itaim Paulista, Guaianases;</li><li>Campo Limpo, M'Boi Mirim, Cidade Ademar, Capela do Socorro, Parelheiros;</li></ul>",
-        meses: [4],
-        etapa: 6,
+        tipo: "calendario",
         ano: 2022,
+        meses: [4],
+        dia_semana: "QUA",
+        dia: "25",
+        nome: "Audiência Temática virtual noturna",
+        descricao: "Instrumentos de Política Urbana e Gestão Ambiental: Grupos de Instrumentos"
       },
       {
-        nome: "<p>Encerramento da 1ª Consulta Pública Participe+</p>",
-        meses: [4],
-        etapa: 7,
+        tipo: "calendario",
         ano: 2022,
+        meses: [4],
+        dia_semana: "DOM",
+        dia: "29",
+        nome: "Encerramento da 1ª Consulta Pública Participe+"
       },
     ],
     etapas: [
@@ -317,6 +397,29 @@ var app = new Vue({
       obj.numeroCelulas = 13 - duracao;
       obj.ordem = index + 1;
     });
+
+    const processosCronograma = this.processos.filter(processo => {
+      return processo.tipo == "cronograma";
+    });
+    const processosCalendario = this.processos.filter(processo => {
+      return processo.tipo == "calendario";
+    });
+    processosCronograma.forEach(processo => {
+      this.anosCronograma.push(processo.ano);
+      processo.meses.forEach(mes => {
+        this.mesesCronograma.push(mes);
+      });
+    });
+    processosCalendario.forEach(processo => {
+      this.anosCalendario.push(processo.ano);
+      processo.meses.forEach(mes => {
+        this.mesesCalendario.push(mes);
+      });
+    });
+    this.anosCronograma = [...new Set(this.anosCronograma)];
+    this.anosCalendario = [...new Set(this.anosCalendario)];
+    this.mesesCronograma = [...new Set(this.mesesCronograma)];
+    this.mesesCalendario = [...new Set(this.mesesCalendario)];
   },
   methods: {
     calculaDuracao: function (ordem) {

@@ -18,18 +18,20 @@ if (have_posts()) : while (have_posts()) : the_post();
     <div class="cronograma-corpo">
       <div id="appcronograma" class="cronograma-container">
         <h2>Cronograma</h2>
-        <div v-for="ano in anos">
+        <div v-for="ano in anosCronograma">
           <table class="cronograma-tabela">
             <caption>{{ ano }}</caption>
-            <tr>
-              <th scope="col" colspan="2" class="cronograma-header" id="etapa">Etapa</th>
-              <th scope="col" colspan="12" class="cronograma-header">Período</th>
-            </tr>
+            <thead>
+              <tr>
+                <th scope="col" colspan="2" class="cronograma-header" id="etapa">Etapa</th>
+                <th scope="col" colspan="12" class="cronograma-header">Período</th>
+              </tr>
+            </thead>
             <tr aria-hidden="true">
               <td colspan=2></td>
-              <th scope="col" v-for="mes in mesesAbrev" class="cronograma-meses">{{ mes }}</th>
+              <th scope="col" v-for="mes in mesesCronograma" class="cronograma-meses">{{ mesesAbrev[mes] }}</th>
             </tr>
-            <tr v-for="processo, key in processos.filter(processo => processo.ano === ano)">
+            <tr v-for="processo, key in processos.filter(processo => processo.tipo == 'cronograma' && processo.ano === ano)">
               <th scope="row" v-html="key + 1"></th>
               <td class="cronograma-evento"><span class="cronograma-strong" v-html="processo.nome"></span></td>
               <td v-for="index in (processo.meses.length === 0 ? 0 : processo.meses[0])" class="cronograma-meses" aria-hidden="true"></td>
@@ -50,6 +52,29 @@ if (have_posts()) : while (have_posts()) : the_post();
               </div>
             </div>
           </div>
+        </div>
+        <div :id="'calendario-' + ano" v-for="ano in anosCalendario">
+          <h3 class="calendario-ano">{{ ano }}</h3>
+          <table class="calendario-tabela" v-for="mes, indice in mesesCalendario">
+            <caption :class="'calendario-' + mesesCores[indice % mesesCores.length]">{{ meses[mes] }}</caption>
+            <thead>
+              <tr>
+                <th>Data</th>
+                <th>Evento</th>
+                <th>Descrição</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="evento in processos.filter(processo => processo.tipo == 'calendario' && processo.ano == ano && processo.meses[0] == mes)">
+                <td :class="'calendario-data calendario-' + mesesCores[indice % mesesCores.length] + '-claro'">
+                  <span class="calendario-dia-nome">{{ evento.dia_semana }}</span>
+                  <span class="calendario-dia">{{ evento.dia.padStart(2, '0') }}</span>
+                </td>
+                <td class="calendario-evento" :colspan="evento.descricao ? 1 : 2">{{ evento.nome }}</td>
+                <td class="calendario-descricao" v-if="evento.descricao">{{ evento.descricao }}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

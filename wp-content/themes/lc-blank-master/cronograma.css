@@ -48,13 +48,6 @@
   margin-top: 60px;
 }
 
-.cronograma-container caption {
-  margin-bottom: -30px;
-  font-size: 32px !important;
-  font-weight: 700 !important;
-  text-align: left;
-}
-
 .cronograma-container h2,
 .cronograma-container caption {
   color: #fff;
@@ -83,8 +76,8 @@
   text-align: left;
 }
 
-.cronograma-container th:first-child,
-.cronograma-container td:first-child {
+.cronograma-tabela th:first-child,
+.cronograma-tabela td:first-child {
   width: 26px;
   padding: 0 0 0 2px;
 }
@@ -96,6 +89,13 @@
 .cronograma-tabela * {
   border: 0px solid transparent;
   table-layout: fixed;
+}
+
+.cronograma-tabela caption {
+  margin-bottom: -30px;
+  font-size: 32px !important;
+  font-weight: 700 !important;
+  text-align: left;
 }
 
 .cronograma-tabela .cronograma-evento {
@@ -293,4 +293,99 @@
     font-size: 15px !important;
     text-transform: uppercase;
   }
+}
+
+.calendario-ano {
+  font-size: 32px !important;
+  font-weight: 700 !important;
+}
+
+.calendario-tabela {
+  margin-top: 40px;
+}
+
+.calendario-tabela caption {
+  margin-bottom: -20px;
+  font-size: 22px !important;
+  line-height: 1;
+  font-weight: 900 !important;
+  text-align: left;
+  padding: 10px 36px;
+  border-radius: 6px;
+}
+
+.calendario-tabela caption.calendario-rosa {
+  background-color: #f28c7e;
+}
+
+.calendario-tabela caption.calendario-laranja {
+  background-color: #fd8524;
+}
+
+.calendario-tabela caption.calendario-azul {
+  background-color: #517bee;
+}
+
+.calendario-tabela thead * {
+  color: transparent;
+}
+
+.calendario-tabela tr {
+  border-bottom: 1px solid #fff;
+}
+
+.calendario-data {
+  padding-top: 9px;
+  padding-bottom: 9px;
+  padding-left: 36px;
+}
+
+.calendario-data.calendario-rosa-claro{
+  background-color: #fee1e7;
+}
+
+.calendario-data.calendario-laranja-claro{
+  background-color: #fecea7;
+}
+
+.calendario-data.calendario-azul-claro{
+  background-color: #b9caf8;
+}
+
+.calendario-data .calendario-dia-nome,
+.calendario-data .calendario-dia {
+  display: block;
+  line-height: 1.05;
+  color: #000;
+}
+
+.calendario-data .calendario-dia-nome {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.calendario-data .calendario-dia {
+  font-size: 19px;
+  font-weight: 900;
+}
+
+.calendario-data {
+  width: 80px;
+}
+
+.calendario-evento {
+  min-width: 360px;
+  padding-left: 20px;
+  background-color: #062459;
+  font-size: 15px;
+  font-weight: 700;
+  vertical-align: middle;
+}
+
+.calendario-descricao {
+  min-width: 740px;
+  padding-left: 20px;
+  vertical-align: middle;
+  letter-spacing: 1px;
 }

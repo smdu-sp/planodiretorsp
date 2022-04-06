@@ -472,14 +472,12 @@ if (have_posts()) : while (have_posts()) : the_post();
                 <div class="rosa legenda-barra"></div>
                 <div class="texto-rosa">
                   <span>PLANEJAMENTO</span> <br />
-                  <!---->
                 </div>
               </div>
               <div class="legenda-container">
                 <div class="laranja legenda-barra"></div>
                 <div class="texto-laranja">
                   <span>DIAGNÓSTICO</span> <br />
-                  <!---->
                 </div>
               </div>
               <div class="legenda-container">
@@ -492,447 +490,335 @@ if (have_posts()) : while (have_posts()) : the_post();
             </div>
           </div>
         </div>
-        <div>
-          <table class="cronograma-tabela tabela-2022">
-            <caption>
-              2022
+        <div id="calendario-2022">
+          <h3 class="calendario-ano">2022</h3>
+          <table class="calendario-tabela">
+            <caption class="calendario-rosa">
+              Março
             </caption>
+            <thead>
+              <tr>
+                <th>Data</th>
+                <th>Evento</th>
+                <th>Descrição</th>
+              </tr>
+            </thead>
             <tbody>
               <tr>
-                <th scope="col" colspan="2" id="etapa" class="cronograma-header">
-                  Etapa
-                </th>
-                <th scope="col" colspan="3" class="cronograma-header">Período</th>
-              </tr>
-              <tr aria-hidden="true">
-                <td colspan="2"></td>
-                <th scope="col" class="cronograma-meses">MAR</th>
-                <th scope="col" class="cronograma-meses">ABR</th>
-                <th scope="col" class="cronograma-meses">MAI</th>
-              </tr>
-              <tr>
-                <th scope="row">1</th>
-                <td class="cronograma-evento">
-                  <span class="cronograma-strong"
-                    ><p>Reunião GT CMPU</p>
-                    Debate sobre a proposta de Cronorama da Participação Social -
-                    Etapa 1</span
-                  >
+                <td class="calendario-data calendario-rosa-claro">
+                  <span class="calendario-dia-nome">SEG</span>
+                  <span class="calendario-dia">14</span>
                 </td>
-                <td title="Reuniões Colegiados" class="rosa cronograma-meses">
-                  Março
-                </td>
-                <td aria-hidden="true" class="cronograma-meses"></td>
-                <td aria-hidden="true" class="cronograma-meses"></td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td class="cronograma-evento">
-                  <span class="cronograma-strong"
-                    ><p>Extraordinária CMPU</p>
-                    Deliberação sobre o Cronograma da Etapa 1</span
-                  >
-                </td>
-                <td title="Reuniões Colegiados" class="rosa cronograma-meses">
-                  Março
-                </td>
-                <td aria-hidden="true" class="cronograma-meses"></td>
-                <td aria-hidden="true" class="cronograma-meses"></td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td class="cronograma-evento">
-                  <span class="cronograma-strong"
-                    ><p>
-                      Reunião Virtual noturna
-                      <span>com os Representantes dos</span> 32 Conselhos
-                      Participativos Municipais
-                    </p></span
-                  >
-                </td>
-                <td aria-hidden="true" class="cronograma-meses"></td>
-                <td
-                  title="Agendas Gerais e Territoriais"
-                  class="azul-claro cronograma-meses"
-                >
-                  Abril
-                </td>
-                <td aria-hidden="true" class="cronograma-meses"></td>
-              </tr>
-              <tr>
-                <th scope="row">4</th>
-                <td class="cronograma-evento">
-                  <span class="cronograma-strong"
-                    ><p>
-                      Abertura da 1ª Consulta Pública Participe+
-                      <span>(41 dias)</span>
-                    </p>
-                    Apresentação do Diagnóstico, Identificação dos Limites da Revisão
-                    e Temas Prioritários / Contribuições</span
-                  >
-                </td>
-                <td aria-hidden="true" class="cronograma-meses"></td>
-                <td title="Consulta Eletrônica" class="laranja cronograma-meses">
-                  Abril
-                </td>
-                <td aria-hidden="true" class="cronograma-meses"></td>
-              </tr>
-              <tr>
-                <th scope="row">5</th>
-                <td class="cronograma-evento">
-                  <span class="cronograma-strong"
-                    ><p>Reunião Ordinária do CMPU</p>
-                    Apresentação do Diagnóstico</span
-                  >
-                </td>
-                <td aria-hidden="true" class="cronograma-meses"></td>
-                <td title="Reuniões Colegiados" class="rosa cronograma-meses">
-                  Abril
-                </td>
-                <td aria-hidden="true" class="cronograma-meses"></td>
-              </tr>
-              <tr>
-                <th scope="row">6</th>
-                <td class="cronograma-evento">
-                  <span class="cronograma-strong"
-                    ><p>Audiência Temática virtual noturna</p>
-                    Ordenamento Territorial: Instrumentos de Ordenamento e
-                    Reestruturação Urbana e do Direito de Construir</span
-                  >
-                </td>
-                <td aria-hidden="true" class="cronograma-meses"></td>
-                <td title="Agendas Temáticas" class="azul cronograma-meses">Abril</td>
-                <td aria-hidden="true" class="cronograma-meses"></td>
-              </tr>
-              <tr>
-                <th scope="row">7</th>
-                <td class="cronograma-evento">
-                  <span class="cronograma-strong"
-                    ><p>Audiência Temática virtual noturna</p>
-                    Mobilidade Urbana: Objetivos Setoriais, Elementos Constituintes,
-                    Planos e Ações prioritárias</span
-                  >
-                </td>
-                <td aria-hidden="true" class="cronograma-meses"></td>
-                <td title="Agendas Temáticas" class="azul cronograma-meses">Abril</td>
-                <td aria-hidden="true" class="cronograma-meses"></td>
-              </tr>
-              <tr>
-                <th scope="row">8</th>
-                <td class="cronograma-evento">
-                  <span class="cronograma-strong"
-                    ><p>Audiência Temática virtual noturna</p>
-                    Habitação Social e Política Fundiária: Instrumentos da Função
-                    Social da Propriedade, de Regularização Fundiária e do Direito de
-                    Construir, áreas de risco</span
-                  >
-                </td>
-                <td aria-hidden="true" class="cronograma-meses"></td>
-                <td title="Agendas Temáticas" class="azul cronograma-meses">Abril</td>
-                <td aria-hidden="true" class="cronograma-meses"></td>
-              </tr>
-              <tr>
-                <th scope="row">9</th>
-                <td class="cronograma-evento">
-                  <span class="cronograma-strong"
-                    ><p>02 (duas) Oficinas presenciais + YouTube</p>
-                    <ul>
-                      <li>
-                        Perus, Pirituba/ Jaraguá, Freguesia/ Brasilândia, Casa Verde/
-                        Cachoeirinha;
-                      </li>
-                      <li>
-                        Santana/ Tucuruvi, Jaçanã/ Tremembé, Vila Maria/ Vila
-                        Guilherme;
-                      </li>
-                    </ul></span
-                  >
-                </td>
-                <td aria-hidden="true" class="cronograma-meses"></td>
-                <td title="Oficinas Territoriais" class="salmao cronograma-meses">
-                  Abril
-                </td>
-                <td aria-hidden="true" class="cronograma-meses"></td>
-              </tr>
-              <tr>
-                <th scope="row">10</th>
-                <td class="cronograma-evento">
-                  <span class="cronograma-strong"
-                    ><p>Audiência Temática virtual noturna</p>
-                    Desenvolvimento Econômico Sustentável: Objetivos Setoriais,
-                    Elementos Constituintes, Planos e Ações Prioritárias nas Zonas
-                    Urbana e Rural</span
-                  >
-                </td>
-                <td aria-hidden="true" class="cronograma-meses"></td>
-                <td aria-hidden="true" class="cronograma-meses"></td>
-                <td title="Agendas Temáticas" class="azul cronograma-meses">Maio</td>
-              </tr>
-              <tr>
-                <th scope="row">11</th>
-                <td class="cronograma-evento">
-                  <span class="cronograma-strong"
-                    ><p>Reunião Virtual vespertina</p>
-                    Segmento Empresarial</span
-                  >
-                </td>
-                <td aria-hidden="true" class="cronograma-meses"></td>
-                <td aria-hidden="true" class="cronograma-meses"></td>
-                <td title="Agendas por Segmentos" class="vermelho cronograma-meses">
-                  Maio
+                <td colspan="1" class="calendario-evento">Reunião GT CMPU</td>
+                <td class="calendario-descricao">
+                  Debate sobre a proposta de Cronograma da participação Social - Etapa 1
                 </td>
               </tr>
               <tr>
-                <th scope="row">12</th>
-                <td class="cronograma-evento">
-                  <span class="cronograma-strong"
-                    ><p>Audiência Temática virtual noturna</p>
-                    Meio Ambiente e Mudanças Climáticas: Instrumentos de Gestão
-                    Ambiental nas Zonas Urbana e Rural</span
-                  >
+                <td class="calendario-data calendario-rosa-claro">
+                  <span class="calendario-dia-nome">QUI</span>
+                  <span class="calendario-dia">21</span>
                 </td>
-                <td aria-hidden="true" class="cronograma-meses"></td>
-                <td aria-hidden="true" class="cronograma-meses"></td>
-                <td title="Agendas Temáticas" class="azul cronograma-meses">Maio</td>
-              </tr>
-              <tr>
-                <th scope="row">13</th>
-                <td class="cronograma-evento">
-                  <span class="cronograma-strong"
-                    ><p>Reunião Virtual vespertina</p>
-                    Segmento Movimentos Populares</span
-                  >
-                </td>
-                <td aria-hidden="true" class="cronograma-meses"></td>
-                <td aria-hidden="true" class="cronograma-meses"></td>
-                <td title="Agendas por Segmentos" class="vermelho cronograma-meses">
-                  Maio
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">14</th>
-                <td class="cronograma-evento">
-                  <span class="cronograma-strong"><p>Reunião CIMPDE</p></span>
-                </td>
-                <td aria-hidden="true" class="cronograma-meses"></td>
-                <td aria-hidden="true" class="cronograma-meses"></td>
-                <td title="Reuniões Colegiados" class="rosa cronograma-meses">
-                  Maio
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">15</th>
-                <td class="cronograma-evento">
-                  <span class="cronograma-strong"
-                    ><p>02 (duas) Oficinas presenciais + YouTube</p>
-                    <ul>
-                      <li>
-                        Penha, Mooca, Aricanduva/ Formosa/ Carrão, Vila
-                        Prudente;
-                      </li>
-                      <li>Sapopemba, São Mateus, Itaquera, Cidade Tiradentes;</li>
-                    </ul></span
-                  >
-                </td>
-                <td aria-hidden="true" class="cronograma-meses"></td>
-                <td aria-hidden="true" class="cronograma-meses"></td>
-                <td title="Oficinas Territoriais" class="salmao cronograma-meses">
-                  Maio
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">16</th>
-                <td class="cronograma-evento">
-                  <span class="cronograma-strong"
-                    ><p>Audiência Temática virtual noturna</p>
-                    Desenvolvimento Econômico Sustentável: Objetivos Setoriais,
-                    Elementos Constituintes, Planos e Ações Prioritárias nas Zonas
-                    Urbana e Rural</span
-                  >
-                </td>
-                <td aria-hidden="true" class="cronograma-meses"></td>
-                <td aria-hidden="true" class="cronograma-meses"></td>
-                <td title="Agendas Temáticas" class="azul cronograma-meses">Maio</td>
-              </tr>
-              <tr>
-                <th scope="row">17</th>
-                <td class="cronograma-evento">
-                  <span class="cronograma-strong"
-                    ><p>Reunião Virtual vespertina</p>
-                    Segmento Acadêmico / Entidades de Classes</span
-                  >
-                </td>
-                <td aria-hidden="true" class="cronograma-meses"></td>
-                <td aria-hidden="true" class="cronograma-meses"></td>
-                <td title="Agendas por Segmentos" class="vermelho cronograma-meses">
-                  Maio
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">18</th>
-                <td class="cronograma-evento">
-                  <span class="cronograma-strong"
-                    ><p>Audiência Temática virtual noturna</p>
-                    Desenvolvimento Social, Sistema de Equipamentos e Segurança
-                    Alimentar: Objetivos Setoriais, Elementos Constituintes, Planos e
-                    Ações Prioritárias</span
-                  >
-                </td>
-                <td aria-hidden="true" class="cronograma-meses"></td>
-                <td aria-hidden="true" class="cronograma-meses"></td>
-                <td title="Agendas Temáticas" class="azul cronograma-meses">Maio</td>
-              </tr>
-              <tr>
-                <th scope="row">19</th>
-                <td class="cronograma-evento">
-                  <span class="cronograma-strong"
-                    ><p>02 (duas) Oficinas presenciais + YouTube</p>
-                    <ul>
-                      <li>Lapa, Sé, Pinheiros, Butantã;</li>
-                      <li>Vila Mariana, Ipiranga, Jabaquara, Santo Amaro;</li>
-                    </ul></span
-                  >
-                </td>
-                <td aria-hidden="true" class="cronograma-meses"></td>
-                <td aria-hidden="true" class="cronograma-meses"></td>
-                <td title="Oficinas Territoriais" class="salmao cronograma-meses">
-                  Maio
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">20</th>
-                <td class="cronograma-evento">
-                  <span class="cronograma-strong"
-                    ><p>Audência Temática virtual noturna</p>
-                    Patrimônio e Políticas Culturais: Instrumentos de Proteção ao
-                    Patrimônio Cultural</span
-                  >
-                </td>
-                <td aria-hidden="true" class="cronograma-meses"></td>
-                <td aria-hidden="true" class="cronograma-meses"></td>
-                <td title="Agendas Temáticas" class="azul cronograma-meses">Maio</td>
-              </tr>
-              <tr>
-                <th scope="row">21</th>
-                <td class="cronograma-evento">
-                  <span class="cronograma-strong"
-                    ><p>Audência Temática virtual noturna</p>
-                    Gestão Democrática e Sistema de Planejamento: Elementos do
-                    Sistema, Instâncias e Instrumentos de Participação Social, Fundurb
-                    e Monitoramento do PDE</span
-                  >
-                </td>
-                <td aria-hidden="true" class="cronograma-meses"></td>
-                <td aria-hidden="true" class="cronograma-meses"></td>
-                <td title="Agendas Temáticas" class="azul cronograma-meses">Maio</td>
-              </tr>
-              <tr>
-                <th scope="row">22</th>
-                <td class="cronograma-evento">
-                  <span class="cronograma-strong"
-                    ><p>Audência Temática virtual noturna</p>
-                    Instrumentos de Política Urbana e Gestão Ambiental: Grupos de
-                    Instrumentos</span
-                  >
-                </td>
-                <td aria-hidden="true" class="cronograma-meses"></td>
-                <td aria-hidden="true" class="cronograma-meses"></td>
-                <td title="Agendas Temáticas" class="azul cronograma-meses">Maio</td>
-              </tr>
-              <tr>
-                <th scope="row">23</th>
-                <td class="cronograma-evento">
-                  <span class="cronograma-strong"><p>Reunião CIMPDE</p></span>
-                </td>
-                <td aria-hidden="true" class="cronograma-meses"></td>
-                <td aria-hidden="true" class="cronograma-meses"></td>
-                <td title="Reuniões Colegiados" class="rosa cronograma-meses">
-                  Maio
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">24</th>
-                <td class="cronograma-evento">
-                  <span class="cronograma-strong"
-                    ><p>02 (duas) Oficinas presenciais + YouTube</p>
-                    <ul>
-                      <li>
-                        Ermelino Matarazzo, São Miguel, Itaim Paulista, Guaianases;
-                      </li>
-                      <li>
-                        Campo Limpo, M'Boi Mirim, Cidade Ademar, Capela do Socorro,
-                        Parelheiros;
-                      </li>
-                    </ul></span
-                  >
-                </td>
-                <td aria-hidden="true" class="cronograma-meses"></td>
-                <td aria-hidden="true" class="cronograma-meses"></td>
-                <td title="Oficinas Territoriais" class="salmao cronograma-meses">
-                  Maio
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">25</th>
-                <td class="cronograma-evento">
-                  <span class="cronograma-strong"
-                    ><p>Encerramento da 1ª Consulta Pública Participe+</p></span
-                  >
-                </td>
-                <td aria-hidden="true" class="cronograma-meses"></td>
-                <td aria-hidden="true" class="cronograma-meses"></td>
-                <td title="Consulta Eletrônica" class="laranja cronograma-meses">
-                  Maio
+                <td colspan="1" class="calendario-evento">Extraordinária CMPU</td>
+                <td class="calendario-descricao">
+                  Deliberação sobre o Cronograma da - Etapa 1
                 </td>
               </tr>
             </tbody>
           </table>
-          <div class="container-legenda">
-            <div aria-hidden="true" class="legenda-cronograma">
-              <div class="legenda-container">
-                <div class="azul-claro legenda-barra"></div>
-                <div class="texto-azul-claro">
-                  <span>AGENDAS GERAIS E TERRITORIAIS</span> <br />
-                  <!---->
-                </div>
-              </div>
-              <div class="legenda-container">
-                <div class="azul legenda-barra"></div>
-                <div class="texto-azul">
-                  <span>AGENDAS TEMÁTICAS</span> <br />
-                  <!---->
-                </div>
-              </div>
-              <div class="legenda-container">
-                <div class="vermelho legenda-barra"></div>
-                <div class="texto-vermelho">
-                  <span>AGENDAS POR SEGMENTOS</span> <br />
-                  <!---->
-                </div>
-              </div>
-              <div class="legenda-container">
-                <div class="salmao legenda-barra"></div>
-                <div class="texto-salmao">
-                  <span>OFICINAS TERRITORIAIS</span> <br />
-                  <!---->
-                </div>
-              </div>
-              <div class="legenda-container">
-                <div class="laranja legenda-barra"></div>
-                <div class="texto-laranja">
-                  <span>CONSULTA ELETRÔNICA</span> <br />
-                  <!---->
-                </div>
-              </div>
-              <div class="legenda-container">
-                <div class="rosa legenda-barra"></div>
-                <div class="texto-rosa">
-                  <span>REUNIÕES COLEGIADOS</span> <br />
-                  <!---->
-                </div>
-              </div>
-            </div>
-          </div>
+          <table class="calendario-tabela">
+            <caption class="calendario-laranja">
+              Abril
+            </caption>
+            <thead>
+              <tr>
+                <th>Data</th>
+                <th>Evento</th>
+                <th>Descrição</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="calendario-data calendario-laranja-claro">
+                  <span class="calendario-dia-nome">QUA</span>
+                  <span class="calendario-dia">06</span>
+                </td>
+                <td colspan="1" class="calendario-evento">Reunião Virtual noturna</td>
+                <td class="calendario-descricao">
+                  Com os representantes dos 32 Conselhos Participativos Municipais
+                </td>
+              </tr>
+              <tr>
+                <td class="calendario-data calendario-laranja-claro">
+                  <span class="calendario-dia-nome">QUI</span>
+                  <span class="calendario-dia">14</span>
+                </td>
+                <td colspan="2" class="calendario-evento">Reunião Ordinária do CMPU</td>
+              </tr>
+              <tr>
+                <td class="calendario-data calendario-laranja-claro">
+                  <span class="calendario-dia-nome">SEG</span>
+                  <span class="calendario-dia">18</span>
+                </td>
+                <td colspan="1" class="calendario-evento">
+                  Abertura da 1ª Consulta Pública Participe+ (41 dias)
+                </td>
+                <td class="calendario-descricao">
+                  Apresentação do Diagnóstico, Identificação dos Limites da Revisão e
+                  Temas Prioritários / Contribuições
+                </td>
+              </tr>
+              <tr>
+                <td class="calendario-data calendario-laranja-claro">
+                  <span class="calendario-dia-nome">QUA</span>
+                  <span class="calendario-dia">20</span>
+                </td>
+                <td colspan="1" class="calendario-evento">
+                  Reunião Extraordinária do CMPU
+                </td>
+                <td class="calendario-descricao">Apresentação do Diagnóstico</td>
+              </tr>
+              <tr>
+                <td class="calendario-data calendario-laranja-claro">
+                  <span class="calendario-dia-nome">QUI</span>
+                  <span class="calendario-dia">28</span>
+                </td>
+                <td colspan="1" class="calendario-evento">
+                  Audiência Temática virtual noturna
+                </td>
+                <td class="calendario-descricao">
+                  Ordenamento Territorial: Instrumentos de Ordenamento e Reestruturação
+                  Urbana e do Direito de Construir
+                </td>
+              </tr>
+              <tr>
+                <td class="calendario-data calendario-laranja-claro">
+                  <span class="calendario-dia-nome">SÁB</span>
+                  <span class="calendario-dia">30</span>
+                </td>
+                <td colspan="1" class="calendario-evento">
+                  07 (sete) Oficinas presenciais com transmissão pelo YouTube (uma em
+                  cada Subprefeitura)
+                </td>
+                <td class="calendario-descricao">
+                  Perus, Pirituba/ Jaraguá, Freguesia/ Brasilândia, Casa Verde/
+                  Cachoeirinha Santana/ Tucuruvi, Jaçanã/ Tremembé, Vila Maria/ Vila
+                  Guilherme;
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <table class="calendario-tabela">
+            <caption class="calendario-azul">
+              Maio
+            </caption>
+            <thead>
+              <tr>
+                <th>Data</th>
+                <th>Evento</th>
+                <th>Descrição</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="calendario-data calendario-azul-claro">
+                  <span class="calendario-dia-nome">TER</span>
+                  <span class="calendario-dia">03</span>
+                </td>
+                <td colspan="1" class="calendario-evento">
+                  Audiência Temática virtual noturna
+                </td>
+                <td class="calendario-descricao">
+                  Mobilidade Urbana: Objetivos Setoriais, Elementos Constituintes,
+                  Planos e Ações prioritárias
+                </td>
+              </tr>
+              <tr>
+                <td class="calendario-data calendario-azul-claro">
+                  <span class="calendario-dia-nome">QUI</span>
+                  <span class="calendario-dia">05</span>
+                </td>
+                <td colspan="1" class="calendario-evento">
+                  Audiência Temática virtual noturna
+                </td>
+                <td class="calendario-descricao">
+                  Habitação Social e Política Fundiária: Instrumentos da Função Social
+                  da Propriedade, de Regularização Fundiária e do Direito de Construir,
+                  Áreas de risco
+                </td>
+              </tr>
+              <tr>
+                <td class="calendario-data calendario-azul-claro">
+                  <span class="calendario-dia-nome">SÁB</span>
+                  <span class="calendario-dia">07</span>
+                </td>
+                <td colspan="1" class="calendario-evento">
+                  08 (oito) Oficinas presenciais com transmissão pelo YouTube (uma em
+                  cada Subprefeitura)
+                </td>
+                <td class="calendario-descricao">
+                  Penha, Mooca, Aricanduva/ Formosa/ Carrão, Vila Prudente Sapopemba,
+                  São Mateus, Itaquera, Cidade Tiradentes
+                </td>
+              </tr>
+              <tr>
+                <td class="calendario-data calendario-azul-claro">
+                  <span class="calendario-dia-nome">SEG</span>
+                  <span class="calendario-dia">09</span>
+                </td>
+                <td colspan="1" class="calendario-evento">
+                  Audiência Temática virtual noturna
+                </td>
+                <td class="calendario-descricao">
+                  Gestão Democrática e Sistema de Planejamento: Elementos do Sistema,
+                  Instâncias e Instrumentos de Participação Social, Fundurb e
+                  Monitoramento do PDE
+                </td>
+              </tr>
+              <tr>
+                <td class="calendario-data calendario-azul-claro">
+                  <span class="calendario-dia-nome">TER</span>
+                  <span class="calendario-dia">10</span>
+                </td>
+                <td colspan="1" class="calendario-evento">
+                  Reunião Virtual vespertina
+                </td>
+                <td class="calendario-descricao">Segmento Empresarial</td>
+              </tr>
+              <tr>
+                <td class="calendario-data calendario-azul-claro">
+                  <span class="calendario-dia-nome">QUA</span>
+                  <span class="calendario-dia">11</span>
+                </td>
+                <td colspan="1" class="calendario-evento">
+                  Audiência Temática virtual noturna
+                </td>
+                <td class="calendario-descricao">
+                  Meio ambiente e mudanças climáticas: Instrumentos de Gestão Ambiental
+                  nas Zonas Urbana e Rural
+                </td>
+              </tr>
+              <tr>
+                <td class="calendario-data calendario-azul-claro">
+                  <span class="calendario-dia-nome">QUI</span>
+                  <span class="calendario-dia">12</span>
+                </td>
+                <td colspan="1" class="calendario-evento">
+                  Reunião Virtual vespertina
+                </td>
+                <td class="calendario-descricao">Segmento Movimentos Populares</td>
+              </tr>
+              <tr>
+                <td class="calendario-data calendario-azul-claro">
+                  <span class="calendario-dia-nome">SÁB</span>
+                  <span class="calendario-dia">14</span>
+                </td>
+                <td colspan="1" class="calendario-evento">
+                  08 (oito) Oficinas presenciais com transmissão pelo YouTube (uma em
+                  cada Subprefeitura)
+                </td>
+                <td class="calendario-descricao">
+                  Lapa, Sé, Pinheiros, Butantã, Vila Mariana, Ipiranga, Jabaquara, Santo
+                  Amaro
+                </td>
+              </tr>
+              <tr>
+                <td class="calendario-data calendario-azul-claro">
+                  <span class="calendario-dia-nome">TER</span>
+                  <span class="calendario-dia">17</span>
+                </td>
+                <td colspan="1" class="calendario-evento">
+                  Audiência Temática virtual noturna
+                </td>
+                <td class="calendario-descricao">
+                  Desenvolvimento Econômico Sustentável: Objetivos Setoriais, Elementos
+                  Constituintes, Planos e Ações Prioritárias nas Zonas Urbana e Rural
+                </td>
+              </tr>
+              <tr>
+                <td class="calendario-data calendario-azul-claro">
+                  <span class="calendario-dia-nome">QUA</span>
+                  <span class="calendario-dia">18</span>
+                </td>
+                <td colspan="1" class="calendario-evento">
+                  Reunião Virtual Vespertina
+                </td>
+                <td class="calendario-descricao">
+                  Segmento Acadêmico/ Entidades de Classe
+                </td>
+              </tr>
+              <tr>
+                <td class="calendario-data calendario-azul-claro">
+                  <span class="calendario-dia-nome">QUI</span>
+                  <span class="calendario-dia">19</span>
+                </td>
+                <td colspan="1" class="calendario-evento">
+                  Audiência Temática virtual noturna
+                </td>
+                <td class="calendario-descricao">
+                  Desenvolvimento Social, Sistema de Equipamentos e Segurança Alimentar:
+                  Objetivos Setoriais, Elementos Constituintes, Planos e Ações
+                  Prioritárias.
+                </td>
+              </tr>
+              <tr>
+                <td class="calendario-data calendario-azul-claro">
+                  <span class="calendario-dia-nome">SEX</span>
+                  <span class="calendario-dia">20</span>
+                </td>
+                <td colspan="2" class="calendario-evento">Reunião CIMPDE</td>
+              </tr>
+              <tr>
+                <td class="calendario-data calendario-azul-claro">
+                  <span class="calendario-dia-nome">SÁB</span>
+                  <span class="calendario-dia">21</span>
+                </td>
+                <td colspan="1" class="calendario-evento">
+                  09 (nove) Oficinas presenciais com transmissão pelo YouTube (uma em
+                  cada Subprefeitura)
+                </td>
+                <td class="calendario-descricao">
+                  Ermelino Matarazzo, São Miguel, Itaim Paulista, Guaianases Campo
+                  Limpo, M'Boi Mirim, Cidade Ademar, Capela do Socorro, Parelheiros
+                </td>
+              </tr>
+              <tr>
+                <td class="calendario-data calendario-azul-claro">
+                  <span class="calendario-dia-nome">SEG</span>
+                  <span class="calendario-dia">23</span>
+                </td>
+                <td colspan="1" class="calendario-evento">
+                  Audiência Temática virtual noturna
+                </td>
+                <td class="calendario-descricao">
+                  Patrimônio e Políticas Culturais: Instrumentos de Proteção ao
+                  Patrimônio Cultural
+                </td>
+              </tr>
+              <tr>
+                <td class="calendario-data calendario-azul-claro">
+                  <span class="calendario-dia-nome">QUA</span>
+                  <span class="calendario-dia">25</span>
+                </td>
+                <td colspan="1" class="calendario-evento">
+                  Audiência Temática virtual noturna
+                </td>
+                <td class="calendario-descricao">
+                  Instrumentos de Política Urbana e Gestão Ambiental: Grupos de
+                  Instrumentos
+                </td>
+              </tr>
+              <tr>
+                <td class="calendario-data calendario-azul-claro">
+                  <span class="calendario-dia-nome">DOM</span>
+                  <span class="calendario-dia">29</span>
+                </td>
+                <td colspan="2" class="calendario-evento">
+                  Encerramento da 1ª Consulta Pública Participe+
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
