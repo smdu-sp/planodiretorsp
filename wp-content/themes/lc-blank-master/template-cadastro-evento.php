@@ -100,14 +100,13 @@ if (have_posts()) : while (have_posts()) : the_post();
                     <h1 v-if="categoriaEvento === 'documento'">Cadastro de documentos</h1>
                     <div class="row">
                         <div v-show="categoriaEvento === 'agenda'" class="col mb-2">
-                            <label class="form-label" for="tipo">Tipo de evento</label>
+                            <label class="form-label" for="tipo">Tipo de evento<b class="obrigatorio">*</b></label>
                             <input class="form-control" v-model="tipoEvento" type="text" id="tipo" name="tipo" :style="isVideo ? 'pointer-events: none; opacity: 50%; cursor: not-allowed;' : ''" required>
                         </div>
 
                         <div class="col mb-3">
                             <label class="form-label" for="titulo">
-                                <span v-if="categoriaEvento !== 'documento'">Título / Nome do evento</span>
-                                <span v-if="categoriaEvento === 'documento'">Nome da Reunião / Entrevista</span>
+                                <span>Título / Nome do evento<b class="obrigatorio">*</b></span>
                             </label>
                             <input class="form-control" type="text" id="titulo" name="titulo" required>
                         </div>
@@ -132,8 +131,8 @@ if (have_posts()) : while (have_posts()) : the_post();
                     </div>
                     <div class="row">
                         <div class="col">
-                            <label class="form-label" for="data_evento">Data do evento</label>
-                            <input class="form-control" type="date" id="data_evento" name="data_evento">
+                            <label class="form-label" for="data_evento">Data do evento<b class="obrigatorio">*</b></label>
+                            <input class="form-control" type="date" id="data_evento" name="data_evento" required>
                         </div>
 
                         <div class="col">

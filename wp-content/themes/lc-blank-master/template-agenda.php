@@ -29,7 +29,7 @@ if (have_posts()) : while (have_posts()) : the_post();
                 </div>
             </div>
 
-            <div  class="banner-agenda row">
+            <div v-if="!carregando && mesesPosteriores.length > 0" class="banner-agenda row">
                 <div class="col">
                     <h1>Próximas agendas</h1>
                 </div>

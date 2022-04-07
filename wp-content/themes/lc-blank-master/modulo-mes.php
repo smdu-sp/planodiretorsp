@@ -15,7 +15,7 @@
                     </div>
                 </a>
                 <div v-if="!evento.data_completa">
-                    <div class="container-img">
+                    <div v-if="evento.imagem" class="container-img">
                         <img :src="evento.imagem" :alt="evento.titulo">
                     </div>
                     <div>
@@ -27,7 +27,7 @@
                     <div class="tag-evento tag-data row" :style="'background-color: '+mes.cor" v-if="evento.data_termino">
                         <i class="bi bi-calendar3 col-auto px-0" style="color: white"></i><span class="col" v-html="formataData(evento.data_evento, evento.data_termino)"></span>
                     </div>
-                    <div class="tag-evento tag-hora" v-if="evento.hora_evento">
+                    <div class="tag-evento tag-hora" v-if="evento.hora_evento && evento.hora_evento != '00:00:00'">
                         <i class="bi bi-clock" :style="'color: '+mes.cor"></i>{{formataHora(evento.hora_evento)}}
                     </div>
                     <div class="tag-evento tag-local" v-if="evento.local">
