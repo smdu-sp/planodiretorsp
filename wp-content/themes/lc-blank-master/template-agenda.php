@@ -77,18 +77,9 @@ if (have_posts()) : while (have_posts()) : the_post();
             <!-- </div> -->
 
             <!-- MESES POSTERIORES -->
-            <div class="row">
+            <div class="row justify-content-center">
                 <div class="col coluna-desktop">
-                    <div v-for="(mes, index) in colEsqPosteriores" class="card-mes" :key="index">
-                        <div class="tag-mes" :style="'background-color: '+mes.cor">
-                            <h2>{{mes.nome}}</h2>
-                        </div>
-                        <br>
-                        <?php require('modulo-mes.php'); ?>
-                    </div>
-                </div>
-                <div class="col coluna-desktop">
-                    <div v-for="(mes, index) in colDirPosteriores" class="card-mes mt-10" :key="index">
+                    <div v-for="(mes, index) in mesesPosteriores" class="card-mes" :key="index">
                         <div class="tag-mes" :style="'background-color: '+mes.cor">
                             <h2>{{mes.nome}}</h2>
                         </div>
@@ -102,7 +93,7 @@ if (have_posts()) : while (have_posts()) : the_post();
                             <h2>{{mes.nome}}</h2>
                         </div>
                         <br>
-                        <?php require('modulo-mes.php'); ?>
+                        <?php require('modulo-mes-mobile.php'); ?>
                     </div>
                 </div>
             </div>
@@ -116,20 +107,9 @@ if (have_posts()) : while (have_posts()) : the_post();
             <div class="cidade-background">
                 <div v-for="ano in anos">
                     <div class="container-ano row"><h2 class="col">{{ano.ano}}</h2></div>
-                    <div class="row">
-                        <div class="col coluna-desktop coluna-esquerda">
-                            <div v-for="(mes, index) in colEsqAnteriores">
-                                <div v-if="ano.ano == mes.data.slice(0, 4)" class="card-mes" :key="index">
-                                    <div class="tag-mes" :style="'background-color: '+mes.cor">
-                                        <h2>{{mes.nome}}</h2>
-                                    </div>
-                                    <br>
-                                    <?php require('modulo-mes.php'); ?>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="row justify-content-center">
                         <div class="col coluna-desktop">
-                            <div v-for="(mes, index) in colDirAnteriores">
+                            <div v-for="(mes, index) in mesesAnteriores">
                                 <div v-if="ano.ano == mes.data.slice(0, 4)" class="card-mes" :key="index">
                                     <div class="tag-mes" :style="'background-color: '+mes.cor">
                                         <h2>{{mes.nome}}</h2>
@@ -146,7 +126,7 @@ if (have_posts()) : while (have_posts()) : the_post();
                                         <h2>{{mes.nome}}</h2>
                                     </div>
                                     <br>
-                                    <?php require('modulo-mes.php'); ?>
+                                    <?php require('modulo-mes-mobile.php'); ?>
                                 </div>
                             </div>
                         </div>
