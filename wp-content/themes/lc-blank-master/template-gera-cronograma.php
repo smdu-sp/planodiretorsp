@@ -57,15 +57,20 @@ if (have_posts()) : while (have_posts()) : the_post();
           <h3 class="calendario-ano">{{ ano }}</h3>
           <table class="calendario-tabela" v-for="mes, indice in mesesCalendario">
             <caption :class="'calendario-' + mesesCores[indice % mesesCores.length]">{{ meses[mes] }}</caption>
+            <colgroup>
+              <col class="col-1">
+              <col class="col-2">
+              <col class="col-3">
+            </colgroup>
             <thead>
               <tr>
                 <th>Data</th>
-                <th>Evento</th>
-                <th>Descrição</th>
+                <th class="calendario-evento">Evento</th>
+                <th class="calendario-descricao">Descrição</th>
               </tr>
             </thead>
             <tbody>
-              <tr v-for="evento in processos.filter(processo => processo.tipo == 'calendario' && processo.ano == ano && processo.meses[0] == mes)">
+              <tr v-for="evento, ordem in populaCalendario(ano, mes)">
                 <td :class="'calendario-data calendario-' + mesesCores[indice % mesesCores.length] + '-claro'">
                   <span class="calendario-dia-nome">{{ evento.dia_semana }}</span>
                   <span class="calendario-dia">{{ evento.dia.padStart(2, '0') }}</span>

@@ -377,10 +377,13 @@
 .calendario-evento {
   min-width: 360px;
   padding-left: 20px;
-  background-color: #062459;
   font-size: 15px;
   font-weight: 700;
   vertical-align: middle;
+}
+
+td.calendario-evento {
+  background-color: #062459;
 }
 
 .calendario-descricao {
@@ -388,4 +391,39 @@
   padding-left: 20px;
   vertical-align: middle;
   letter-spacing: 1px;
+}
+
+@media (max-width: 1200px) {
+  .calendario-tabela {
+    width: 100%;
+  }
+
+  .calendario-tabela tbody {
+    width: 100%;
+  }
+  
+  .calendario-tabela tr {
+    width: 100%;
+  }
+
+  .calendario-data, .calendario-evento, .calendario-descricao {
+    padding: 8px;
+    width: unset;
+    max-width: unset;
+    min-width: unset;
+  }
+
+  .calendario-data {
+    width: 42px;
+  }
+
+  .col-1 {
+    width: 42px;
+  }
+  .col-2 {
+    width: 32%;
+  }
+  .col-3 {
+    width: auto;
+  }
 }

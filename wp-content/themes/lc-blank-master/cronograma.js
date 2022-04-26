@@ -38,6 +38,7 @@ var app = new Vue({
       "NOV",
       "DEZ",
     ],
+    processosCalendario: [],
     processos: [
       {
         tipo: "cronograma",
@@ -130,7 +131,7 @@ var app = new Vue({
         dia_semana: "SEG",
         dia: "14",
         nome: "Reunião GT CMPU",
-        descricao: "Debate sobre a proposta de Cronograma da participação Social - Etapa 1"
+        descricao: "Debate sobre a proposta de Cronograma da Participação Social - Etapa 1"
       },
       {
         tipo: "calendario",
@@ -139,7 +140,7 @@ var app = new Vue({
         dia_semana: "QUI",
         dia: "21",
         nome: "Extraordinária CMPU",
-        descricao: "Deliberação sobre o Cronograma da Etapa 1"
+        descricao: "Deliberação sobre a proposta de Cronograma da Participação Social - Etapa 1"
       },
       {
         tipo: "calendario",
@@ -154,18 +155,18 @@ var app = new Vue({
         tipo: "calendario",
         ano: 2022,
         meses: [3],
-        dia_semana: "QUI",
-        dia: "14",
-        nome: "Reunião Ordinária do CMPU"
+        dia_semana: "QUA",
+        dia: "13",
+        nome: "Divulgação do Diagnóstico"
       },
       {
         tipo: "calendario",
         ano: 2022,
         meses: [3],
-        dia_semana: "SEG",
-        dia: "18",
-        nome: "Abertura da 1ª Consulta Pública Participe+ (41 dias)",
-        descricao: "Apresentação do Diagnóstico, Identificação dos Limites da Revisão e Temas Prioritários / Contribuições"
+        dia_semana: "QUI",
+        dia: "14",
+        nome: "Reunião Ordinária do CMPU",
+        descricao: "Deliberação da adequação do Cronograma da Participação Social - Etapa 1"
       },
       {
         tipo: "calendario",
@@ -180,19 +181,10 @@ var app = new Vue({
         tipo: "calendario",
         ano: 2022,
         meses: [3],
-        dia_semana: "QUI",
-        dia: "28",
-        nome: "Audiência Temática virtual noturna",
-        descricao: "Ordenamento Territorial: Instrumentos de Ordenamento e Reestruturação Urbana e do Direito de Construir"
-      },
-      {
-        tipo: "calendario",
-        ano: 2022,
-        meses: [3],
-        dia_semana: "SÁB",
-        dia: "30",
-        nome: "07 (sete) Oficinas presenciais com transmissão pelo YouTube (uma em cada Subprefeitura)",
-        descricao: "Perus, Pirituba/Jaraguá, Freguesia/Brasilândia, Casa Verde/Cachoeirinha, Santana/Tucuruvi, Jaçanã/Tremembé, Vila Maria/Vila Guilherme"
+        dia_semana: "SEG",
+        dia: "25",
+        nome: "Abertura da 1ª Consulta Pública Participe+  (41 dias)",
+        descricao: "Abertura do Participe+ para contribuições"
       },
       {
         tipo: "calendario",
@@ -218,8 +210,8 @@ var app = new Vue({
         meses: [4],
         dia_semana: "SÁB",
         dia: "7",
-        nome: "08 (oito) Oficinas presenciais com transmissão pelo YouTube (uma em cada Subprefeitura)",
-        descricao: " Penha, Mooca, Aricanduva/Formosa/Carrão, Vila Prudente, Sapopemba, São Mateus, Itaquera, Cidade Tiradentes"
+        nome: "08 Oficinas presenciais com transmissão pelo YouTube (uma em cada Subprefeitura)",
+        descricao: "Pirituba/Jaraguá, Perus, Freguesia do Ó/Brasilândia, Casa Verde/Cachoeirinha, Santana/Tucuruvi, Jaçanã/Tremembé, Vila Maria/Vila Guilherme e Lapa"
       },
       {
         tipo: "calendario",
@@ -228,7 +220,7 @@ var app = new Vue({
         dia_semana: "SEG",
         dia: "9",
         nome: "Audiência Temática virtual noturna",
-        descricao: "Gestão Democrática e Sistema de Planejamento: Elementos do Sistema, Instâncias e Instrumentos de Participação Social, Fundurb e Monitoramento do PDE"
+        descricao: "Patrimônio e Políticas Culturais: Instrumentos de Proteção ao Patrimônio Cultural"
       },
       {
         tipo: "calendario",
@@ -246,7 +238,7 @@ var app = new Vue({
         dia_semana: "QUA",
         dia: "11",
         nome: "Audiência Temática virtual noturna",
-        descricao: "Meio ambiente e mudanças climáticas: Instrumentos de Gestão Ambiental nas Zonas Urbana e Rural"
+        descricao: "Ordenamento Territorial: Instrumentos de Ordenamento e Reestruturação Urbana e do Direito de Construir"
       },
       {
         tipo: "calendario",
@@ -263,8 +255,8 @@ var app = new Vue({
         meses: [4],
         dia_semana: "SÁB",
         dia: "14",
-        nome: "08 (oito) Oficinas presenciais com transmissão pelo YouTube (uma em cada Subprefeitura)",
-        descricao: "Lapa, Sé, Pinheiros, Butantã, Vila Mariana, Ipiranga, Jabaquara, Santo Amaro"
+        nome: "08 Oficinas presenciais com transmissão pelo YouTube (uma em cada Subprefeitura)",
+        descricao: "Parelheiros, Capela do Socorro, M’Boi Mirim, Campo Limpo, Santo Amaro, Cidade Ademar, Butantã e Pinheiros"
       },
       {
         tipo: "calendario",
@@ -273,7 +265,7 @@ var app = new Vue({
         dia_semana: "TER",
         dia: "17",
         nome: "Audiência Temática virtual noturna",
-        descricao: "Desenvolvimento Econômico Sustentável: Objetivos Setoriais, Elementos Constituintes, Planos e Ações Prioritárias nas Zonas Urbana e Rural"
+        descricao: "Meio Ambiente e Mudanças Climáticas: Instrumentos de Gestão Ambiental nas Zonas Urbana e Rural"
       },
       {
         tipo: "calendario",
@@ -282,7 +274,7 @@ var app = new Vue({
         dia_semana: "QUA",
         dia: "18",
         nome: "Reunião Virtual Vespertina",
-        descricao: "Segmento Acadêmico / Entidades de Classe"
+        descricao: "Segmento Acadêmico/Entidades de Classes"
       },
       {
         tipo: "calendario",
@@ -291,7 +283,7 @@ var app = new Vue({
         dia_semana: "QUI",
         dia: "19",
         nome: "Audiência Temática virtual noturna",
-        descricao: "Desenvolvimento Social, Sistema de Equipamentos e Segurança Alimentar: Objetivos Setoriais, Elementos Constituintes, Planos e Ações Prioritárias"
+        descricao: "Desenvolvimento Econômico Sustentável: Objetivos Setoriais, Elementos Constituintes, Planos e Ações Prioritárias nas Zonas Urbana e Rural"
       },
       {
         tipo: "calendario",
@@ -307,8 +299,8 @@ var app = new Vue({
         meses: [4],
         dia_semana: "SÁB",
         dia: "21",
-        nome: "09 (nove) Oficinas presenciais com transmissão pelo YouTube (uma em cada Subprefeitura)",
-        descricao: "Ermelino Matarazzo, São Miguel, Itaim Paulista, Guaianases, Campo Limpo, M'Boi Mirim, Cidade Ademar, Capela do Socorro, Parelheiros"
+        nome: "08 Oficinas presenciais com transmissão pelo YouTube (uma em cada Subprefeitura)",
+        descricao: "Ermelino Matarazzo, São Miguel Paulista, Itaim Paulista, Guaianazes, Cidade Tiradentes, Itaquera, São Mateus e Penha"
       },
       {
         tipo: "calendario",
@@ -317,7 +309,7 @@ var app = new Vue({
         dia_semana: "SEG",
         dia: "23",
         nome: "Audiência Temática virtual noturna",
-        descricao: "Patrimônio e Políticas Culturais: Instrumentos de Proteção ao Patrimônio Cultural"
+        descricao: "Desenvolvimento Social, Sistema de Equipamentos e Segurança Alimentar: Objetivos Setoriais, Elementos Constituintes, Planos e Ações Prioritárias"
       },
       {
         tipo: "calendario",
@@ -332,8 +324,26 @@ var app = new Vue({
         tipo: "calendario",
         ano: 2022,
         meses: [4],
+        dia_semana: "SÁB",
+        dia: "28",
+        nome: "08 Oficinas presenciais com transmissão pelo YouTube (uma em cada Subprefeitura)",
+        descricao: "Sapopemba, Vila Prudente, Aricanduva/Formosa/Carrão, Mooca, Sé, Vila Mariana, Ipiranga e Jabaquara"
+      },
+      {
+        tipo: "calendario",
+        ano: 2022,
+        meses: [4],
+        dia_semana: "TER",
+        dia: "31",
+        nome: "Audiência Temática virtual noturna",
+        descricao: "Gestão Democrática e Sistema de Planejamento: Elementos do Sistema, Instâncias e Instrumentos de Participação Social, Fundurb e Monitoramento do PDE"
+      },
+      {
+        tipo: "calendario",
+        ano: 2022,
+        meses: [5],
         dia_semana: "DOM",
-        dia: "29",
+        dia: "5",
         nome: "Encerramento da 1ª Consulta Pública Participe+"
       },
     ],
@@ -422,7 +432,7 @@ var app = new Vue({
     this.mesesCalendario = [...new Set(this.mesesCalendario)];
   },
   methods: {
-    calculaDuracao: function (ordem) {
+    calculaDuracao: function(ordem) {
       let nomeMeses = this.meses;
       let mesesEvento = this.processos[ordem - 1].meses;
       let duracao = mesesEvento.length;
@@ -433,5 +443,11 @@ var app = new Vue({
         : nomeMeses[mesesEvento[0]] +
             (duracao > 1 ? uniao + nomeMeses[mesesEvento[duracao - 1]] : "");
     },
-  }
+    populaCalendario: function(ano, mes) {
+      let filtraProcessos = this.processos.filter(processo => {
+        return processo.tipo == 'calendario' && processo.ano == ano && processo.meses[0] == mes;
+      });
+      return this.processosCalendario = filtraProcessos;
+    },
+  },
 });
