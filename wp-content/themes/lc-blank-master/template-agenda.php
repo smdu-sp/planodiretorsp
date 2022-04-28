@@ -18,14 +18,10 @@ if (have_posts()) : while (have_posts()) : the_post();
         <div id="appagenda" class="container container-eventos">
             <!-- BOTÃO ADICIONAR EVENTO -->
             <div v-if="!carregando && logado" class="row justify-content-center mb-5">
-                <div class="col-3">
+                <div class="col-3 mb-5">
                     <a class="btn btn-success btn-lg btn-block" href="/cadastro-de-evento/?evento=agenda">
                     Adicionar evento
                     </a>
-                </div>
-                <div>
-                    <br>
-                    <br>
                 </div>
             </div>
 
@@ -83,7 +79,6 @@ if (have_posts()) : while (have_posts()) : the_post();
                         <div class="tag-mes" :style="'background-color: '+mes.cor">
                             <h2>{{mes.nome}}</h2>
                         </div>
-                        <br>
                         <?php require('modulo-mes.php'); ?>
                     </div>
                 </div>
@@ -92,7 +87,6 @@ if (have_posts()) : while (have_posts()) : the_post();
                         <div class="tag-mes" :style="'background-color: '+mes.cor">
                             <h2>{{mes.nome}}</h2>
                         </div>
-                        <br>
                         <?php require('modulo-mes-mobile.php'); ?>
                     </div>
                 </div>
@@ -114,7 +108,6 @@ if (have_posts()) : while (have_posts()) : the_post();
                                     <div class="tag-mes" :style="'background-color: '+mes.cor">
                                         <h2>{{mes.nome}}</h2>
                                     </div>
-                                    <br>
                                     <?php require('modulo-mes.php'); ?>
                                 </div>
                             </div>
@@ -125,7 +118,6 @@ if (have_posts()) : while (have_posts()) : the_post();
                                     <div class="tag-mes" :style="'background-color: '+mes.cor">
                                         <h2>{{mes.nome}}</h2>
                                     </div>
-                                    <br>
                                     <?php require('modulo-mes-mobile.php'); ?>
                                 </div>
                             </div>

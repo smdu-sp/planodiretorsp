@@ -25,7 +25,7 @@
                             <span class="tipo-evento">{{evento.tipo}}</span>
                             <h3>{{evento.titulo}}</h3>
                         </div>
-                        <div>
+                        <div v-if="evento.descricao">
                             <p>{{evento.descricao}}</p>
                         </div>
                         <div class="tag-evento tag-data" :style="'background-color: '+mes.cor" v-if="!evento.data_termino">
@@ -52,11 +52,11 @@
         </div>
     </div>
     <div>
-        <div class="botao-colapso position-absolute" @click="toggleEvento(evento)" :style="'background-color: '+mes.cor">
+        <button :aria-label="evento.aberto ? 'Fechar' : 'Abrir'" class="botao-colapso position-absolute" @click="toggleEvento(evento)" :style="'background-color: '+mes.cor">
             <div>{{evento.aberto ? "-" : "+"}}</div>
-        </div>
+        </button>
     </div>
-    <div class="col-12" v-if="evento.data_completa">
+    <div class="col-12" v-if="evento.data_completa && evento.aberto">
         <div class="row">
             <div class="col-auto" v-if="evento.imagem || evento.descricao">
                 <div class="container-img" v-if="evento.imagem">
