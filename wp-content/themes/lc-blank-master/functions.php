@@ -66,3 +66,38 @@ function lct_title( $sep ) {
 	echo ' ' . $sep . ' ';
 	bloginfo( 'name ' );
 }
+// Funções para comparação de string em PHP < 8
+function startsWith($haystack, $needles) {
+	foreach ((array) $needles as $needle) {
+		if ((string) $needle !== '' && strncmp($haystack, $needle, strlen($needle)) === 0) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
+function contains($haystack, $needles) {
+	foreach ((array) $needles as $needle) {
+		if ($needle !== '' && mb_strpos($haystack, $needle) !== false) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
+// Validação de URL
+function validate_url($url) {
+	$path = parse_url($url, PHP_URL_PATH);
+	$encoded_path = array_map('urlencode', explode('/', $path));
+	$url = str_replace($path, implode('/', $encoded_path), $url);
+	if (!filter_var($url, FILTER_VALIDATE_URL)) {
+		return false;
+	}
+
+	return 	(
+				startsWith($url, ['http://', 'https://', 'ftp://']) ||
+				startsWith($url, 'mailto:') && !contains($url, '/') && contains($url, '%40')
+			) ? true : false;
+}
