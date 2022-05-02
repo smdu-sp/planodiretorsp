@@ -38,9 +38,13 @@
             <div class="info">
                 <div class="data">
                     <span>
-                        <?= $agenda->data_inicio;
+                        <b>
+                            <?= $agenda->data_inicio; ?>
+                        </b><?php
                             if ($agenda->data_termino) { ?>
-                                <br> a <?= $agenda->data_termino;
+                                <b class="quebra-linha">
+                                     a <?= $agenda->data_termino; ?>
+                                </b><?php
                             }					
                         ?>
                     </span>
