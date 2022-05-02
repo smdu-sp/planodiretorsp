@@ -66,3 +66,57 @@ function lct_title( $sep ) {
 	echo ' ' . $sep . ' ';
 	bloginfo( 'name ' );
 }
+// Cadastro e carregamento de estilos
+function gerenciamentoDeEstilos() {
+	  wp_register_style('agenda-participativa', get_template_directory_uri() . '/css/agenda-participativa.css', array(), null, 'all');
+
+	  // Estilos da Home
+	  if (is_front_page()){
+		wp_enqueue_style('agenda-participativa');
+	  }
+}
+
+add_action('wp_enqueue_scripts', 'gerenciamentoDeEstilos');
+
+// Funções para comparação de string em PHP < 8
+function startsWith($haystack, $needles) {
+	foreach ((array) $needles as $needle) {
+		if ((string) $needle !== '' && strncmp($haystack, $needle, strlen($needle)) === 0) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
+function contains($haystack, $needles) {
+	foreach ((array) $needles as $needle) {
+		if ($needle !== '' && mb_strpos($haystack, $needle) !== false) {
+			return true;
+		}
+	}
+
+	return false;
+}
+// Validação de URL
+function validaUrl($url) {
+	$path = parse_url($url, PHP_URL_PATH);
+	$encoded_path = array_map('urlencode', explode('/', $path));
+	$url = str_replace($path, implode('/', $encoded_path), $url);
+	if (!filter_var($url, FILTER_VALIDATE_URL)) {
+		return false;
+	}
+
+	return 	(
+				startsWith($url, ['http://', 'https://', 'ftp://']) ||
+				startsWith($url, 'mailto:') && !contains($url, '/') && contains($url, '%40')
+			) ? true : false;
+}
+// TODO SHORTCODE
+add_shortcode('shortcodeAgendaParticipativa', 'shortcodeAgendaParticipativa');
+function shortcodeAgendaParticipativa() {
+	
+include_once "modulo-agenda-participativa.php";
+
+return ob_get_clean();
+}
