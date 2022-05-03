@@ -32,35 +32,35 @@
         <div class="conteudo">
             <div class="titulo">
                 <h3>
-                    <?= $agenda->titulo ?>
+                    <?= is_front_page() ? $agenda->titulo : '{{evento.titulo}}' ?>
                 </h3>
             </div>
             <div class="info">
                 <div class="data">
                     <span>
                         <b>
-                            <?= $agenda->data_inicio; ?>
+                            <?= is_front_page() ? $agenda->data_inicio : '{{formataData(evento.data_inicio)}}'; ?>
                         </b><?php
-                            if ($agenda->data_termino) { ?>
-                                <b class="quebra-linha">
-                                     a <?= $agenda->data_termino; ?>
+                            if ($agenda->data_termino || !is_front_page()) { ?>
+                                <b class="quebra-linha"<?= !is_front_page() ? 'v-if="evento.data_termino"' : ''; ?>>
+                                     a <?= is_front_page() ? $agenda->data_termino : '{{formataData(evento.data_termino)}}'; ?>
                                 </b><?php
                             }					
                         ?>
                     </span>
                 </div>
                 <?php
-                    if ($agenda->horario) { ?>
+                    if ($agenda->horario || !is_front_page()) { ?>
                         <div class="horario">
                             <span>
-                                <?= $agenda->horario; ?>
+                                <?= is_front_page() ? $agenda->horario : '{{formataHorario(evento.horario)}}'; ?>
                             </span>
                         </div><?php
                     }
-                    if ($agenda->local) { ?>
+                    if ($agenda->local || !is_front_page()) { ?>
                         <div class="local">
                             <span>
-                                <?= $agenda->local; ?>
+                                <?= is_front_page() ? $agenda->local : '{{evento.local}}'; ?>
                             </span>
                         </div><?php
                     }
@@ -68,11 +68,11 @@
             </div>
         </div>
         <?php
-            if ($agenda->link && validaUrl($agenda->link) && $agenda->link_texto) { ?>
+            if (!is_front_page() || $agenda->link && validaUrl($agenda->link) && $agenda->link_texto) { ?>
                 <div class="button button-gt botao">
                     <div class="dslc-button">
-                        <a href="<?= $agenda->link ?>" target="_self" class="button button-gt">
-                            <?= strtoupper($agenda->link_texto); ?>
+                        <a <?= is_front_page() ? 'href="' . $agenda->link . '"' : ':href="evento.link"'; ?> target="_self" class="button button-gt">
+                            <?= is_front_page() ? strtoupper($agenda->link_texto) : '{{evento.link_texto.toUpperCase()}}'; ?>
                         </a>
                     </div>
                 </div><?php

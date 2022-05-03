@@ -71,7 +71,7 @@ function gerenciamentoDeEstilos() {
 	  wp_register_style('agenda-participativa', get_template_directory_uri() . '/css/agenda-participativa.css', array(), null, 'all');
 
 	  // Estilos da Home
-	  if (is_front_page()){
+	  if (is_front_page() || is_page('evento')) {
 		wp_enqueue_style('agenda-participativa');
 	  }
 }

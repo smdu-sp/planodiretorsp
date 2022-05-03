@@ -38,6 +38,7 @@
 #agenda-participativa {
     display: flex;
     align-items: center;
+    max-width: 680px;
 }
 
 #agenda-participativa .container-triangulo {
@@ -56,6 +57,7 @@
 
 #agenda-participativa .balao {
     display: flex;
+    max-width: 600px;
     flex-direction: column;
     justify-content: space-between;
     margin-right: 30px;
