@@ -37,6 +37,7 @@
             </div>
             <div class="info">
                 <div class="data">
+                    <img src="/assets/icone-data.png" aria-label="Data do evento">
                     <span>
                         <b>
                             <?= is_front_page() ? $agenda->data_inicio : '{{formataData(evento.data_inicio)}}'; ?>
@@ -52,6 +53,7 @@
                 <?php
                     if ($agenda->horario || !is_front_page()) { ?>
                         <div class="horario">
+                            <img src="/assets/icone-horario.png" alt="Horário" aria-label="Horário">
                             <span>
                                 <?= is_front_page() ? $agenda->horario : '{{formataHorario(evento.horario)}}'; ?>
                             </span>
@@ -59,6 +61,7 @@
                     }
                     if ($agenda->local || !is_front_page()) { ?>
                         <div class="local">
+                            <img src="/assets/icone-local.png" alt="Local" title="Local">
                             <span>
                                 <?= is_front_page() ? $agenda->local : '{{evento.local}}'; ?>
                             </span>

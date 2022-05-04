@@ -103,10 +103,6 @@
     background-position: 30px center;
 }
 
-#agenda-participativa .data {
-    background-image: url("/wp-content/uploads/2022/04/icone-data.png");
-}
-
 #agenda-participativa b {
     display: inline-block;
 }
@@ -114,13 +110,6 @@
 #agenda-participativa b.quebra-linha {
     width: 100%;
     padding-top: 0 !important;
-}
-
-#agenda-participativa .horario {
-    background-image: url("/wp-content/uploads/2022/04/icone-horario.png");
-}
-#agenda-participativa .local {
-    background-image: url("/wp-content/uploads/2022/04/icone-local.png");
 }
 
 #agenda-participativa .info span {
@@ -131,7 +120,7 @@
     line-height: 1.2;
     padding-top: 2px;
     padding-bottom: 2px;
-    padding-left: 50px;
+    padding-left: 10px;
     width: 100%;
     margin-bottom: 0;
 }
