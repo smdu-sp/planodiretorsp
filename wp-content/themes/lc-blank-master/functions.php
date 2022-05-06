@@ -39,7 +39,7 @@ if ( ! function_exists( 'lct_theme_setup' ) ) {
  */
 function lct_load_scripts() {
 
-	wp_enqueue_style( 'lct-base-style', get_stylesheet_uri(), array(), '1.0' );
+	wp_enqueue_style( 'lct-base-style', get_stylesheet_uri(), array(), '1.0.1' );
 	wp_enqueue_script( 'jquery' );
 
 } add_action( 'wp_enqueue_scripts', 'lct_load_scripts' );
@@ -68,7 +68,7 @@ function lct_title( $sep ) {
 }
 // Cadastro e carregamento de estilos
 function gerenciamentoDeEstilos() {
-	  wp_register_style('agenda-participativa', get_template_directory_uri() . '/css/agenda-participativa.css', array(), null, 'all');
+	  wp_register_style('agenda-participativa', get_template_directory_uri() . '/css/agenda-participativa.css', array(), '1.0.1', 'all');
 
 	  // Estilos da Home
 	  if (is_front_page() || is_page('evento')) {
