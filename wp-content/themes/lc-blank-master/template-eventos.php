@@ -110,10 +110,26 @@ if (have_posts()) : while (have_posts()) : the_post();
     echo "<script type='text/javascript' src='" . $jsPath . "axios.min.js'></script>";
 
 ?>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <!-- O EVENTO EM SI -->
     <div id="appevento">
+      <!-- Modal de envio -->
+      <div backdrop="static" class="modal fade" id="modal-eventos" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalCenterTitle">Atualizar {{ tipoDeEvento == 'agenda' ? 'Agenda Participativa' : 'Notícias'}}</h5>
+            </div>
+            <div class="modal-body" v-html="modalTexto">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-dismiss="modal" :disabled="modalTrava">Fechar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div v-if="!tipoDeEvento" class="evento form-group">
         <div>
           <h1>Editar Evento: {{evento.titulo}}</h1>
@@ -166,19 +182,21 @@ if (have_posts()) : while (have_posts()) : the_post();
             <div class="row" v-for="(value, key) in evento" :id="key">
               <div class="col">
                 <label :for="'campo-' + key">{{ labelsAgenda[0][key] }}</label>
+                <input class="ml-1" v-if="key == 'data_termino'" type="checkbox" v-model='dataTermino'>
                 <input class="form-control" type="text" v-if="key != 'data_inicio' && key != 'data_termino' && key != 'horario'" v-model="evento[key]" :id="'campo-' + key" :key="key" :name="key">
-                <input class="form-control" type="date" v-if="key == 'data_inicio' || key == 'data_termino'" v-model="evento[key]" :id="'campo-' + key" :key="key" :name="key">
+                <input class="form-control" type="date" v-if="key == 'data_inicio'" v-model="evento[key]" :id="'campo-' + key" :key="key" :name="key">
+                <input class="form-control" type="date" v-if="key == 'data_termino'" v-model="evento[key]" :id="'campo-' + key" :key="key" :name="key" :disabled="!dataTermino">
                 <input class="form-control" type="time" v-if="key == 'horario'" v-model="evento[key]" :id="'campo-' + key" :key="key" :name="key">
               </div>
             </div>  
           </div>
-          <div class="col-auto">
+          <div class="col-7">
             <?= do_shortcode( '[shortcodeAgendaParticipativa]' ); ?>
           </div>
         </div>
         <div class="row">
           <div class="col">
-            <div @click="atualizaAgenda" class="btn btn-primary">
+            <div @click="atualizaAgenda" class="btn btn-success" data-toggle="modal" data-target="#modal-eventos" data-backdrop="static">
               Atualizar Agenda
             </div>
           </div>
@@ -190,6 +208,8 @@ if (have_posts()) : while (have_posts()) : the_post();
       var app = new Vue({
         el: "#appevento",
         data: {
+          dataTermino: false,
+          documentos: "",
           evento: eventoRaw,
           labelsAgenda:[{
             titulo: 'Título',
@@ -214,9 +234,11 @@ if (have_posts()) : while (have_posts()) : the_post();
             link: 'Link da transmissão',
             descricao_link: 'Texto do link'
           }],
+          modalTexto: '',
+          modalTrava: false,
           listaDeDocumentos: [],
-          documentos: "",
-          tipoDeEvento: tipoDeEvento
+          tipoDeEvento: tipoDeEvento,
+          validacaoAgenda: false
         },
         methods: {
           addDocumento: function() {
@@ -226,9 +248,25 @@ if (have_posts()) : while (have_posts()) : the_post();
             })
           },
           atualizaAgenda: function() {
-            axios
+            this.modalTexto= 'Enviando...';
+            validacaoAgenda = this.validaAgenda();
+            if (validacaoAgenda) {
+              this.modalTrava = true;
+              axios
               .put('<?php echo get_permalink(); ?>' + '?tipo=agenda', this.evento)
-              .then(response => (console.log(response)))
+              .then(response => {
+                console.log(response.status)
+                if (response.status === 200) {
+                  console.log(response);
+                  this.modalTexto = 'Atualizado com sucesso!';
+                } else {
+                  this.modalTexto = 'Falha no envio, tente novamente mais tarde.'
+                }
+                this.modalTrava = false;
+              });
+            } else {
+              this.modalTexto = 'Um ou mais campos contém dados inválidos, verifique os dados e tente novamente.'
+            }
           }
           ,
           atualizaDado: function(key, value) {
@@ -248,6 +286,19 @@ if (have_posts()) : while (have_posts()) : the_post();
                 documentos: this.documentos
               })
               .then(response => (console.log(response)))
+          },
+          checaPeriodo: function() {
+            if (this.dataTermino) {
+              dI = new Date(this.evento.data_inicio);
+              dT = new Date(this.evento.data_termino);
+              if (dT instanceof Date && !isNaN(dT)) {
+                if (dT > dI) {
+                  return this.evento.data_termino;
+                }
+              }
+            }
+            this.dataTermino = false;
+            return;
           },
           confirmaExclusao: function() {
             if (window.confirm("ATENÇÃO! Tem certeza que deseja excluir o evento?")) {
@@ -289,13 +340,23 @@ if (have_posts()) : while (have_posts()) : the_post();
             return horarioFinal;
           },
           removeDocumento: function(indice) {
-            if (window.confirm("ATENÇÃO! Tem certeza que deseja excluir este documento?")) {
+            if (window.confirm('ATENÇÃO! Tem certeza que deseja excluir este documento?')) {
               this.listaDeDocumentos.splice(indice, 1)
               this.atualizaDocumentos()
             }
           },
           trataDocumentos: function() {
             this.documentos = JSON.stringify(this.listaDeDocumentos)
+          },
+          validaAgenda: function() {
+            if (this.evento.titulo.trim() != '' && this.evento.link.trim() != '' && this.evento.link_texto.trim() != '') {
+              dI = new Date(this.evento.data_inicio);
+              if (dI instanceof Date && !isNaN(dI)) {
+                this.evento.data_termino = this.checaPeriodo();
+                return true;
+              }
+            }
+            return false;
           },
           sendForm: function(e) {
             this.trataDocumentos()
@@ -305,6 +366,9 @@ if (have_posts()) : while (have_posts()) : the_post();
           }
         },
         mounted() {
+          if (this.evento.data_termino !== null) {
+            this.dataTermino = true;
+          }
           // Esconde conteúdo quando JavaScript não estiver habilitado
           var conteudo = document.getElementById("appevento");
           conteudo.style.display = "block";
@@ -313,9 +377,17 @@ if (have_posts()) : while (have_posts()) : the_post();
         }
       });
     </script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
     <style>
+      .modal-title {
+        font-size: 20px;
+      }
+
+      .btn, .modal-body {
+        font-size: 16px;
+      }
+
       #appevento {
         width: 1200px;
         margin: auto;
