@@ -68,11 +68,13 @@ function lct_title( $sep ) {
 }
 // Cadastro e carregamento de estilos
 function gerenciamentoDeEstilos() {
-	  wp_register_style('agenda-participativa', get_template_directory_uri() . '/css/agenda-participativa.css', array(), '1.0.2', 'all');
+	wp_register_style('Agenda Participativa', get_template_directory_uri() . '/css/agenda-participativa.css', array(), '1.0.2', 'all');
+	wp_register_style('Botoes Bootstrap', get_template_directory_uri() . '/css/botoes.css', array(), '1.0', 'all');
 
 	  // Estilos da Home
 	  if (is_front_page() || is_page('evento')) {
-		wp_enqueue_style('agenda-participativa');
+		wp_enqueue_style('Agenda Participativa');
+		wp_enqueue_style('Botoes Bootstrap');
 	  }
 }
 
