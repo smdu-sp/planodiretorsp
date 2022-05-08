@@ -38,6 +38,7 @@
 #agenda-participativa {
     display: flex;
     align-items: center;
+    max-width: 680px;
 }
 
 #agenda-participativa .container-triangulo {
@@ -56,14 +57,28 @@
 
 #agenda-participativa .balao {
     display: flex;
+    width: 100%;
+    max-width: 600px;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
     margin-right: 30px;
-    padding: 96px 30px 20px 46px;
+    padding: 36px 30px 20px 46px;
     border-radius: 12px;
     height: 460px;
     background-color: #f36546;
     box-shadow: 54px -46px 30px -46px rgb(127 127 127 / 60%), -54px -46px 20px -46px rgb(127 127 127 / 25%);
+}
+
+#agenda-participativa .admin {
+    height: 60px;
+    flex-shrink: 0;
+}
+
+#agenda-participativa .container-balao {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 #agenda-participativa .conteudo {
@@ -101,10 +116,6 @@
     background-position: 30px center;
 }
 
-#agenda-participativa .data {
-    background-image: url("/wp-content/uploads/2022/04/icone-data.png");
-}
-
 #agenda-participativa b {
     display: inline-block;
 }
@@ -112,13 +123,6 @@
 #agenda-participativa b.quebra-linha {
     width: 100%;
     padding-top: 0 !important;
-}
-
-#agenda-participativa .horario {
-    background-image: url("/wp-content/uploads/2022/04/icone-horario.png");
-}
-#agenda-participativa .local {
-    background-image: url("/wp-content/uploads/2022/04/icone-local.png");
 }
 
 #agenda-participativa .info span {
@@ -129,7 +133,7 @@
     line-height: 1.2;
     padding-top: 2px;
     padding-bottom: 2px;
-    padding-left: 50px;
+    padding-left: 10px;
     width: 100%;
     margin-bottom: 0;
 }
@@ -186,8 +190,8 @@
     }
 
     #agenda-participativa .info span {
-        font-size: 18px !important;
-        padding: 4px 12px 4px 40px;
+        font-size: 22px !important;
+        padding: 4px 12px 4px 30px;
     }
 
     #agenda-participativa .local span {
@@ -218,14 +222,24 @@
         margin-bottom: 40px !important;
     }
 
-    #agenda-participativa .titulo, #agenda-participativa .info {
+    #agenda-participativa .admin {
+        display: none;
+    }
+
+    #agenda-participativa .titulo {
         width: auto;
         margin-bottom: 40px;
+    }
+
+    #agenda-participativa .info {
+        width: 66%;
+        margin-bottom: 30px;
     }
 
     #agenda-participativa .titulo h3 {
         font-size: 24px !important;
         line-height: 1.2 !important;
+        text-align: center;
     }
 
     #agenda-participativa .info > div {
