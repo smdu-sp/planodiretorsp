@@ -190,8 +190,8 @@
     }
 
     #agenda-participativa .info span {
-        font-size: 18px !important;
-        padding: 4px 12px 4px 40px;
+        font-size: 22px !important;
+        padding: 4px 12px 4px 30px;
     }
 
     #agenda-participativa .local span {
@@ -222,14 +222,24 @@
         margin-bottom: 40px !important;
     }
 
-    #agenda-participativa .titulo, #agenda-participativa .info {
+    #agenda-participativa .admin {
+        display: none;
+    }
+
+    #agenda-participativa .titulo {
         width: auto;
         margin-bottom: 40px;
+    }
+
+    #agenda-participativa .info {
+        width: 66%;
+        margin-bottom: 30px;
     }
 
     #agenda-participativa .titulo h3 {
         font-size: 24px !important;
         line-height: 1.2 !important;
+        text-align: center;
     }
 
     #agenda-participativa .info > div {

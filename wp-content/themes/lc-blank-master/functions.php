@@ -68,7 +68,7 @@ function lct_title( $sep ) {
 }
 // Cadastro e carregamento de estilos
 function gerenciamentoDeEstilos() {
-	wp_register_style('Agenda Participativa', get_template_directory_uri() . '/css/agenda-participativa.css', array(), '1.0.2', 'all');
+	wp_register_style('Agenda Participativa', get_template_directory_uri() . '/css/agenda-participativa.css', array(), '1.0.5', 'all');
 	wp_register_style('Botoes Bootstrap', get_template_directory_uri() . '/css/botoes.css', array(), '1.0', 'all');
 
 	  // Estilos da Home
