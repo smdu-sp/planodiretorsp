@@ -220,7 +220,7 @@ if (have_posts()) : while (have_posts()) : the_post();
               }
             }
             this.dataTermino = false;
-            return;
+            return false;
           },
           confirmaExclusao: function() {
             if (window.confirm("ATENÇÃO! Tem certeza que deseja excluir o evento?")) {
@@ -288,14 +288,19 @@ if (have_posts()) : while (have_posts()) : the_post();
           }
         },
         mounted() {
-          if (this.evento.data_termino !== null) {
-            this.dataTermino = true;
-          }
           // Esconde conteúdo quando JavaScript não estiver habilitado
           var conteudo = document.getElementById("appevento");
           conteudo.style.display = "block";
-          this.listaDeDocumentos = eventoRaw.documentos
-          delete eventoRaw.documentos
+          
+          if (!this.tipoDeEvento) {
+            this.listaDeDocumentos = eventoRaw.documentos
+            delete eventoRaw.documentos
+          }
+          if (this.tipoDeEvento == 'agenda') {
+            if (this.evento.data_termino !== null) {
+              this.dataTermino = true;
+            }
+          }
         }
       });
     </script>
