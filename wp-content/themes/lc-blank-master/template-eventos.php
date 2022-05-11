@@ -104,10 +104,10 @@ if (have_posts()) : while (have_posts()) : the_post();
             <div class="row" v-for="(value, key) in evento" :id="key">
               <div class="col">
                 <label :for="'campo-' + key">{{ labelsAgenda[0][key] }}</label>
-                <input class="ml-1" v-if="key == 'data_termino'" type="checkbox" v-model='dataTermino'>
+                <input class="ml-1" v-if="key == 'data_termino'" type="checkbox" v-model='checkboxDataTermino'>
                 <input class="form-control" type="text" v-if="key != 'data_inicio' && key != 'data_termino' && key != 'horario'" v-model="evento[key]" :id="'campo-' + key" :key="key" :name="key">
                 <input class="form-control" type="date" v-if="key == 'data_inicio'" v-model="evento[key]" :id="'campo-' + key" :key="key" :name="key">
-                <input class="form-control" type="date" v-if="key == 'data_termino'" v-model="evento[key]" :id="'campo-' + key" :key="key" :name="key" :disabled="!dataTermino">
+                <input class="form-control" type="date" v-if="key == 'data_termino'" v-model="evento[key]" :id="'campo-' + key" :key="key" :name="key" :disabled="!checkboxDataTermino" @change="checaPeriodo">
                 <input class="form-control" type="time" v-if="key == 'horario'" v-model="evento[key]" :id="'campo-' + key" :key="key" :name="key">
               </div>
             </div>  
@@ -125,12 +125,14 @@ if (have_posts()) : while (have_posts()) : the_post();
         </div>
       </div>
     </div>
+    
+
 
     <script type="text/javascript">
       var app = new Vue({
         el: "#appevento",
         data: {
-          dataTermino: false,
+          checkboxDataTermino: false,
           documentos: "",
           evento: eventoRaw,
           labelsAgenda:[{
@@ -159,6 +161,7 @@ if (have_posts()) : while (have_posts()) : the_post();
           modalTexto: '',
           modalTrava: false,
           listaDeDocumentos: [],
+          periodoValido: false,
           tipoDeEvento: tipoDeEvento,
           validacaoAgenda: false
         },
@@ -210,18 +213,13 @@ if (have_posts()) : while (have_posts()) : the_post();
               .then(response => (console.log(response)))
           },
           checaPeriodo: function() {
-            if (this.dataTermino) {
-              dI = new Date(this.evento.data_inicio);
-              dT = new Date(this.evento.data_termino);
-              if (dT instanceof Date && !isNaN(dT)) {
-                if (dT > dI) {
-                  return this.evento.data_termino;
-                }
-              }
+            this.periodoValido = false;
+            const dI = parseInt(this.evento.data_inicio.replaceAll('-', ''));
+            const dF = parseInt(this.evento.data_termino.replaceAll('-', ''));
+            if (dF > dI) {
+              this.periodoValido = true;
             }
-            this.dataTermino = false;
-            return false;
-          },
+          }, 
           confirmaExclusao: function() {
             if (window.confirm("ATENÇÃO! Tem certeza que deseja excluir o evento?")) {
               axios
@@ -274,11 +272,24 @@ if (have_posts()) : while (have_posts()) : the_post();
             if (this.evento.titulo.trim() != '' && this.evento.link.trim() != '' && this.evento.link_texto.trim() != '') {
               dI = new Date(this.evento.data_inicio);
               if (dI instanceof Date && !isNaN(dI)) {
-                this.evento.data_termino = this.checaPeriodo();
+                this.evento.data_termino = this.validaPeriodo();
                 return true;
               }
             }
             return false;
+          },
+          validaPeriodo: function() {
+            if (this.checkboxDataTermino) {
+              dI = new Date(this.evento.data_inicio);
+              dT = new Date(this.evento.data_termino);
+              if (dT instanceof Date && !isNaN(dT)) {
+                if (dT > dI) {
+                  return this.evento.data_termino;
+                }
+              }
+            }
+            this.checkboxDataTermino = false;
+            return '';
           },
           sendForm: function(e) {
             this.trataDocumentos()
@@ -298,7 +309,7 @@ if (have_posts()) : while (have_posts()) : the_post();
           }
           if (this.tipoDeEvento == 'agenda') {
             if (this.evento.data_termino !== null) {
-              this.dataTermino = true;
+              this.checkboxDataTermino = true;
             }
           }
         }

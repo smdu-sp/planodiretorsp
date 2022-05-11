@@ -49,7 +49,7 @@
                                 <?= is_front_page() ? $agenda->data_inicio : '{{formataData(evento.data_inicio)}}'; ?>
                             </b><?php
                                 if ($agenda->data_termino || !is_front_page()) { ?>
-                                    <b class="quebra-linha"<?= !is_front_page() ? 'v-if="evento.data_termino && dataTermino"' : ''; ?>>
+                                    <b class="quebra-linha"<?= !is_front_page() ? 'v-if="evento.data_termino && checkboxDataTermino && periodoValido"' : ''; ?>>
                                         a <?= is_front_page() ? $agenda->data_termino : '{{formataData(evento.data_termino)}}'; ?>
                                     </b><?php
                                 }
