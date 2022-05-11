@@ -1,3 +1,21 @@
+#noticias .titulo {
+    margin-bottom: 60px;
+}
+
+#noticias .titulo > * {
+    display: inline-block;
+}
+
+#noticias h2 {
+    font-size: 60px;
+    font-weight: 900;
+}
+
+#noticias .admin {
+    vertical-align: text-bottom;
+    margin-left: 30px;
+}
+
 #noticias .row {
     display: flex;
     flex-direction: row;

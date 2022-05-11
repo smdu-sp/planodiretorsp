@@ -3,7 +3,7 @@
 Template Name: Cadastro de evento
 */
 
-require_once('evento.php');
+require_once 'eventos/evento.php';
 
 get_header();
 

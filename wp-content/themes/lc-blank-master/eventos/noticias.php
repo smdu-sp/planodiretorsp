@@ -1,14 +1,15 @@
 <?php
 
 /**
- * Agenda Participativa
+ * Notícias
  */
 
-function getAgendaParticipativa() {
+function getNoticias() {
     global $wpdb;
-    $where = "id = 1";
+    $where = "1 = 1";
     $sql =  <<<SQL
-                SELECT * FROM agenda_participativa WHERE {$where};
+                SELECT * FROM noticias
+                WHERE {$where};
             SQL;
     $resultado = $wpdb->get_results($sql, OBJECT);
     

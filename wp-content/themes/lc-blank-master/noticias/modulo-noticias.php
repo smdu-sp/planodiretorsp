@@ -24,6 +24,16 @@ ob_start();
 ?>
 
 <div id="noticias">
+    <div class="titulo">
+        <h2>Notícias</h2>
+        <?php 
+            if (is_front_page() && is_user_logged_in()) { ?>
+                <div class="admin">
+                    <a href="/evento/?tipo=noticias" class="btn btn-primary">Editar</a>
+                </div><?php
+            } 
+        ?>
+    </div>
     <div class="container">
         <?php 
             foreach ($noticias as $chave=>$noticia) {

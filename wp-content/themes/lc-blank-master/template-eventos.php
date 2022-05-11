@@ -3,8 +3,7 @@
 Template Name: Eventos (Agenda/ Área de Transparência)
 */
 
-require_once('evento.php');
-require_once('agenda-participativa.php');
+require_once 'eventos/evento.php';
 
 get_header();
 
@@ -15,94 +14,17 @@ if (have_posts()) : while (have_posts()) : the_post();
     global $wpdb;
     $wpdb->show_errors();
 
-    //AGENDA PARTICIPATIVA
     if ($_GET['tipo'] == 'agenda') { 
-      $evento = getAgendaParticipativa()[0];
-
-      if ($_SERVER["REQUEST_METHOD"] == "PUT") {
-        $_POST = json_decode(file_get_contents("php://input"), true);
-        $_POST['id'] = $id;
-        foreach($_POST as $chave => $valor) {
-          if ($chave === 'id') {
-            continue;
-          }
-
-          if ($chave === 'data_termino' && strlen($valor) < 10) {
-            $valor = null;
-          }  
-          if ($chave === 'local' && trim($valor) === '') {
-            $valor = null;
-          }  
-          
-          $wpdb->update('agenda_participativa', array($chave => $valor), array('id' => '1'));
-        }
-
-        echo $id;
-        return;
-      }
-
-    } 
-    //FIM AGENDA PARTICIPATIVA
-    
-    // EVENTOS DA AGENDA
-    else { 
-      $id = $_GET['id'];
-
-      if (!$id || sizeof(getEvento($id)) < 1) {
-        var_dump($id);
-        // echo "Evento inexistente.";
-        // return;
-      }
-
-      // DELETE DO EVENTO
-      if ($_SERVER["REQUEST_METHOD"] == "DELETE") {
-        $wpdb->delete('eventos_agenda', array('id' => $id));
-        echo "Evento {$id} excluído.";
-        return;
-      }
-
-      $evento = getEvento($id)[0];
-
-      // PUT DO EVENTO    
-      if ($_SERVER["REQUEST_METHOD"] == "PUT") {
-        $_POST = json_decode(file_get_contents("php://input"), true);
-        $id = $_POST['id'];
-        $chave = $_POST['chave'];
-        $valor = $_POST['valor'];
-
-        if ($chave === 'data_termino' && strlen($valor) < 10) {
-          $valor = null;
-        }
-
-        $wpdb->update('eventos_agenda', array($chave => $valor), array('id' => $id));
-
-        echo $id;
-        return;
-      }
-
-      // INSERT DOCUMENTOS EVENTO
-      if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $_POST = json_decode(file_get_contents("php://input"), true);
-        echo "POST: <br>\n";
-        var_dump($_POST['documentos']);
-        $json = stripcslashes($_POST['documentos']);
-        $documentos = json_decode($json, true);
-
-        $wpdb->delete('documentos_evento', array('id_evento' => $id));
-
-        foreach ($documentos as $key => $value) {
-          $documentos[$key]['id_evento'] = $id;
-          $wpdb->insert('documentos_evento', $documentos[$key]);
-          if (!is_int($wpdb->insert_id)) {
-            echo "<script>window.alert('Falha no cadastro do documento relacionado ao evento. Consulte o desenvolvedor.');</script>";
-            return;
-          }
-        }
-        echo $id;
-        return;
-      }
+      require_once 'eventos/agenda-participativa.php';
     }
-    // FIM EVENTOS DA AGENDA
+    
+    else if ($_GET['tipo'] == 'noticias') { 
+      require_once 'eventos/noticias.php';
+    }
+    
+    else {
+      require_once 'eventos/eventos.php';
+    }
 
     echo "<script>const eventoRaw = " . json_encode($evento) . "; const tipoDeEvento = '{$_GET['tipo']}'</script>";
 
