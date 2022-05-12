@@ -63,8 +63,8 @@ if (have_posts()) : while (have_posts()) : the_post();
         <div class="item-evento row" v-for="(value, key) in evento" :id="key">
           <div class="col-9">
             <!-- NECESSÁRIO REFAZER ESTE TRECHO ATRIBUINDO :type="lista.tipo" E :class="lista.classe" -->
-            <label :for="'campo-' + key" v-if="key != 'data_evento' && key != 'link'">{{ labelsEventos[0][key] }}</label>
-            <label class="mt-5" :for="'campo-' + key" v-if="key == 'data_evento' || key == 'link'">{{ labelsEventos[0][key] }}</label>
+            <label :for="'campo-' + key" v-if="key != 'data_evento' && key != 'link'">{{ labelsEventos[key] }}</label>
+            <label class="mt-5" :for="'campo-' + key" v-if="key == 'data_evento' || key == 'link'">{{ labelsEventos[key] }}</label>
             <input class="form-control" type="text" v-if="key != 'descricao' && key != 'hora_evento' && key != 'data_evento' && key != 'data_termino'" v-model="evento[key]" @change="atualizaDado(key, value)" :id="'campo-' + key" :key="key">
             <textarea class="form-control" v-if="key == 'descricao'" v-model="evento[key]" @change="atualizaDado(key, value)" :id="'campo-' + key" :key="key"></textarea>
             <input class="form-control" type="date" v-if="key == 'data_evento' || key == 'data_termino'" v-model="evento[key]" @change="atualizaDado(key, value)" :id="'campo-' + key" :key="key">
@@ -103,30 +103,57 @@ if (have_posts()) : while (have_posts()) : the_post();
           <div class="item-evento col-5">
             <div class="row" v-for="(value, key) in evento" :id="key">
               <div class="col">
-                <label :for="'campo-' + key">{{ labelsAgenda[0][key] }}</label>
+                <label :for="'campo-' + key">{{labelsAgenda[key]}}</label>
                 <input class="ml-1" v-if="key == 'data_termino'" type="checkbox" v-model='checkboxDataTermino'>
-                <input class="form-control" type="text" v-if="key != 'data_inicio' && key != 'data_termino' && key != 'horario'" v-model="evento[key]" :id="'campo-' + key" :key="key" :name="key">
-                <input class="form-control" type="date" v-if="key == 'data_inicio'" v-model="evento[key]" :id="'campo-' + key" :key="key" :name="key">
-                <input class="form-control" type="date" v-if="key == 'data_termino'" v-model="evento[key]" :id="'campo-' + key" :key="key" :name="key" :disabled="!checkboxDataTermino" @change="checaPeriodo">
-                <input class="form-control" type="time" v-if="key == 'horario'" v-model="evento[key]" :id="'campo-' + key" :key="key" :name="key">
+                <input class="form-control mb-2" type="text" v-if="key != 'data_inicio' && key != 'data_termino' && key != 'horario'" v-model="evento[key]" :id="'campo-' + key" :key="key" :name="key">
+                <input class="form-control mb-2" type="date" v-if="key == 'data_inicio'" v-model="evento[key]" :id="'campo-' + key" :key="key" :name="key">
+                <input class="form-control mb-2" type="date" v-if="key == 'data_termino'" v-model="evento[key]" :id="'campo-' + key" :key="key" :name="key" :disabled="!checkboxDataTermino" @change="checaPeriodo">
+                <input class="form-control mb-2" type="time" v-if="key == 'horario'" v-model="evento[key]" :id="'campo-' + key" :key="key" :name="key">
               </div>
             </div>  
           </div>
           <div class="col-7">
-            <?= do_shortcode( '[shortcodeAgendaParticipativa]' ); ?>
+            <?= do_shortcode('[shortcodeAgendaParticipativa]'); ?>
           </div>
         </div>
-        <div class="row">
+        <div class="row mt-5">
           <div class="col">
-            <div @click="atualizaAgenda" class="btn btn-success" data-toggle="modal" data-target="#modal-eventos" data-backdrop="static">
+            <button @click="atualizaAgenda" class="btn btn-success" data-toggle="modal" data-target="#modal-eventos" data-backdrop="static">
               Atualizar Agenda
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- NOTÍCIAS -->
+      <div id="noticias" v-if="tipoDeEvento == 'noticias'" class="evento form-group">
+        <div>
+          <h1>Notícias</h1>
+        </div>
+        <div v-for="noticia, key in evento">
+          <div class="row">
+            <div :id="'noticia-' + key" class="col-6">
+              <button type="button" class="btn btn-primary" v-if="!noticia.aberto" @click="abreNoticia(key)">
+                Editar
+              </button>
+              <div v-if="noticia.aberto">
+                <div v-for="valor, prop in noticia">
+                  <label :for="prop + '-' + key">{{labelsNoticias[prop]}}</label>
+                  <input class="ml-1" v-if="prop == 'pracegover'" type="checkbox" v-model="noticia['checkboxPraCegoVer']" @change="limpaCampo(prop, key)">
+                  <input class="form-control mb-2" :id="prop + '-' + key" v-if="prop == 'titulo' || prop =='imagem' || prop == 'link'" type="text" v-model="noticia[prop]">
+                  <input class="form-control mb-2" :id="prop + '-' + key" v-if="prop == 'pracegover'" type="text" v-model="noticia[prop]" :disabled="!noticia['checkboxPraCegoVer']">
+                </div>
+                <div class="row justify-content-end">
+                  <div class="col-auto"><button @click="excluiNoticia" type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-eventos" data-backdrop="static">Excluir</button></div>
+                  <div class="col-auto"><button @click="atualizaNoticia(key)" type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-eventos" data-backdrop="static">Atualizar</button></div>
+                </div>
+              </div>
             </div>
+            <?php include 'noticias/single.php' ?>
           </div>
         </div>
       </div>
     </div>
-    
-
 
     <script type="text/javascript">
       var app = new Vue({
@@ -135,7 +162,7 @@ if (have_posts()) : while (have_posts()) : the_post();
           checkboxDataTermino: false,
           documentos: "",
           evento: eventoRaw,
-          labelsAgenda:[{
+          labelsAgenda: {
             titulo: 'Título',
             data_inicio: 'Data de Início',
             data_termino: 'Data de Encerramento',
@@ -143,8 +170,8 @@ if (have_posts()) : while (have_posts()) : the_post();
             local: 'Local',
             link: 'Endereço URL',
             link_texto: 'Texto da URL'
-          }],
-          labelsEventos: [{
+          },
+          labelsEventos: {
             tipo: 'Tipo de evento',
             tema: 'Tema',
             titulo: 'Título / Nome do evento',
@@ -157,7 +184,13 @@ if (have_posts()) : while (have_posts()) : the_post();
             local: 'Local (evento presencial)',
             link: 'Link da transmissão',
             descricao_link: 'Texto do link'
-          }],
+          },
+          labelsNoticias: {
+            titulo: 'Título',
+            imagem: 'Capa',
+            pracegover: '#PraCegoVer',
+            link: 'Endereço URL',
+          },
           modalTexto: '',
           modalTrava: false,
           listaDeDocumentos: [],
@@ -166,6 +199,10 @@ if (have_posts()) : while (have_posts()) : the_post();
           validacaoAgenda: false
         },
         methods: {
+          abreNoticia: function(key) {
+            this.evento[key].aberto = true;
+            this.$forceUpdate();
+          },
           addDocumento: function() {
             this.listaDeDocumentos.push({
               nome: '',
@@ -192,8 +229,7 @@ if (have_posts()) : while (have_posts()) : the_post();
             } else {
               this.modalTexto = 'Um ou mais campos contém dados inválidos, verifique os dados e tente novamente.'
             }
-          }
-          ,
+          },
           atualizaDado: function(key, value) {
             axios
               .put('<?php echo get_permalink(); ?>' + '?id=' + this.evento.id, {
@@ -210,7 +246,28 @@ if (have_posts()) : while (have_posts()) : the_post();
                 id: this.evento.id,
                 documentos: this.documentos
               })
-              .then(response => (console.log(response)))
+              .then(response => (console.log(response)));
+          },
+          atualizaNoticia: function(id) {
+            this.modalTexto= 'Enviando...';
+            this.modalTrava = true;
+            let dados = Object.assign({}, this.evento[id]);
+            console.log(dados)
+            const arrayDelete = ['aberto', 'checkboxPraCegoVer', 'tipo', 'created_at'];
+            arrayDelete.forEach(valor => delete dados[valor]);
+            console.log(dados)
+            axios
+              .put('<?php echo get_permalink(); ?>' + '?tipo=noticias', dados)
+              .then(response => {
+                console.log(response.status)
+                if (response.status === 200) {
+                  console.log(response);
+                  this.modalTexto = 'Atualizado com sucesso!';
+                } else {
+                  this.modalTexto = 'Falha no envio, tente novamente mais tarde.'
+                }
+                this.modalTrava = false;
+              });
           },
           checaPeriodo: function() {
             this.periodoValido = false;
@@ -230,6 +287,9 @@ if (have_posts()) : while (have_posts()) : the_post();
                 })
                 .then(response => (console.log(response)))
             }
+          },
+          excluiNoticia: function(id) {
+            return id;
           },
           formataData: function (data) {
             const dataObj = new Date(data);
@@ -258,6 +318,14 @@ if (have_posts()) : while (have_posts()) : the_post();
             } 
 
             return horarioFinal;
+          },
+          limpaCampo: function(prop, key = -1) {
+            if (key >= 0) {
+              this.evento[key][prop] = '';
+            } else {
+              this.evento[prop] = '';
+            }
+            this.$forceUpdate();
           },
           removeDocumento: function(indice) {
             if (window.confirm('ATENÇÃO! Tem certeza que deseja excluir este documento?')) {
@@ -296,7 +364,7 @@ if (have_posts()) : while (have_posts()) : the_post();
           },
           toggleVideo: function() {
             this.tipoEvento = this.isVideo ? "video" : this.tipoEvento
-          }
+          },
         },
         mounted() {
           // Esconde conteúdo quando JavaScript não estiver habilitado
@@ -311,6 +379,16 @@ if (have_posts()) : while (have_posts()) : the_post();
             if (this.evento.data_termino !== null) {
               this.checkboxDataTermino = true;
             }
+          }
+          if (this.tipoDeEvento == 'noticias') {
+            this.evento.forEach(obj => {
+              obj.aberto = false;
+              if (obj.pracegover == '') {
+                obj.checkboxPraCegoVer = false;
+              } else {
+                obj.checkboxPraCegoVer = true;
+              }
+            });
           }
         }
       });

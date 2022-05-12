@@ -20,7 +20,6 @@ $evento = getAgendaParticipativa()[0];
 
 if ($_SERVER["REQUEST_METHOD"] == "PUT") {
   $_POST = json_decode(file_get_contents("php://input"), true);
-  $_POST['id'] = $id;
   foreach($_POST as $chave => $valor) {
     if ($chave === 'id') {
       continue;

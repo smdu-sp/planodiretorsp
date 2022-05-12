@@ -31,6 +31,8 @@
     background-color: #0a3299;
     min-width: 420px;
     width: calc(50% - 15px);
+    padding-left: 0;
+    padding-right: 0;
 }
 
 #noticias .agenda {
