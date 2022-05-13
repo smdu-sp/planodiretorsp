@@ -35,15 +35,49 @@ var app = new Vue({
     },
     modalTexto: '',
     modalTrava: false,
+    novaNoticia: [{
+      titulo: '',
+      imagem: '',
+      pracegover: '',
+      link: '',
+      checkboxPraCegoVer: false
+    }],
     listaDeDocumentos: [],
     periodoValido: false,
     tipoDeEvento: tipoDeEvento,
     validacaoAgenda: false
   },
   methods: {
-    abreNoticia: function(key) {
-      this.evento[key].aberto = true;
+    abreNoticia: function(key = -1) {
+      if (key >= 0) {
+        this.evento[key].aberto = true;
+      } else {
+        this.novaNoticia.aberto = true;
+      }
       this.$forceUpdate();
+    },
+    addNoticia: function() {
+      this.modalTexto= 'Enviando...';
+      this.modalTrava = true;
+      // Recarrega após fechar o Modal
+      jQuery('#modal-eventos').on('hidden.bs.modal', function () {
+        window.location.href = window.location.href;
+      });
+      let dados = Object.assign({}, this.novaNoticia[0]);
+      const arrayDelete = ['checkboxPraCegoVer'];
+      arrayDelete.forEach(valor => delete dados[valor]);
+      axios
+        .post('/evento/?tipo=noticias', dados)
+        .then(response => {
+          console.log(response.status)
+          if (response.status === 200) {
+            console.log(response);
+            this.modalTexto = 'Notícia adicionada com sucesso!';
+          } else {
+            this.modalTexto = 'Falha no envio, tente novamente mais tarde.'
+          }
+          this.modalTrava = false;
+        });
     },
     addDocumento: function() {
       this.listaDeDocumentos.push({
@@ -94,10 +128,8 @@ var app = new Vue({
       this.modalTexto= 'Enviando...';
       this.modalTrava = true;
       let dados = Object.assign({}, this.evento[id]);
-      console.log(dados)
       const arrayDelete = ['aberto', 'checkboxPraCegoVer', 'tipo', 'created_at'];
       arrayDelete.forEach(valor => delete dados[valor]);
-      console.log(dados)
       axios
         .put('/evento/?tipo=noticias', dados)
         .then(response => {

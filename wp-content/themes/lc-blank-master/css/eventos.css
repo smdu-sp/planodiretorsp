@@ -4,7 +4,7 @@
 
 .btn,
 .modal-body {
-  font-size: 16px;
+  font-size: 16px !important;
 }
 
 #appevento {

@@ -19,6 +19,22 @@ function getNoticias() {
 
 $evento = getNoticias();
 
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $_POST = json_decode(file_get_contents("php://input"), true);
+    $dados = [];
+
+    foreach($_POST as $chave => $valor) {      
+      if (trim($valor) === '') {
+        $valor = '';
+      }
+
+      $dados[$chave] = $valor;
+    }
+
+    global $wpdb;
+    $wpdb->insert('noticias', $dados);    
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "PUT") {
     $_POST = json_decode(file_get_contents("php://input"), true);
     $id = $_POST['id'];
