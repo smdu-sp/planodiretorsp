@@ -70,7 +70,7 @@ function lct_title( $sep ) {
 function gerenciamentoDeEstilos() {
 	wp_register_style('Agenda Participativa', get_template_directory_uri() . '/css/agenda-participativa.css', array(), '1.0.6', 'all');
 	wp_register_style('Botoes Bootstrap', get_template_directory_uri() . '/css/botoes.css', array(), '1.0', 'all');
-	wp_register_style('Eventos', get_template_directory_uri() . '/css/eventos.css', array(), '1.0', 'all');
+	wp_register_style('Eventos', get_template_directory_uri() . '/css/eventos.css', array(), '1.0.1', 'all');
 	wp_register_style('Notícias', get_template_directory_uri() . '/css/noticias.css', array(), '1.0', 'all');
 
 	  // Estilos da Home
