@@ -68,13 +68,20 @@ function lct_title( $sep ) {
 }
 // Cadastro e carregamento de estilos
 function gerenciamentoDeEstilos() {
-	wp_register_style('Agenda Participativa', get_template_directory_uri() . '/css/agenda-participativa.css', array(), '1.0.5', 'all');
+	wp_register_style('Agenda Participativa', get_template_directory_uri() . '/css/agenda-participativa.css', array(), '1.0.6', 'all');
 	wp_register_style('Botoes Bootstrap', get_template_directory_uri() . '/css/botoes.css', array(), '1.0', 'all');
+	wp_register_style('Eventos', get_template_directory_uri() . '/css/eventos.css', array(), '1.0', 'all');
+	wp_register_style('Notícias', get_template_directory_uri() . '/css/noticias.css', array(), '1.0', 'all');
 
 	  // Estilos da Home
 	  if (is_front_page() || is_page('evento')) {
 		wp_enqueue_style('Agenda Participativa');
+		wp_enqueue_style('Notícias');
 		wp_enqueue_style('Botoes Bootstrap');
+	  }
+
+	  if (is_page('evento')) {
+		wp_enqueue_style('Eventos');
 	  }
 }
 
@@ -114,11 +121,19 @@ function validaUrl($url) {
 				startsWith($url, 'mailto:') && !contains($url, '/') && contains($url, '%40')
 			) ? true : false;
 }
-// TODO SHORTCODE
+// SHORTCODES
 add_shortcode('shortcodeAgendaParticipativa', 'shortcodeAgendaParticipativa');
+add_shortcode('shortcodeNoticias', 'shortcodeNoticias');
+
 function shortcodeAgendaParticipativa() {
 	
-include_once "modulo-agenda-participativa.php";
+require_once "modulo-agenda-participativa.php";
 
 return ob_get_clean();
+}
+
+function shortcodeNoticias() {
+	require_once "noticias/modulo-noticias.php";
+	
+	return ob_get_clean();
 }

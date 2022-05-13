@@ -3,8 +3,7 @@
 Template Name: Eventos (Agenda/ Área de Transparência)
 */
 
-require_once('evento.php');
-require_once('agenda-participativa.php');
+require_once get_stylesheet_directory() . '/eventos/evento.php';
 
 get_header();
 
@@ -15,431 +14,53 @@ if (have_posts()) : while (have_posts()) : the_post();
     global $wpdb;
     $wpdb->show_errors();
 
-    //AGENDA PARTICIPATIVA
-    if ($_GET['tipo'] == 'agenda') { 
-      $evento = getAgendaParticipativa()[0];
+    $tipoDeEvento = $_GET['tipo'];
 
-      if ($_SERVER["REQUEST_METHOD"] == "PUT") {
-        $_POST = json_decode(file_get_contents("php://input"), true);
-        $_POST['id'] = $id;
-        foreach($_POST as $chave => $valor) {
-          if ($chave === 'id') {
-            continue;
-          }
-
-          if ($chave === 'data_termino' && strlen($valor) < 10) {
-            $valor = null;
-          }  
-          if ($chave === 'local' && trim($valor) === '') {
-            $valor = null;
-          }  
-          
-          $wpdb->update('agenda_participativa', array($chave => $valor), array('id' => '1'));
-        }
-
-        echo $id;
-        return;
-      }
-
-    } 
-    //FIM AGENDA PARTICIPATIVA
-    
-    // EVENTOS DA AGENDA
-    else { 
-      $id = $_GET['id'];
-
-      if (!$id || sizeof(getEvento($id)) < 1) {
-        var_dump($id);
-        // echo "Evento inexistente.";
-        // return;
-      }
-
-      // DELETE DO EVENTO
-      if ($_SERVER["REQUEST_METHOD"] == "DELETE") {
-        $wpdb->delete('eventos_agenda', array('id' => $id));
-        echo "Evento {$id} excluído.";
-        return;
-      }
-
-      $evento = getEvento($id)[0];
-
-      // PUT DO EVENTO    
-      if ($_SERVER["REQUEST_METHOD"] == "PUT") {
-        $_POST = json_decode(file_get_contents("php://input"), true);
-        $id = $_POST['id'];
-        $chave = $_POST['chave'];
-        $valor = $_POST['valor'];
-
-        if ($chave === 'data_termino' && strlen($valor) < 10) {
-          $valor = null;
-        }
-
-        $wpdb->update('eventos_agenda', array($chave => $valor), array('id' => $id));
-
-        echo $id;
-        return;
-      }
-
-      // INSERT DOCUMENTOS EVENTO
-      if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $_POST = json_decode(file_get_contents("php://input"), true);
-        echo "POST: <br>\n";
-        var_dump($_POST['documentos']);
-        $json = stripcslashes($_POST['documentos']);
-        $documentos = json_decode($json, true);
-
-        $wpdb->delete('documentos_evento', array('id_evento' => $id));
-
-        foreach ($documentos as $key => $value) {
-          $documentos[$key]['id_evento'] = $id;
-          $wpdb->insert('documentos_evento', $documentos[$key]);
-          if (!is_int($wpdb->insert_id)) {
-            echo "<script>window.alert('Falha no cadastro do documento relacionado ao evento. Consulte o desenvolvedor.');</script>";
-            return;
-          }
-        }
-        echo $id;
-        return;
-      }
+    if ($tipoDeEvento == 'agenda') { 
+      require_once get_stylesheet_directory() . '/eventos/agenda-participativa.php';
     }
-    // FIM EVENTOS DA AGENDA
+    
+    elseif ($tipoDeEvento == 'noticias') { 
+      require_once get_stylesheet_directory() . '/eventos/noticias.php';
+    }
+    
+    else {
+      require_once get_stylesheet_directory() . '/eventos/eventos.php';
+    }
 
-    echo "<script>const eventoRaw = " . json_encode($evento) . "; const tipoDeEvento = '{$_GET['tipo']}'</script>";
-
-    include_once 'modulo-vue.php';
-    echo "<script type='text/javascript' src='" . $jsPath . "axios.min.js'></script>";
+    require_once get_stylesheet_directory() . '/modulo-vue.php';
 
 ?>
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <!-- O EVENTO EM SI -->
     <div id="appevento">
-      <!-- Modal de envio -->
-      <div backdrop="static" class="modal fade" id="modal-eventos" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalCenterTitle">Atualizar {{ tipoDeEvento == 'agenda' ? 'Agenda Participativa' : 'Notícias'}}</h5>
-            </div>
-            <div class="modal-body" v-html="modalTexto">
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-primary" data-dismiss="modal" :disabled="modalTrava">Fechar</button>
-            </div>
-          </div>
-        </div>
-      </div>
+      <div class="evento form-group" :id="tipoDeEvento == 'noticias' ? 'noticias' : ''">
+        <?php
+          require_once get_stylesheet_directory() . '/eventos/modal-envio.php';
 
-      <div v-if="!tipoDeEvento" class="evento form-group">
-        <div>
-          <h1>Editar Evento: {{evento.titulo}}</h1>
-        </div>
-        <div class="btn btn-danger" @click="confirmaExclusao" title="Excluir evento">Excluir evento</div>
+          if ($tipoDeEvento == 'agenda') {
+            require_once get_stylesheet_directory() . '/eventos/form-agenda-participativa.php';
+          }
 
-        <div v-if="tipoDeEvento"><p>{{tipoDeEvento}}</div></p>
+          elseif ($tipoDeEvento == 'noticias') {
+            require_once get_stylesheet_directory() . '/eventos/form-noticias.php';
+          }
 
-        <div class="item-evento row" v-for="(value, key) in evento" :id="key">
-          <div class="col-9">
-            <!-- NECESSÁRIO REFAZER ESTE TRECHO ATRIBUINDO :type="lista.tipo" E :class="lista.classe" -->
-            <label :for="'campo-' + key" v-if="key != 'data_evento' && key != 'link'">{{ labelsEventos[0][key] }}</label>
-            <label class="mt-5" :for="'campo-' + key" v-if="key == 'data_evento' || key == 'link'">{{ labelsEventos[0][key] }}</label>
-            <input class="form-control" type="text" v-if="key != 'descricao' && key != 'hora_evento' && key != 'data_evento' && key != 'data_termino'" v-model="evento[key]" @change="atualizaDado(key, value)" :id="'campo-' + key" :key="key">
-            <textarea class="form-control" v-if="key == 'descricao'" v-model="evento[key]" @change="atualizaDado(key, value)" :id="'campo-' + key" :key="key"></textarea>
-            <input class="form-control" type="date" v-if="key == 'data_evento' || key == 'data_termino'" v-model="evento[key]" @change="atualizaDado(key, value)" :id="'campo-' + key" :key="key">
-            <input class="form-control" type="time" v-if="key == 'hora_evento'" v-model="evento[key]" @change="atualizaDado(key, value)" :id="'campo-' + key" :key="key">
-          </div>
-        </div>
-        <div class="evento-documentos">
-          <h2>Lista de documentos</h2>
-          <div class="row" v-for="(value, key) in listaDeDocumentos" :key="key">
-            <div class="col-2">
-              <label :for="'nome-documento-' + key">Nome do documento</label>
-              <input class="form-control" type="text" :id="'nome-documento-' + key" v-model="value.nome" @change="atualizaDocumentos()">
-            </div>
-            <div class="col-4">
-              <label :for="'url-documento-' + key">URL (link)</label>
-              <input class="form-control" type="text" :id="'url-documento-' + key" v-model="value.link" @change="atualizaDocumentos()">
-            </div>
-            <div class="col-1 botao-remover">
-              <div class="btn btn-danger" @click="removeDocumento(key)">
-                Remover documento
-              </div>
-            </div>
-          </div>
-          <div @click="addDocumento" class="btn btn-primary">
-            Adicionar documento
-          </div>
-        </div>
-      </div>
-
-      <!-- AGENDA PARTICIPATIVA -->
-      <div v-if="tipoDeEvento == 'agenda'" class="evento form-group">
-        <div>
-          <h1>Agenda Participativa</h1>
-        </div>
-        <div class="row">
-          <div class="item-evento col-5">
-            <div class="row" v-for="(value, key) in evento" :id="key">
-              <div class="col">
-                <label :for="'campo-' + key">{{ labelsAgenda[0][key] }}</label>
-                <input class="ml-1" v-if="key == 'data_termino'" type="checkbox" v-model='dataTermino'>
-                <input class="form-control" type="text" v-if="key != 'data_inicio' && key != 'data_termino' && key != 'horario'" v-model="evento[key]" :id="'campo-' + key" :key="key" :name="key">
-                <input class="form-control" type="date" v-if="key == 'data_inicio'" v-model="evento[key]" :id="'campo-' + key" :key="key" :name="key">
-                <input class="form-control" type="date" v-if="key == 'data_termino'" v-model="evento[key]" :id="'campo-' + key" :key="key" :name="key" :disabled="!dataTermino">
-                <input class="form-control" type="time" v-if="key == 'horario'" v-model="evento[key]" :id="'campo-' + key" :key="key" :name="key">
-              </div>
-            </div>  
-          </div>
-          <div class="col-7">
-            <?= do_shortcode( '[shortcodeAgendaParticipativa]' ); ?>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <div @click="atualizaAgenda" class="btn btn-success" data-toggle="modal" data-target="#modal-eventos" data-backdrop="static">
-              Atualizar Agenda
-            </div>
-          </div>
-        </div>
+          else {
+            require_once get_stylesheet_directory() . '/eventos/form-eventos.php';
+          }
+        ?>
       </div>
     </div>
 
-    <script type="text/javascript">
-      var app = new Vue({
-        el: "#appevento",
-        data: {
-          dataTermino: false,
-          documentos: "",
-          evento: eventoRaw,
-          labelsAgenda:[{
-            titulo: 'Título',
-            data_inicio: 'Data de Início',
-            data_termino: 'Data de Encerramento',
-            horario: 'Horário',
-            local: 'Local',
-            link: 'Endereço URL',
-            link_texto: 'Texto da URL'
-          }],
-          labelsEventos: [{
-            tipo: 'Tipo de evento',
-            tema: 'Tema',
-            titulo: 'Título / Nome do evento',
-            imagem: 'Link da imagem',
-            destaque: 'Texto de destaque',
-            descricao: 'Descrição do evento',
-            data_evento: 'Data do evento',
-            data_termino: 'Término do evento (opcional)',
-            hora_evento: 'Hora do evento',
-            local: 'Local (evento presencial)',
-            link: 'Link da transmissão',
-            descricao_link: 'Texto do link'
-          }],
-          modalTexto: '',
-          modalTrava: false,
-          listaDeDocumentos: [],
-          tipoDeEvento: tipoDeEvento,
-          validacaoAgenda: false
-        },
-        methods: {
-          addDocumento: function() {
-            this.listaDeDocumentos.push({
-              nome: '',
-              link: ''
-            })
-          },
-          atualizaAgenda: function() {
-            this.modalTexto= 'Enviando...';
-            validacaoAgenda = this.validaAgenda();
-            if (validacaoAgenda) {
-              this.modalTrava = true;
-              axios
-              .put('<?php echo get_permalink(); ?>' + '?tipo=agenda', this.evento)
-              .then(response => {
-                console.log(response.status)
-                if (response.status === 200) {
-                  console.log(response);
-                  this.modalTexto = 'Atualizado com sucesso!';
-                } else {
-                  this.modalTexto = 'Falha no envio, tente novamente mais tarde.'
-                }
-                this.modalTrava = false;
-              });
-            } else {
-              this.modalTexto = 'Um ou mais campos contém dados inválidos, verifique os dados e tente novamente.'
-            }
-          }
-          ,
-          atualizaDado: function(key, value) {
-            axios
-              .put('<?php echo get_permalink(); ?>' + '?id=' + this.evento.id, {
-                id: this.evento.id,
-                chave: key,
-                valor: value
-              })
-              .then(response => (console.log(response)))
-          },
-          atualizaDocumentos: function() {
-            this.trataDocumentos()
-            axios
-              .post('<?php echo get_permalink(); ?>' + '?id=' + this.evento.id, {
-                id: this.evento.id,
-                documentos: this.documentos
-              })
-              .then(response => (console.log(response)))
-          },
-          checaPeriodo: function() {
-            if (this.dataTermino) {
-              dI = new Date(this.evento.data_inicio);
-              dT = new Date(this.evento.data_termino);
-              if (dT instanceof Date && !isNaN(dT)) {
-                if (dT > dI) {
-                  return this.evento.data_termino;
-                }
-              }
-            }
-            this.dataTermino = false;
-            return;
-          },
-          confirmaExclusao: function() {
-            if (window.confirm("ATENÇÃO! Tem certeza que deseja excluir o evento?")) {
-              axios
-                .delete('<?php echo get_permalink(); ?>', {
-                  params: {
-                    id: this.evento.id
-                  }
-                })
-                .then(response => (console.log(response)))
-            }
-          },
-          formataData: function (data) {
-            const dataObj = new Date(data);
-            const dia = dataObj.getUTCDate();
-            const diaString = dia.toString().padStart(2, '0');
-            const mes = dataObj.getUTCMonth() + 1;
-            const mesString = mes.toString().padStart(2, '0');
-            let dataFinal = '';
-            if (diaString != 'NaN' || mesString != 'NaN') {
-              dataFinal = diaString + '/' + mesString;
-            }
-
-            return dataFinal;
-          },
-          formataHorario: function(horario) {
-            const horarioObj = new Date("1 January, 2000 " + horario);
-            const hora = horarioObj.getHours();
-            const minutos = horarioObj.getMinutes();
-            let horarioFinal = '';
-
-            if (hora > 0 || minutos > 0) {
-              horarioFinal = hora + 'h';
-            }
-            if (minutos > 0) {
-              horarioFinal += minutos;
-            } 
-
-            return horarioFinal;
-          },
-          removeDocumento: function(indice) {
-            if (window.confirm('ATENÇÃO! Tem certeza que deseja excluir este documento?')) {
-              this.listaDeDocumentos.splice(indice, 1)
-              this.atualizaDocumentos()
-            }
-          },
-          trataDocumentos: function() {
-            this.documentos = JSON.stringify(this.listaDeDocumentos)
-          },
-          validaAgenda: function() {
-            if (this.evento.titulo.trim() != '' && this.evento.link.trim() != '' && this.evento.link_texto.trim() != '') {
-              dI = new Date(this.evento.data_inicio);
-              if (dI instanceof Date && !isNaN(dI)) {
-                this.evento.data_termino = this.checaPeriodo();
-                return true;
-              }
-            }
-            return false;
-          },
-          sendForm: function(e) {
-            this.trataDocumentos()
-          },
-          toggleVideo: function() {
-            this.tipoEvento = this.isVideo ? "video" : this.tipoEvento
-          }
-        },
-        mounted() {
-          if (this.evento.data_termino !== null) {
-            this.dataTermino = true;
-          }
-          // Esconde conteúdo quando JavaScript não estiver habilitado
-          var conteudo = document.getElementById("appevento");
-          conteudo.style.display = "block";
-          this.listaDeDocumentos = eventoRaw.documentos
-          delete eventoRaw.documentos
-        }
-      });
-    </script>
+    <script>
+      const tipoDeEvento = '<?= $tipoDeEvento ?>';
+      const eventoRaw = <?= json_encode($evento) ?>;
+    </script>    
+    <script type="text/javascript" src="<?= $jsPath ?>eventos.js"></script>
+    <script type="text/javascript" src="<?= $jsPath ?>axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
-    <style>
-      .modal-title {
-        font-size: 20px;
-      }
-
-      .btn, .modal-body {
-        font-size: 16px;
-      }
-
-      #appevento {
-        width: 1200px;
-        margin: auto;
-      }
-
-      .evento h1 {
-        margin: 20px 0;
-        font-size: 2.5em !important;
-      }
-
-      .evento .item-evento {
-        padding-top: 5px !important;
-      }
-
-      label,
-      .evento .item-nome,
-      .evento input,
-      .evento  textarea {
-        font-size: 16px;
-      }
-
-      .evento .item-nome {
-        margin: auto 0;
-      }
-
-      .evento .evento-documentos {
-        margin: 30px 0 10px 0;
-      }
-
-      .evento .evento-documentos input {
-        margin-bottom: 5px;
-      }
-
-      .evento #id,
-      .evento #created_at,
-      .evento #updated_at {
-        display: none;
-      }
-
-      .botao-remover {        
-        align-self: flex-end;
-      }
-
-      .botao-remover .btn {
-        font-size: 1.5rem;
-      }
-
-      input[type=time],
-      input[type=date] {
-        width: 180px;
-      }
-    </style>
 
 <?php
 
