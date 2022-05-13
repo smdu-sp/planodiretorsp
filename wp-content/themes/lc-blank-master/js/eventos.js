@@ -30,7 +30,7 @@ var app = new Vue({
     labelsNoticias: {
       titulo: 'Título',
       imagem: 'Capa',
-      pracegover: '#PraCegoVer',
+      pracegover: 'Descrição da imagem (#PraCegoVer)',
       link: 'Endereço URL',
     },
     modalTexto: '',
