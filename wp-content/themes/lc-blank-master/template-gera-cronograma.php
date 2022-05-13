@@ -84,7 +84,7 @@ if (have_posts()) : while (have_posts()) : the_post();
       </div>
     </div>
 
-    <script type='text/javascript' src='../wp-content/themes/lc-blank-master/cronograma.js'></script>
+    <script type='text/javascript' src='<?= $jsPath ?>cronograma.js'></script>
 
 <?php
   endwhile;

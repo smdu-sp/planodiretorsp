@@ -59,7 +59,7 @@ get_header(); ?>
                 </tr>
             </table>
         </div>
-        <script src="../wp-content/themes/lc-blank-master/xlsx.full.min.js"></script>
+        <script src="<?= $jsPath ?>xlsx.full.min.js"></script>
         <script type="text/javascript">
             var app = new Vue({
                 el: '#apppainel',
