@@ -1,6 +1,7 @@
 <div>
     <h1>Notícias</h1>
 </div>
+
 <div class="row" v-for="noticia in novaNoticia">
     <div class="col-12 mb-5" v-if="!novaNoticia.aberto">
         <div class="mb-5"><button @click="abreNoticia()" type="button" class="btn btn-success">Nova Notícia</button></div>
@@ -25,8 +26,9 @@
         </div>
     </div>
 </div>
+
 <div v-for="noticia, key in evento">
-    <div class="row">
+    <div class="row flex-row-reverse">
         <div :id="'noticia-' + key" class="col-6">
             <button type="button" class="btn btn-primary" v-if="!noticia.aberto" @click="abreNoticia(key)">
                 Editar
@@ -39,7 +41,7 @@
                     <input class="form-control mb-2" :id="prop + '-' + key" v-if="prop == 'pracegover'" type="text" v-model="noticia[prop]" :disabled="!noticia['checkboxPraCegoVer']">
                 </div>
                 <div class="row justify-content-end">
-                    <div class="col-auto"><button @click="excluiNoticia" type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-eventos" data-backdrop="static">Excluir</button></div>
+                    <div class="col-auto"><button @click="excluiNoticia(key)" type="button" class="btn btn-danger">Excluir</button></div>
                     <div class="col-auto"><button @click="atualizaNoticia(key)" type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-eventos" data-backdrop="static">Atualizar</button></div>
                 </div>
             </div>

@@ -58,26 +58,31 @@ var app = new Vue({
     },
     addNoticia: function() {
       this.modalTexto= 'Enviando...';
-      this.modalTrava = true;
-      // Recarrega após fechar o Modal
-      jQuery('#modal-eventos').on('hidden.bs.modal', function () {
-        window.location.href = window.location.href;
-      });
-      let dados = Object.assign({}, this.novaNoticia[0]);
-      const arrayDelete = ['checkboxPraCegoVer'];
-      arrayDelete.forEach(valor => delete dados[valor]);
-      axios
-        .post('/evento/?tipo=noticias', dados)
-        .then(response => {
-          console.log(response.status)
-          if (response.status === 200) {
-            console.log(response);
-            this.modalTexto = 'Notícia adicionada com sucesso!';
-          } else {
-            this.modalTexto = 'Falha no envio, tente novamente mais tarde.'
-          }
-          this.modalTrava = false;
+      let validacaoNoticia = this.validaNoticia();
+      if (validacaoNoticia) {
+        this.modalTrava = true;
+        // Recarrega após fechar o Modal
+        jQuery('#modal-eventos').on('hidden.bs.modal', function () {
+          window.location.href = window.location.href;
         });
+        let dados = Object.assign({}, this.novaNoticia[0]);
+        const arrayDelete = ['checkboxPraCegoVer'];
+        arrayDelete.forEach(valor => delete dados[valor]);
+        axios
+          .post('/evento/?tipo=noticias', dados)
+          .then(response => {
+            console.log(response.status)
+            if (response.status === 200) {
+              console.log(response);
+              this.modalTexto = 'Notícia adicionada com sucesso!';
+            } else {
+              this.modalTexto = 'Falha no envio, tente novamente mais tarde.'
+            }
+            this.modalTrava = false;
+          });
+      } else {
+        this.modalTexto = 'Um ou mais campos contém dados inválidos, verifique os dados e tente novamente.'
+      }
     },
     addDocumento: function() {
       this.listaDeDocumentos.push({
@@ -87,7 +92,7 @@ var app = new Vue({
     },
     atualizaAgenda: function() {
       this.modalTexto= 'Enviando...';
-      validacaoAgenda = this.validaAgenda();
+      let validacaoAgenda = this.validaAgenda();
       if (validacaoAgenda) {
         this.modalTrava = true;
         axios
@@ -162,8 +167,28 @@ var app = new Vue({
           .then(response => (console.log(response)))
       }
     },
-    excluiNoticia: function(id) {
-      return id;
+    excluiNoticia: function(key) {
+      if (window.confirm("ATENÇÃO! Tem certeza que deseja excluir a notícia?")) {
+        this.modalTexto= 'Enviando...';
+        this.modalTrava = true;
+        // Exibe modal, e recarrega página após fechar
+        jQuery('#modal-eventos').modal({backdrop: 'static'});
+        jQuery('#modal-eventos').on('hidden.bs.modal', function () {
+          window.location.href = window.location.href;
+        });
+        axios
+          .delete('/evento/?tipo=noticias', {data: {id: this.evento[key].id}})
+          .then(response => {
+            console.log(response.status)
+            if (response.status === 200) {
+              console.log(response);
+              this.modalTexto = 'Notícia excluída com sucesso!';
+            } else {
+              this.modalTexto = 'Falha no envio, tente novamente mais tarde.'
+            }
+            this.modalTrava = false;
+          });
+      }
     },
     formataData: function (data) {
       const dataObj = new Date(data);
@@ -217,6 +242,12 @@ var app = new Vue({
           this.evento.data_termino = this.validaPeriodo();
           return true;
         }
+      }
+      return false;
+    },
+    validaNoticia: function() {
+      if (this.novaNoticia[0].titulo.trim() != '' && this.novaNoticia[0].link.trim() != '' && this.novaNoticia[0].imagem.trim() != '') {
+        return true;
       }
       return false;
     },

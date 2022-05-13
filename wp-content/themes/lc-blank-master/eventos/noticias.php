@@ -32,7 +32,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     global $wpdb;
-    $wpdb->insert('noticias', $dados);    
+    $wpdb->insert('noticias', $dados);
+
+    return;
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "PUT") {
@@ -48,5 +50,14 @@ if ($_SERVER["REQUEST_METHOD"] == "PUT") {
       }
       
       $wpdb->update('noticias', array($chave => $valor), array('id' => $id));
-    }  
+    }
+
+    return;
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "DELETE") {
+    $_POST = json_decode(file_get_contents("php://input"), true);
+    $id = $_POST['id'];
+    $wpdb->delete('noticias', array('id' => $id));
+    return;
 }
