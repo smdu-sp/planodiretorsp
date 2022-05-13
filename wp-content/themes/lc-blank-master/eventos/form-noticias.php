@@ -9,7 +9,10 @@
         <div class="row">
             <div class="col-6">
                 <div v-for="valor, prop in noticia">
-                    <label v-if="prop != 'checkboxPraCegoVer' && prop != 'aberto'" :for="'nova-noticia-' + prop">{{labelsNoticias[prop]}}<b v-if="prop != 'pracegover'" class='obrigatorio'>*</b></label>
+                    <label v-if="prop != 'checkboxPraCegoVer' && prop != 'aberto'" :for="'nova-noticia-' + prop">
+                        {{labelsNoticias[prop]}}<b v-if="prop != 'pracegover'" class='obrigatorio'>*</b>
+                        <b v-if="prop == 'imagem'" style="font-weight: normal">(<a href="/wp-admin/media-new.php" target="_blank">Upload de imagem</a>)</b>
+                    </label>
                     <input class="ml-1" v-if="prop == 'pracegover'" type="checkbox" v-model="noticia.checkboxPraCegoVer" @change="limpaCampo(prop)">
                     <input v-if="prop != 'checkboxPraCegoVer' && prop != 'aberto' && prop != 'pracegover'" type="text" class="form-control mb-2" :id="'nova-noticia-' + prop" v-model="noticia[prop]">
                     <input v-if="prop == 'pracegover'" type="text" class="form-control mb-2" :id="'nova-noticia-' + prop" v-model="noticia[prop]" :disabled="!noticia['checkboxPraCegoVer']">
