@@ -43,7 +43,7 @@
                 </div>
                 <div class="info">
                     <div class="data">
-                        <img src="/assets/icone-data.png" aria-label="Data do evento">
+                        <img src="/assets/icone-data.png" alt="Data do evento" aria-label="Data do evento">
                         <span>
                             <b>
                                 <?= is_front_page() ? $agenda->data_inicio : '{{formataData(evento.data_inicio)}}'; ?>
@@ -67,7 +67,7 @@
                         }
                         if ($agenda->local || !is_front_page()) { ?>
                             <div class="local">
-                                <img src="/assets/icone-local.png" alt="Local" title="Local">
+                                <img src="/assets/icone-local.png" alt="Local" aria-label="Local">
                                 <span>
                                     <?= is_front_page() ? $agenda->local : '{{evento.local}}'; ?>
                                 </span>
