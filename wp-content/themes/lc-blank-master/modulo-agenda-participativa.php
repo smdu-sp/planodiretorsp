@@ -80,7 +80,7 @@
                 if (!is_front_page() || $agenda->link && validaUrl($agenda->link) && $agenda->link_texto) { ?>
                     <div class="button button-gt botao">
                         <div class="dslc-button">
-                            <a <?= is_front_page() ? 'href="' . $agenda->link . '"' : ':href="evento.link"'; ?> target="_self" class="button button-gt">
+                            <a <?= is_front_page() ? 'href="' . $agenda->link . '" aria-label="Ir para ' . $agenda->titulo . '"' : ':href="evento.link"'; ?> target="_self" class="button button-gt">
                                 <?= is_front_page() ? strtoupper($agenda->link_texto) : '{{evento.link_texto.toUpperCase()}}'; ?>
                             </a>
                         </div>

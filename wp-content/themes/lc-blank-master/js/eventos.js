@@ -283,6 +283,7 @@ var app = new Vue({
     if (this.tipoDeEvento == 'agenda') {
       if (this.evento.data_termino !== null) {
         this.checkboxDataTermino = true;
+        this.checaPeriodo();
       }
     }
     if (this.tipoDeEvento == 'noticias') {
