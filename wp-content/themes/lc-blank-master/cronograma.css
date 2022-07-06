@@ -326,6 +326,10 @@
   background-color: #517bee;
 }
 
+.calendario-tabela caption.calendario-vermelho {
+  background-color: #f96546;
+}
+
 .calendario-tabela thead * {
   color: transparent;
 }
@@ -348,7 +352,8 @@
   background-color: #fecea7;
 }
 
-.calendario-data.calendario-azul-claro{
+.calendario-data.calendario-azul-claro, 
+.calendario-data.calendario-vermelho-claro{
   background-color: #b9caf8;
 }
 

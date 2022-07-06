@@ -30,7 +30,7 @@ var app = new Vue({
     labelsNoticias: {
       titulo: 'Título',
       imagem: 'Capa',
-      pracegover: '#PraCegoVer',
+      pracegover: 'Descrição da imagem (#PraCegoVer)',
       link: 'Endereço URL',
     },
     modalTexto: '',
@@ -283,6 +283,7 @@ var app = new Vue({
     if (this.tipoDeEvento == 'agenda') {
       if (this.evento.data_termino !== null) {
         this.checkboxDataTermino = true;
+        this.checaPeriodo();
       }
     }
     if (this.tipoDeEvento == 'noticias') {

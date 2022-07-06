@@ -43,7 +43,7 @@
                 </div>
                 <div class="info">
                     <div class="data">
-                        <img src="/assets/icone-data.png" aria-label="Data do evento">
+                        <img src="/assets/icone-data.png" alt="Data do evento" aria-label="Data do evento">
                         <span>
                             <b>
                                 <?= is_front_page() ? $agenda->data_inicio : '{{formataData(evento.data_inicio)}}'; ?>
@@ -67,7 +67,7 @@
                         }
                         if ($agenda->local || !is_front_page()) { ?>
                             <div class="local">
-                                <img src="/assets/icone-local.png" alt="Local" title="Local">
+                                <img src="/assets/icone-local.png" alt="Local" aria-label="Local">
                                 <span>
                                     <?= is_front_page() ? $agenda->local : '{{evento.local}}'; ?>
                                 </span>
@@ -80,7 +80,7 @@
                 if (!is_front_page() || $agenda->link && validaUrl($agenda->link) && $agenda->link_texto) { ?>
                     <div class="button button-gt botao">
                         <div class="dslc-button">
-                            <a <?= is_front_page() ? 'href="' . $agenda->link . '"' : ':href="evento.link"'; ?> target="_self" class="button button-gt">
+                            <a <?= is_front_page() ? 'href="' . $agenda->link . '" aria-label="Ir para ' . $agenda->titulo . '"' : ':href="evento.link"'; ?> target="_self" class="button button-gt">
                                 <?= is_front_page() ? strtoupper($agenda->link_texto) : '{{evento.link_texto.toUpperCase()}}'; ?>
                             </a>
                         </div>
