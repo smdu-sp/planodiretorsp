@@ -140,8 +140,8 @@ var app = new Vue({
         meses: [2],
         dia_semana: "QUI",
         dia: "21",
-        nome: "Extraordinária CMPU",
-        descricao: "Deliberação sobre a proposta de Cronograma da Participação Social - Etapa 1"
+        nome: "Reunião Extraordinária CMPU",
+        descricao: "Deliberação sobre o Cronograma da Participação Social - Etapa 1"
       },
       {
         tipo: "calendario",
@@ -184,15 +184,15 @@ var app = new Vue({
         meses: [3],
         dia_semana: "SEG",
         dia: "25",
-        nome: "Abertura da 1ª Consulta Pública Participe+  (41 dias)",
+        nome: "Abertura da 1ª Consulta Pública Participe+ (41 dias)",
         descricao: "Abertura do Participe+ para contribuições"
       },
       {
         tipo: "calendario",
         ano: 2022,
         meses: [4],
-        dia_semana: "TER",
-        dia: "3",
+        dia_semana: "SEG",
+        dia: "2",
         nome: "Audiência Temática virtual noturna",
         descricao: "Mobilidade Urbana: Objetivos Setoriais, Elementos Constituintes, Planos e Ações prioritárias"
       },
@@ -211,7 +211,7 @@ var app = new Vue({
         meses: [4],
         dia_semana: "SÁB",
         dia: "7",
-        nome: "08 Oficinas presenciais com transmissão pelo YouTube (uma em cada Subprefeitura)",
+        nome: "08 Oficinas presenciais",
         descricao: "Pirituba/Jaraguá, Perus, Freguesia do Ó/Brasilândia, Casa Verde/Cachoeirinha, Santana/Tucuruvi, Jaçanã/Tremembé, Vila Maria/Vila Guilherme e Lapa"
       },
       {
@@ -220,9 +220,143 @@ var app = new Vue({
         meses: [6],
         dia_semana: "SEG",
         dia: "4",
-        nome: "",
-        descricao: ""
+        nome: "Reabertura da 1ª Consulta Pública Participe+",
+        descricao: "Abertura do Participe+ para contribuições"
       },
+      {
+        tipo: "calendario",
+        ano: 2022,
+        meses: [6],
+        dia_semana: "TER",
+        dia: "5",
+        nome: "Reunião do CMPU",
+        descricao: "Apresentação do novo calendário para retomada da Participação Social - Etapa 1"
+      },
+      {
+        tipo: "calendario",
+        ano: 2022,
+        meses: [6],
+        dia_semana: "TER",
+        dia: "19",
+        nome: "Audiência Temática virtual noturna",
+        descricao: "Ordenamento Territorial: Instrumentos de Ordenamento e Reestruturação Urbana e do Direito de Construir"
+      },
+      {
+        tipo: "calendario",
+        ano: 2022,
+        meses: [6],
+        dia_semana: "QUA",
+        dia: "20",
+        nome: "Reunião virtual vespertina",
+        descricao: "Segmento Movimentos Populares"
+      },
+      {
+        tipo: "calendario",
+        ano: 2022,
+        meses: [6],
+        dia_semana: "QUI",
+        dia: "21",
+        nome: "Audiência Temática virtual noturna",
+        descricao: "Meio Ambiente e Mudanças Climáticas: Instrumentos de Gestão Ambiental nas Zonas Urbana e Rural"
+      },
+      {
+        tipo: "calendario",
+        ano: 2022,
+        meses: [6],
+        dia_semana: "SÁB",
+        dia: "23",
+        nome: "08 Oficinas presenciais",
+        descricao: "Parelheiros, Capela do Socorro, M'Boi Mirim, Campo Limpo, Santo Amaro, Cidade Ademar, Butantã e Pinheiros"
+      },
+      {
+        tipo: "calendario",
+        ano: 2022,
+        meses: [6],
+        dia_semana: "SEG",
+        dia: "25",
+        nome: "Audiência Temática virtual noturna",
+        descricao: "Desenvolvimento Social, Sistema de Equipamentos e Segurança Alimentar: Objetivos Setoriais, Elementos Constituintes, Planos e Ações Prioritárias"
+      },
+      {
+        tipo: "calendario",
+        ano: 2022,
+        meses: [6],
+        dia_semana: "TER",
+        dia: "26",
+        nome: "Reunião virtual vespertina",
+        descricao: "Segmento Acadêmico Entidades de Classe"
+      },
+      {
+        tipo: "calendario",
+        ano: 2022,
+        meses: [6],
+        dia_semana: "QUA",
+        dia: "27",
+        nome: "Audiência Temática virtual noturna",
+        descricao: "Desenvolvimento Econômico Sustentável: Objetivos Setoriais, Elementos Constituintes, Planos e Ações Prioritárias nas Zonas Urbana e Rural"
+      },
+      {
+        tipo: "calendario",
+        ano: 2022,
+        meses: [6],
+        dia_semana: "SÁB",
+        dia: "30",
+        nome: "08 Oficinas presenciais",
+        descricao: "Ermelino Matarazzo, São Miguel Paulista, Itaim Paulista, Guaianazes, Cidade Tiradentes, Itaquera, São Mateus e Penha"
+      },
+      {
+        tipo: "calendario",
+        ano: 2022,
+        meses: [7],
+        dia_semana: "TER",
+        dia: "2",
+        nome: "Audiência Temática virtual noturna",
+        descricao: "Patrimônio e Políticas Culturais: Instrumentos de Proteção ao Patrimônio Cultural"
+      },
+      {
+        tipo: "calendario",
+        ano: 2022,
+        meses: [7],
+        dia_semana: "QUA",
+        dia: "3",
+        nome: "Reunião Virtual vespertina",
+        descricao: "Segmento Empresarial"
+      },
+      {
+        tipo: "calendario",
+        ano: 2022,
+        meses: [7],
+        dia_semana: "QUI",
+        dia: "4",
+        nome: "Audiência Temática virtual noturna",
+        descricao: "Gestão Democrática e Sistema de Planejamento: Elementos do Sistema, Instâncias e Instrumentos de Participação Social, Fundurb e Monitoramento do PDE"
+      },
+      {
+        tipo: "calendario",
+        ano: 2022,
+        meses: [7],
+        dia_semana: "SÁB",
+        dia: "6",
+        nome: "08 Oficinas presenciais",
+        descricao: "Sapopemba, Vila Prudente, Aricanduva/Formosa/Carrão, Móoca, Sé, Vila Mariana, Ipiranga e Jabaquara"
+      },
+      {
+        tipo: "calendario",
+        ano: 2022,
+        meses: [7],
+        dia_semana: "SEG",
+        dia: "8",
+        nome: "Audiência Temática virtual noturna",
+        descricao: "Instrumentos de Política Urbana e Gestão Ambiental: Grupos de Instrumentos"
+      },
+      {
+        tipo: "calendario",
+        ano: 2022,
+        meses: [7],
+        dia_semana: "SEX",
+        dia: "12",
+        nome: "Encerramento da consulta pública no Participe+"
+      }
     ],
     etapas: [
       {
