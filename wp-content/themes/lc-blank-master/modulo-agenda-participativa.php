@@ -37,14 +37,14 @@
         <div class="container-balao">
             <div class="conteudo">
                 <div class="titulo">
-                    <h3>
-                        <?= is_front_page() ? $agenda->titulo : '{{evento.titulo}}' ?>
+                    <h3 <?= is_front_page() ? "style='font-size: {$agenda->tamanho_titulo}px'" : 'v-html="formataNewLine(evento.titulo)" v-bind:style="{fontSize: evento.tamanho_titulo + \'px\'}"' ?>>
+                        <?= is_front_page() ? nl2br($agenda->titulo) : '' ?>
                     </h3>
                 </div>
                 <div class="info">
                     <div class="data">
                         <img src="/assets/icone-data.png" alt="Data do evento" aria-label="Data do evento">
-                        <span>
+                        <span <?= is_front_page() ? "style='font-size: {$agenda->tamanho_data}px'" : 'v-bind:style="{fontSize: evento.tamanho_data + \'px\'}"' ?>>
                             <b>
                                 <?= is_front_page() ? $agenda->data_inicio : '{{formataData(evento.data_inicio)}}'; ?>
                             </b><?php
@@ -60,7 +60,7 @@
                         if ($agenda->horario || !is_front_page()) { ?>
                             <div class="horario">
                                 <img src="/assets/icone-horario.png" alt="Horário" aria-label="Horário">
-                                <span>
+                                <span <?= is_front_page() ? "style='font-size: {$agenda->tamanho_horario}px'" : 'v-bind:style="{fontSize: evento.tamanho_horario + \'px\'}"' ?>>
                                     <?= is_front_page() ? $agenda->horario : '{{formataHorario(evento.horario)}}'; ?>
                                 </span>
                             </div><?php
@@ -68,7 +68,7 @@
                         if ($agenda->local || !is_front_page()) { ?>
                             <div class="local">
                                 <img src="/assets/icone-local.png" alt="Local" aria-label="Local">
-                                <span>
+                                <span <?= is_front_page() ? "style='font-size: {$agenda->tamanho_local}px'" : 'v-bind:style="{fontSize: evento.tamanho_local + \'px\'}"' ?>>
                                     <?= is_front_page() ? $agenda->local : '{{evento.local}}'; ?>
                                 </span>
                             </div><?php

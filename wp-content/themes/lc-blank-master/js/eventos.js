@@ -1,6 +1,7 @@
 var app = new Vue({
   el: "#appevento",
   data: {
+    agendaCampos: ['titulo', 'data_inicio', 'data_termino', 'horario', 'local', 'link', 'link_texto'],
     checkboxDataTermino: false,
     documentos: "",
     evento: eventoRaw,
@@ -11,7 +12,11 @@ var app = new Vue({
       horario: 'Horário',
       local: 'Local',
       link: 'Endereço URL',
-      link_texto: 'Texto da URL'
+      link_texto: 'Texto da URL',
+      tamanho_titulo: 'Tamanho',
+      tamanho_data: 'Tamanho',
+      tamanho_horario: 'Tamanho',
+      tamanho_local: 'Tamanho'
     },
     labelsEventos: {
       tipo: 'Tipo de evento',
@@ -217,6 +222,9 @@ var app = new Vue({
       } 
 
       return horarioFinal;
+    },
+    formataNewLine: function(texto) {
+      return texto.replaceAll('\n', '<br>')
     },
     limpaCampo: function(prop, key = -1) {
       if (key >= 0) {
