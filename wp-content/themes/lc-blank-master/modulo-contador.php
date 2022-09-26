@@ -5,10 +5,25 @@ ob_start();
 ?>
 
 <div class="container-contador">
-    <div id="contador-dias">Teste</div>
-    <div id="contador-horas"></div>
-    <div id="contador-minutos"></div>
-    <div id="contador-segundos"></div>
+    <div class="contador-unidades">
+        <div id="contador-dias"></div>
+        <span class="contador-label">dias</span>
+    </div>
+    <div class="dois-pontos">:</div>
+    <div class="contador-unidades">
+        <div id="contador-horas"></div>
+        <span class="contador-label">horas</span>
+    </div>
+    <div class="dois-pontos">:</div>
+    <div class="contador-unidades">
+        <div id="contador-minutos"></div>
+        <span class="contador-label">minutos</span>
+    </div>
+    <div class="dois-pontos">:</div>
+    <div class="contador-unidades">
+        <div id="contador-segundos"></div>
+        <span class="contador-label">segundos</span>
+    </div>
 </div>
 
 <script>
@@ -20,10 +35,10 @@ ob_start();
         let horas = Math.floor((periodo % (24 * 60 * 60)) / (60 * 60));
         let minutos = Math.floor((periodo % (60 * 60)) / 60);
         let segundos = Math.floor((periodo % 60));
-        document.getElementById('contador-dias').innerHTML = dias;
-        document.getElementById('contador-horas').innerHTML = horas;
-        document.getElementById('contador-minutos').innerHTML = minutos;
-        document.getElementById('contador-segundos').innerHTML = segundos;
+        document.getElementById('contador-dias').innerHTML = dias.toString().padStart(2, "0");
+        document.getElementById('contador-horas').innerHTML = horas.toString().padStart(2, "0");
+        document.getElementById('contador-minutos').innerHTML = minutos.toString().padStart(2, "0");
+        document.getElementById('contador-segundos').innerHTML = segundos.toString().padStart(2, "0");
         dataAtual += 1000;
     }, 1000);
 </script>
