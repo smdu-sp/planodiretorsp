@@ -3,9 +3,8 @@
 Template Name: Lista de vídeos
 */
 header('Content-Type: application/json; charset=utf-8');
-require_once 'eventos/evento.php';
+require_once 'video.php';
 $lista = [];
-$lista['videos'] = getEventos(['video']);
-$lista['documentos'] = getEventos(['documento']);
+$lista['videos'] = getVideos();
 echo json_encode($lista);
 return;
