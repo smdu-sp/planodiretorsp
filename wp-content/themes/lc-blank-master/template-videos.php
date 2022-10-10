@@ -11,7 +11,7 @@ if (have_posts()) : while (have_posts()) : the_post();
 
         include_once 'modulo-vue.php';
         echo "<script type='text/javascript' src='" . $jsPath . "axios.min.js'></script>";
-        
+
 ?>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -25,12 +25,17 @@ if (have_posts()) : while (have_posts()) : the_post();
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-1 player-seta"><img src="/assets/videos/seta 03.png" alt=""></div>
-                <div class="col-10 row">
-                    <div v-for="video in videos" class="col-4"><img :src="`https://img.youtube.com/vi/${video.id_video}/hqdefault.jpg`" :alt="`Assistir vídeo '${video.titulo}'`"></div>
+            <div v-for="categoria in categorias">
+                <div>
+                    {{ categoria }}
                 </div>
-                <div class="col-1 player-seta"><img src="/assets/videos/seta 04.png" alt=""></div>
+                <div class="row">
+                    <div @click="decrementaIndex(categoria)" class="col-1 player-seta"><img src="/assets/videos/seta 03.png" alt=""></div>
+                    <ul class="col-10 row">
+                        <li v-for="video in calculaLista(categoria)" class="col-4"><img :src="`https://img.youtube.com/vi/${video.id_video}/hqdefault.jpg`" :alt="`Assistir vídeo '${video.titulo}'`"></li>
+                        </ul>
+                    <div @click="incrementaIndex(categoria)" class="col-1 player-seta"><img src="/assets/videos/seta 04.png" alt=""></div>
+                </div>
             </div>
         </div>
 
@@ -39,12 +44,12 @@ if (have_posts()) : while (have_posts()) : the_post();
                 el: '#appVideos',
                 data: {
                     apiUrl: '/lista-videos/',
-                    videos: [],
-                    videosCategorizados: {},
-                    listaCategorias: ['Vídeos Recentes'],
+                    videos: {},
+                    categorias: ['Vídeos Recentes'], // Nome padrão da categoria com todos os vídeos
+                    qtdVideos: 3,
+                    indexVideos: [],
                     carregando: true,
                     logado: false,
-                    indexVideos: []
                 },
                 methods: {
                     checaLogin: function() {
@@ -54,30 +59,49 @@ if (have_posts()) : while (have_posts()) : the_post();
                             this.logado = true
                         }
                     },
-                    separaVideosPorCategoria: function() {
-                        const todos = this.listaCategorias[0];
-                        if (this.videos[0][todos].length > 0) {
-                            this.videos[0][todos].forEach(video => {
-                                this.listaCategorias.push(video['categoria']);
-                            })
 
-                            // Remove as categorias duplicadas
-                            this.listaCategorias = [... new Set(this.listaCategorias)];
-                            console.log(this.listaCategorias);
+                    calculaLista: function(categoria) {
+                        let array = []
+                        this.qtdVideos = 3;
+                        
+                        if(Object.keys(this.videos).length === this.categorias.length) {
+                            const posicao = this.categorias.indexOf(categoria);
+                            const indexAtual = this.indexVideos[posicao];
+                            console.log(indexAtual);
+
+                            for (i = indexAtual; i < this.qtdVideos + indexAtual; i++) {
+                                array.push(this.videos[categoria][i])
+                            }
                         }
 
-                        for (let i = 1; i < this.listaCategorias.length; i++) {
-
-                            this.videos[i] = {};
-                            this.videos[i][this.listaCategorias[i]] = [];
-
-                            this.videos[0][todos].forEach(video => {
-                                if (video['categoria'] === this.listaCategorias[i]) {
-                                    this.videos[i][this.listaCategorias[i]].push(video);
-                                }
-                            });
-                        }
+                        return array;
                     },
+
+                    decrementaIndex: function(categoria) {
+                        const posicao = this.categorias.indexOf(categoria);
+                        let indexAtual = this.indexVideos[posicao];
+
+                        if (indexAtual < 1) {
+                            return this.indexVideos[posicao] = 0;
+                        }
+
+                        this.indexVideos[posicao] -= 1;
+
+                        this.$forceUpdate();
+                    },
+
+                    incrementaIndex: function(categoria) {
+                        const posicao = this.categorias.indexOf(categoria);
+                        let indexAtual = this.indexVideos[posicao];
+
+                        if (indexAtual >= this.videos[categoria].length - this.qtdVideos) {
+                            return this.indexVideos[posicao] = this.videos[categoria].length - this.qtdVideos;
+                        }
+
+                        this.indexVideos[posicao] += 1;
+
+                        this.$forceUpdate();
+                    }
                 },
                 computed: {
 
@@ -90,23 +114,42 @@ if (have_posts()) : while (have_posts()) : the_post();
                     var conteudo = document.getElementById("appVideos");
                     conteudo.style.display = "block";
 
-                    axios.get(this.apiUrl)
+                    axios
+                        .get(this.apiUrl)
                         .then(response => {
-                            this.videos = [response.data];
-                            this.videos[0].videos.reverse();
+                            // Adiciona lista com todos os vídeos
+                            this.videos[this.categorias[0]] = response.data['videos'].reverse();
 
-                            // Renomeia a chave com todos os vídeos
-                            delete Object.assign(this.videos[0], {[this.listaCategorias[0]]: this.videos[0]['videos']}).videos
+                            const cats = response.data['categorias'];
+                            cats.forEach(cat => {
+                                this.categorias[cat['ordem']] = cat['categoria'];
+                            });
 
-                            this.separaVideosPorCategoria();
+                            // Adiciona listas de vídeos filtradas por categorias
+                            this.categorias.forEach(cat => {
+                                if (cat !== this.categorias[0]) {
+                                    axios
+                                        .get(this.apiUrl + '?cat=' + cat)
+                                        .then(response => {
+                                            this.videos[cat] = response.data['videos'].reverse();
+                                        })
+                                        .finally(() => {
+                                            // Ao carregar os vídeos de todas as categorias, encerra o carregamento
+                                            if (Object.keys(this.videos).length === this.categorias.length) {
+                                                this.categorias.forEach(cat => {
+                                                    this.indexVideos.push(0);
+                                                });
+                                                this.$forceUpdate();
+                                                this.carregando = false;
+                                            }
+                                        });
+                                }
+                            });
                         })
                         .catch(error => {
                             console.error("ERRO AO OBTER VÍDEOS");
                             console.log(error);
                         })
-                        .finally(() => {
-                            this.carregando = false;
-                        });
                 }
             });
         </script>
