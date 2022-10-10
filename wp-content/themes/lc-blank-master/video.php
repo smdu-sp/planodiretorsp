@@ -30,10 +30,22 @@ function getVideos(array $categorias = [])
                 $where .= " OR `categoria` = '{$categorias[$i]}'";
             }
         }
+    } else {
+        $sqlCategorias = "SELECT * FROM videos_categorias";
+        $categorias = $wpdb->get_results($sqlCategorias, OBJECT);   
     }
 
-    $sql = "SELECT * FROM videos WHERE {$where} ORDER BY created_at;";
-    $results = $wpdb->get_results($sql, OBJECT);
+    $sqlVideos = "SELECT * FROM videos WHERE {$where} ORDER BY created_at;";
+    $videos = $wpdb->get_results($sqlVideos, OBJECT);
+
+    $results = [];
+    $results['videos'] = $videos;
+
+    if (sizeof($categorias) === 1) {
+        return $results;
+    }
+
+    $results['categorias'] = $categorias;
 
     return $results;
 }
