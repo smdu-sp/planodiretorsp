@@ -16,25 +16,39 @@ if (have_posts()) : while (have_posts()) : the_post();
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <div id="appVideos" class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="row">
-                        <div class="col-1 player-seta"><img src="/assets/videos/seta 01.png" alt=""></div>
-                        <div class="col-10 player-container"><img src="/assets/videos/player de vídeo grande_1060x630.png" alt=""></div>
-                        <div class="col-1 player-seta"><img src="/assets/videos/seta 02.png" alt=""></div>
+            <div v-for="categoria, index in categorias">
+                <div v-if="categoriaSelecionada && index === categorias.indexOf(categoriaSelecionada)" class="row container-video">
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-1 player-seta" @click="proximoVideo(videoSelecionado, categoriaSelecionada, -1)"><button><img src="/assets/videos/seta 01.png" alt=""></button></div>
+                            <div v-if="videoSelecionado" class="col-10 d-flex justify-content-center ">
+                                <div class="container-player embed-responsive embed-responsive-16by9">
+                                    <iframe :src="`https://youtube.com/embed/${videoSelecionado.id_video}`" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                </div>
+                            </div>
+                            <div class="col-1 player-seta"><button><img src="/assets/videos/seta 02.png" alt="" @click="proximoVideo(videoSelecionado, categoriaSelecionada, 1)"></button></div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div v-for="categoria in categorias">
                 <div>
-                    {{ categoria }}
-                </div>
-                <div class="row">
-                    <div @click="decrementaIndex(categoria)" class="col-1 player-seta"><img src="/assets/videos/seta 03.png" alt=""></div>
-                    <ul class="col-10 row">
-                        <li v-for="video in calculaLista(categoria)" class="col-4"><img :src="`https://img.youtube.com/vi/${video.id_video}/hqdefault.jpg`" :alt="`Assistir vídeo '${video.titulo}'`"></li>
-                        </ul>
-                    <div @click="incrementaIndex(categoria)" class="col-1 player-seta"><img src="/assets/videos/seta 04.png" alt=""></div>
+                    <span :class="{ active: categoriaSelecionada === categoria }">
+                        {{ categoria }}
+                    </span>
+                    <div class="row">
+                        <div class="col-1 player-seta" @click="decrementaIndex(categoria)"><button><img src="/assets/videos/seta 03.png" alt=""></button></div>
+                        <div class="col-10">
+                            <ul class="row">
+                                <li v-for="video in calculaLista(categoria)" class="col-4" @click="selecionarVideo(video, categoria)">
+                                    <div class="d-flex align-items-center container-thumbnail" :class="{ active: videoSelecionado.index === video.index && categoriaSelecionada === categoria }">
+                                        <div class="d-flex align-items-center thumbnail">
+                                            <img :src="`https://img.youtube.com/vi/${video.id_video}/hqdefault.jpg`" :alt="`Assistir vídeo '${video.titulo}'`">
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div @click="incrementaIndex(categoria)" class="col-1 player-seta"><button><img src="/assets/videos/seta 04.png" alt=""></button></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -45,6 +59,8 @@ if (have_posts()) : while (have_posts()) : the_post();
                 data: {
                     apiUrl: '/lista-videos/',
                     videos: {},
+                    videoSelecionado: {},
+                    categoriaSelecionada: '',
                     categorias: ['Vídeos Recentes'], // Nome padrão da categoria com todos os vídeos
                     qtdVideos: 3,
                     indexVideos: [],
@@ -67,7 +83,6 @@ if (have_posts()) : while (have_posts()) : the_post();
                         if(Object.keys(this.videos).length === this.categorias.length) {
                             const posicao = this.categorias.indexOf(categoria);
                             const indexAtual = this.indexVideos[posicao];
-                            console.log(indexAtual);
 
                             for (i = indexAtual; i < this.qtdVideos + indexAtual; i++) {
                                 array.push(this.videos[categoria][i])
@@ -101,6 +116,38 @@ if (have_posts()) : while (have_posts()) : the_post();
                         this.indexVideos[posicao] += 1;
 
                         this.$forceUpdate();
+                    },
+
+                    selecionarVideo: function(video, categoria) {
+                        this.videoSelecionado = video;
+                        this.categoriaSelecionada = categoria;
+                        const posicao = this.categorias.indexOf(categoria);
+
+                        console.log(posicao)
+                        console.log(video.index)
+                        console.log(this.indexVideos[posicao])
+
+                        if (video.index < this.indexVideos[posicao]) {
+                            this.indexVideos[posicao] -= 1;
+                        }
+
+                        if (video.index > this.indexVideos[posicao] + 2) {
+                            this.indexVideos[posicao] += 1;
+                        }
+                    },
+
+                    proximoVideo: function(video, categoria, direcao) {
+                        const indexAtual = video['index'];
+
+                        if (indexAtual + direcao < 0) {
+                            return;
+                        }
+
+                        if (indexAtual + direcao >= this.videos[categoria].length) {
+                            return;
+                        }
+
+                        this.selecionarVideo(this.videos[categoria][indexAtual + direcao], categoria);
                     }
                 },
                 computed: {
@@ -136,11 +183,17 @@ if (have_posts()) : while (have_posts()) : the_post();
                                         .finally(() => {
                                             // Ao carregar os vídeos de todas as categorias, encerra o carregamento
                                             if (Object.keys(this.videos).length === this.categorias.length) {
+                                                // Inicializa index, vídeo e categorias selecionadas
                                                 this.categorias.forEach(cat => {
                                                     this.indexVideos.push(0);
+
+                                                    this.videos[cat].forEach((video, index) => {
+                                                        video['index'] = index;
+                                                    });
                                                 });
-                                                this.$forceUpdate();
+                                                this.selecionarVideo(this.videos[this.categorias[0]][0], this.categorias[0]);
                                                 this.carregando = false;
+                                                this.$forceUpdate();
                                             }
                                         });
                                 }
@@ -160,6 +213,41 @@ if (have_posts()) : while (have_posts()) : the_post();
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
+            }
+
+            .active {
+                background-color: #b8caf7;
+            }
+
+            .container-thumbnail {
+                border-radius: 8px;
+            }
+
+            .thumbnail {
+                overflow: hidden;
+                max-height: calc((975px / 3 - 30px) * 9 / 16);
+                margin: 10px;
+                border-radius: 8px;
+            }
+
+            .player-seta button {
+                background-color: #fff;
+            }
+
+            .player-seta button:active {
+                background: #fff;
+                box-shadow: inset 0px 0px 5px #ddd;
+                outline: none;
+            }
+
+            .player-seta button:focus, 
+            .player-seta button:focus-visible {
+                outline: none;
+            }
+
+            .container-player {
+                margin-left: 15px;
+                margin-right: 15px;
             }
         </style>
 
