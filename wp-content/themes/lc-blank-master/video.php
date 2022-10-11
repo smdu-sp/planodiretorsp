@@ -17,26 +17,32 @@ class Video
 
 $exemplo = new Video(0, "Oficinas", "Título do vídeo", "www.youtube.com/watch?v=id", "https://img.youtube.com/vi/id/hqdefault.jpg");
 
-function getVideos(array $categorias = [])
+function getVideos(array $idCategorias = [])
 {
     global $wpdb;
+
+    $sqlCategorias = "SELECT * FROM videos_categorias";
+    $categorias = $wpdb->get_results($sqlCategorias, OBJECT);  
+
     $where = "1 = 1"; // Delimita busca
 
-    if (sizeof($categorias) > 0) {
-        for ($i = 0; $i < sizeof($categorias); $i++) {
+    if (sizeof($idCategorias) > 0) {
+        for ($i = 0; $i < sizeof($idCategorias); $i++) {
             if ($i === 0) {
-                $where .= " AND `categoria` = '{$categorias[$i]}'";
+                $where .= " AND `categoria` = '{$idCategorias[$i]}'";
             } else {
-                $where .= " OR `categoria` = '{$categorias[$i]}'";
+                $where .= " OR `categoria` = '{$idCategorias[$i]}'";
             }
         }
-    } else {
-        $sqlCategorias = "SELECT * FROM videos_categorias";
-        $categorias = $wpdb->get_results($sqlCategorias, OBJECT);   
     }
 
     $sqlVideos = "SELECT * FROM videos WHERE {$where} ORDER BY created_at;";
     $videos = $wpdb->get_results($sqlVideos, OBJECT);
+
+    foreach($videos as $video) {
+        $idCat = $video->categoria;
+        $video->categoria = $categorias[$idCat - 1]->categoria;
+    }
 
     $results = [];
     $results['videos'] = $videos;
@@ -45,7 +51,21 @@ function getVideos(array $categorias = [])
         return $results;
     }
 
-    $results['categorias'] = $categorias;
+    $catSelecionadas = [];
+
+    foreach ($categorias as $cat) {
+        if (count($idCategorias) > 0) {
+            foreach ($idCategorias as $id) {
+                if ($cat->id == $id) {
+                    array_push($catSelecionadas, $cat);
+                }
+            } 
+        } else {
+            array_push($catSelecionadas, $cat);
+        }
+    }
+
+    $results['categorias'] = $catSelecionadas;
 
     return $results;
 }

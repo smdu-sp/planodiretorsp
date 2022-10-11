@@ -31,12 +31,12 @@ if (have_posts()) : while (have_posts()) : the_post();
                     </div>
                 </div>
                 <div>
-                    <span :class="{ active: categoriaSelecionada === categoria }">
-                        {{ categoria }}
-                    </span>
-                    <div class="row">
+                    <div class="categoria row">
                         <div class="col-1 player-seta" @click="decrementaIndex(categoria)"><button><img src="/assets/videos/seta 03.png" alt=""></button></div>
                         <div class="col-10">
+                            <h2 class="titulo" :class="{ active: categoriaSelecionada === categoria }">
+                                {{ categoria }}
+                            </h2>
                             <ul class="row">
                                 <li v-for="video in calculaLista(categoria)" class="col-4" @click="selecionarVideo(video, categoria)">
                                     <div class="d-flex align-items-center container-thumbnail" :class="{ active: videoSelecionado.index === video.index && categoriaSelecionada === categoria }">
@@ -119,6 +119,8 @@ if (have_posts()) : while (have_posts()) : the_post();
                     },
 
                     selecionarVideo: function(video, categoria) {
+                        console.log(video.index)
+                        console.log(categoria)
                         this.videoSelecionado = video;
                         this.categoriaSelecionada = categoria;
                         const posicao = this.categorias.indexOf(categoria);
@@ -173,10 +175,10 @@ if (have_posts()) : while (have_posts()) : the_post();
                             });
 
                             // Adiciona listas de vídeos filtradas por categorias
-                            this.categorias.forEach(cat => {
+                            this.categorias.forEach((cat, catIndex) => {
                                 if (cat !== this.categorias[0]) {
                                     axios
-                                        .get(this.apiUrl + '?cat=' + cat)
+                                        .get(this.apiUrl + '?cat=' + catIndex)
                                         .then(response => {
                                             this.videos[cat] = response.data['videos'].reverse();
                                         })
@@ -209,6 +211,26 @@ if (have_posts()) : while (have_posts()) : the_post();
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
         <style>
+            .videos-topo {
+                margin-top: 180px;
+                margin-bottom: 120px;
+            }
+
+            .videos-topo .titulo,
+            .videos-topo .subtitulo {
+                margin-left: 80px;
+            }
+
+            .videos-topo .titulo {
+                padding-top: 0 !important;
+                margin-top: -10px;
+            }
+
+            .videos-topo .subtitulo {
+                font-size: 26px !important;
+                line-height: 1.2 !important;
+            }
+
             .player-seta {
                 display: flex;
                 flex-direction: column;
@@ -226,7 +248,7 @@ if (have_posts()) : while (have_posts()) : the_post();
             .thumbnail {
                 overflow: hidden;
                 max-height: calc((975px / 3 - 30px) * 9 / 16);
-                margin: 10px;
+                margin: 10px 5px;
                 border-radius: 8px;
             }
 
@@ -246,8 +268,19 @@ if (have_posts()) : while (have_posts()) : the_post();
             }
 
             .container-player {
-                margin-left: 15px;
-                margin-right: 15px;
+                margin-left: 17px;
+                margin-right: 17px;
+            }
+
+            .categoria {
+                margin: 60px 0;
+            }
+
+            .categoria .titulo {
+                display: inline-block;                
+                padding: 0 5px;
+                font-weight: 900;
+                font-size: 26px;
             }
         </style>
 
