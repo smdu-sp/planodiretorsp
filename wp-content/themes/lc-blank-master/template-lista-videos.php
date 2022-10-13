@@ -11,7 +11,7 @@ if ($_GET['cat']) {
     $cat = explode(",", $_GET["cat"]);
 }
 
-require_once 'video.php';
+require_once 'eventos/video.php';
 
 $lista = getVideos($cat);
 echo json_encode($lista);

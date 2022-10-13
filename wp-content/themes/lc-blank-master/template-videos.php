@@ -78,13 +78,17 @@ if (have_posts()) : while (have_posts()) : the_post();
 
                     calculaLista: function(categoria) {
                         let array = []
-                        this.qtdVideos = 3;
-                        
+                        let qtdVideos = this.qtdVideos;
+
                         if(Object.keys(this.videos).length === this.categorias.length) {
+                            if (qtdVideos > this.videos[categoria].length) {
+                                qtdVideos = this.videos[categoria].length;
+                            }
+
                             const posicao = this.categorias.indexOf(categoria);
                             const indexAtual = this.indexVideos[posicao];
 
-                            for (i = indexAtual; i < this.qtdVideos + indexAtual; i++) {
+                            for (i = indexAtual; i < qtdVideos + indexAtual; i++) {
                                 array.push(this.videos[categoria][i])
                             }
                         }
@@ -247,7 +251,7 @@ if (have_posts()) : while (have_posts()) : the_post();
 
             .thumbnail {
                 overflow: hidden;
-                max-height: calc((975px / 3 - 30px) * 9 / 16);
+                max-height: calc((925px / 3 - 40px) * 9 / 16);
                 margin: 10px 5px;
                 border-radius: 8px;
             }
