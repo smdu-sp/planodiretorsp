@@ -50,7 +50,18 @@ var app = new Vue({
     listaDeDocumentos: [],
     periodoValido: false,
     tipoDeEvento: tipoDeEvento,
-    validacaoAgenda: false
+    validacaoAgenda: false,
+    categorias: [],
+    categoriasOrdenadas: [],
+    videos: [],
+    videosCampos: ['titulo', 'link', 'categoria', 'imagem'],
+    videosLabels: {
+      titulo: 'Título',
+      link: 'Link',
+      categoria: 'Categoria',
+      imagem: 'Imagem'
+    },
+    videosModo: '',
   },
   methods: {
     abreNoticia: function(key = -1) {
@@ -88,6 +99,13 @@ var app = new Vue({
       } else {
         this.modalTexto = 'Um ou mais campos contém dados inválidos, verifique os dados e tente novamente.'
       }
+    },
+    addCategoria: function() {
+      const iniciaCategoria = {
+        categoria: '',
+        ordem: this.categorias.length + 1,
+      }
+      this.categorias.push(iniciaCategoria);
     },
     addDocumento: function() {
       this.listaDeDocumentos.push({
@@ -278,6 +296,33 @@ var app = new Vue({
     toggleVideo: function() {
       this.tipoEvento = this.isVideo ? "video" : this.tipoEvento
     },
+    mudarOrdemCat(categoria, direcao) {
+      const qtdCats = this.categorias.length;
+      const ordemAntiga = categoria.ordem;
+      const ordemNova = parseInt(categoria.ordem) + direcao;
+
+      if (ordemNova < 1 || ordemNova > qtdCats) {
+        return;
+      }
+
+      categoria.ordem = ordemNova;
+
+      let categoriasTemp = structuredClone(this.categorias);
+      categoriasTemp[ordemNova - 1].ordem = ordemAntiga;
+
+      this.categorias = [];
+
+      for (i = 1; i <= qtdCats; i++) {
+        categoriasTemp.forEach(cat => {
+          if (cat.ordem == i) {
+            this.categorias.push(cat);
+          }
+        });
+      }     
+    }
+  },
+  computed: {
+
   },
   mounted() {
     // Esconde conteúdo quando JavaScript não estiver habilitado
@@ -304,5 +349,14 @@ var app = new Vue({
         }
       });
     }
+
+    if (this.tipoDeEvento == 'videos') {
+      this.videos = this.evento['videos'].reverse();
+      console.log(this.videos);
+      this.categorias = this.evento['categorias']
+
+      console.log(this.categorias)
+    }
+
   }
 });

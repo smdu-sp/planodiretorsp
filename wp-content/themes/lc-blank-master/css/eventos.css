@@ -24,7 +24,8 @@
 label,
 .evento .item-nome,
 .evento input,
-.evento textarea {
+.evento textarea,
+.evento .nav-link {
   font-size: 16px;
 }
 
@@ -62,4 +63,23 @@ input[type="date"] {
 /* Esconde o botão "Edit in Live Composer" */
 .dslca-activate-composer-hook {
   display: none !important;
+}
+
+/* Vídeos */
+.ordem label {
+  display: block;
+}
+
+.ordem span {
+  padding: 0 10px;
+}
+
+.btn.ordem {
+  font-size: 12px !important;
+  vertical-align: middle;
+}
+
+.evento span {
+  font-size: 20px;
+  vertical-align: middle;
 }
