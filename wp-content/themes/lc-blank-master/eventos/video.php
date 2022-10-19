@@ -21,7 +21,7 @@ function getVideos(array $idCategorias = [])
 {
     global $wpdb;
 
-    $sqlCategorias = "SELECT * FROM videos_categorias";
+    $sqlCategorias = "SELECT * FROM videos_categorias ORDER BY ordem";
     $categorias = $wpdb->get_results($sqlCategorias, OBJECT);  
 
     $where = "1 = 1"; // Delimita busca
@@ -36,7 +36,7 @@ function getVideos(array $idCategorias = [])
         }
     }
 
-    $sqlVideos = "SELECT * FROM videos WHERE {$where} ORDER BY created_at;";
+    $sqlVideos = "SELECT * FROM videos WHERE {$where} ORDER BY ordem;";
     $videos = $wpdb->get_results($sqlVideos, OBJECT);
 
     foreach($videos as $video) {

@@ -47,6 +47,12 @@ var app = new Vue({
       link: '',
       checkboxPraCegoVer: false
     }],
+    novoVideo: [{
+      categoria: '',
+      titulo: '',
+      link: '',
+      imagem: '',
+    }],
     listaDeDocumentos: [],
     periodoValido: false,
     tipoDeEvento: tipoDeEvento,
@@ -54,14 +60,22 @@ var app = new Vue({
     categorias: [],
     categoriasOrdenadas: [],
     videos: [],
-    videosCampos: ['titulo', 'link', 'categoria', 'imagem'],
+    videosCampos: ['categoria', 'titulo', 'link', 'imagem'],
     videosLabels: {
       titulo: 'Título',
       link: 'Link',
       categoria: 'Categoria',
-      imagem: 'Imagem'
+      imagem: 'Imagem - deixar em branco para utilizar a do YouTube'
     },
     videosModo: '',
+    ordenacaoHabilitada: true,
+    destaque: {
+      aberto: false,
+      videoId: ''
+    },
+    videoAtual: {
+      aberto: false
+    }
   },
   methods: {
     abreNoticia: function(key = -1) {
@@ -69,6 +83,24 @@ var app = new Vue({
         this.evento[key].aberto = true;
       } else {
         this.novaNoticia.aberto = true;
+      }
+      this.$forceUpdate();
+    },
+    abreVideo: function(key = -1) {
+      if (key >= 0) {
+        this.videos[key].aberto = true;
+        this.ordenacaoHabilitada = false;
+      } else {
+        this.novoVideo[0].aberto = true;
+      }
+      this.$forceUpdate();
+    },
+    fechaVideo: function(key = -1) {
+      if (key >= 0) {
+        this.videos[key].aberto = false;
+        this.ordenacaoHabilitada = true;
+      } else {
+        this.novoVideo[0].aberto = true;
       }
       this.$forceUpdate();
     },
@@ -171,6 +203,71 @@ var app = new Vue({
           this.modalTrava = false;
         });
     },
+    atualizaVideo: function(id) {
+      this.modalTexto= 'Enviando...';
+      this.modalTrava = true;
+      let dados = Object.assign({}, this.evento[id]);
+      const arrayDelete = ['aberto', 'checkboxPraCegoVer', 'tipo', 'created_at'];
+      arrayDelete.forEach(valor => delete dados[valor]);
+      axios
+        .put('/evento/?tipo=noticias', dados)
+        .then(response => {
+          console.log(response.status)
+          if (response.status === 200) {
+            console.log(response);
+            this.modalTexto = 'Atualizado com sucesso!';
+          } else {
+            this.modalTexto = 'Falha no envio, tente novamente mais tarde.'
+          }
+          this.modalTrava = false;
+        });
+    },
+    calcularIdVideo: function(url) {
+      if (url) {
+        var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+        var match = url.match(regExp);
+        return (match&&match[7].length==11)? match[7] : false;
+      }
+      return false;
+    },
+    thumbYT: function(videoUrl, index = -1, id = false) {
+      let mostrarImagem = false;
+      let idVideo = '';
+      let imagem = '';
+
+      if (id) {
+        idVideo = id;
+      } else {
+        idVideo = this.calcularIdVideo(videoUrl)
+      }
+
+      if (index < 0) {
+        imagem = this.novoVideo[0].imagem;
+      } else if (this.videos.length > 0) {
+        imagem = this.videos[index].imagem;
+      }
+
+      if (!imagem) {
+        imagem = '';
+      }
+
+      if (!imagem.trim() && idVideo) {
+        mostrarImagem = true;
+      }
+
+      return mostrarImagem;
+    },
+    imagemVideo: function(videoUrl, index = -1, id =false) {
+      let idVideo = '';
+
+      if (id) {
+        idVideo = videoUrl;
+      } else {
+        idVideo = this.calcularIdVideo(videoUrl);
+      }
+
+      return `https://img.youtube.com/vi/${idVideo}/hqdefault.jpg`;
+    },
     checaPeriodo: function() {
       this.periodoValido = false;
       const dI = parseInt(this.evento.data_inicio.replaceAll('-', ''));
@@ -191,6 +288,29 @@ var app = new Vue({
       }
     },
     excluiNoticia: function(key) {
+      if (window.confirm("ATENÇÃO! Tem certeza que deseja excluir a notícia?")) {
+        this.modalTexto= 'Enviando...';
+        this.modalTrava = true;
+        // Exibe modal, e recarrega página após fechar
+        jQuery('#modal-eventos').modal({backdrop: 'static'});
+        jQuery('#modal-eventos').on('hidden.bs.modal', function () {
+          window.location.href = window.location.href;
+        });
+        axios
+          .delete('/evento/?tipo=noticias', {data: {id: this.evento[key].id}})
+          .then(response => {
+            console.log(response.status)
+            if (response.status === 200) {
+              console.log(response);
+              this.modalTexto = 'Notícia excluída com sucesso!';
+            } else {
+              this.modalTexto = 'Falha no envio, tente novamente mais tarde.'
+            }
+            this.modalTrava = false;
+          });
+      }
+    },
+    excluiVideo: function(key) {
       if (window.confirm("ATENÇÃO! Tem certeza que deseja excluir a notícia?")) {
         this.modalTexto= 'Enviando...';
         this.modalTrava = true;
@@ -319,6 +439,51 @@ var app = new Vue({
           }
         });
       }     
+    },
+    mudarOrdemVideos(video, direcao) {
+      const qtdVideos = this.videos.length;
+      const ordemAntiga = video.ordem;
+      const ordemNova = parseInt(video.ordem) + direcao;
+
+      if (ordemNova < 1 || ordemNova > qtdVideos) {
+        return;
+      }
+
+      video.ordem = ordemNova;
+
+      console.log(ordemNova)
+
+      let videosTemp = structuredClone(this.videos);
+      videosTemp[ordemNova - 1].ordem = ordemAntiga;
+
+      console.log(videosTemp);
+
+      this.videos = [];
+
+      console.log(this.videos)
+
+      for (let i = 1; i <= qtdVideos; i++) {
+        videosTemp.forEach(video => {
+          if (video.ordem == i) {
+            this.videos.push(video);
+          }
+        });
+      }     
+    },
+    abreDestaque() {
+      destaque.aberto = true;
+    },
+    fechaDestaque() {
+      destaque.aberto = false;      
+    },
+    atualizarCategorias() {
+      return;
+    },
+    atualizarVideo() {
+      return;
+    },
+    atualizarOrdem(tipo) {
+      return;
     }
   },
   computed: {
@@ -351,7 +516,11 @@ var app = new Vue({
     }
 
     if (this.tipoDeEvento == 'videos') {
-      this.videos = this.evento['videos'].reverse();
+      this.videos = this.evento['videos'];
+      this.videos.forEach(video => {
+        video['aberto'] = false;
+        video['link'] = `https://youtu.be/${video.id_video}`
+      });
       console.log(this.videos);
       this.categorias = this.evento['categorias']
 

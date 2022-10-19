@@ -73,6 +73,8 @@ function gerenciamentoDeEstilos() {
 	wp_register_style('Agenda Participativa', get_template_directory_uri() . '/css/agenda-participativa.css', array(), '1.0.7', 'all');
 	wp_register_style('Botoes Bootstrap', get_template_directory_uri() . '/css/botoes.css', array(), '1.0', 'all');
 	wp_register_style('Eventos', get_template_directory_uri() . '/css/eventos.css', array(), '1.0.1', 'all');
+	wp_register_style('Bootstrap', get_template_directory_uri() . '/css/bootstrap.min.css', array(), '4.3.1', 'all');
+	wp_register_script('Bootstrap JS', get_template_directory_uri() . '/js/bootstrap.min.js', array(), '4.3.1', 'all');
 	wp_register_style('Notícias', get_template_directory_uri() . '/css/noticias.css', array(), '1.0', 'all');
 
 	  // Estilos da Home
@@ -85,6 +87,8 @@ function gerenciamentoDeEstilos() {
 
 	  if (is_page('evento')) {
 		wp_enqueue_style('Eventos');
+		wp_enqueue_style('Bootstrap');
+		wp_enqueue_script('Bootstrap JS');
 	  }
 }
 
