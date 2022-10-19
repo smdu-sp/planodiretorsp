@@ -14,11 +14,11 @@
 <div class="tab-content" id="tabs-tabContent">
     <div class="tab-pane fade" id="abaVideos" aria-labelledby="tabs-aba-videos">
         <div class="row" v-for="video in novoVideo">
-            <div class="col-12 mt-5 mb-5" v-if="!novoVideo.aberto">
-                <div class="mb-5"><button @click="abreVideo()" type="button" class="btn-lg btn-success">Novo Vídeo</button></div>
-                <div class="mb-5"><button @click="destaque.aberto = true" type="button" class="btn-lg btn-primary">Destacar Vídeo</button></div>
+            <div class="col-12 mt-5 mb-5" v-if="!novoVideo[0].aberto">
+                <div class="mb-5"><button @click="abreVideo('novo')" type="button" class="btn-lg btn-success">Novo Vídeo</button></div>
+                <div class="mb-5"><button @click="abreVideo('destaque')" type="button" class="btn-lg btn-primary">Destacar Vídeo</button></div>
             </div>
-            <div class="col-12" v-if="novoVideo.aberto && !videoAtual.aberto && !destaque.aberto">
+            <div class="col-12" v-if="novoVideo[0].aberto && !videoAtual.aberto && !destaque.aberto">
                 <div class="row">
                     <div class="col-6">
                         <div v-for="valor, prop in video">
@@ -34,7 +34,7 @@
                         </div>
                         <div class="mt-5 row justify-content-end">
                             <div class="col-auto"><button @click="addVideo()" type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-eventos" data-backdrop="static">Adicionar Vídeo</button></div>
-                            <div class="col-auto"><button @click="novoVideo[0].aberto = false" type="button" class="btn btn-secondary">Cancelar</button></div>
+                            <div class="col-auto"><button @click="fechaVideo('novo')" type="button" class="btn btn-secondary">Cancelar</button></div>
                         </div>
                     </div>
                     <div class="col-5">
@@ -53,13 +53,17 @@
                 </div>
             </div>
         </div>
-        <div class="col-12" v-if="destaque.aberto && !novoVideo.aberto && !videoAtual.aberto">
+        <div class="col-12" v-if="destaque.aberto && !novoVideo[0].aberto && !videoAtual.aberto">
             <select name="" id="">
                 <option value="" disabled>Selecione...</option>
                 <option v-for="video in videos">{{ video.titulo }}</option>
             </select>
+            <div class="mt-5 row justify-content-end">
+                <div class="col-auto"><button @click="addVideo()" type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-eventos" data-backdrop="static">Destacar</button></div>
+                <div class="col-auto"><button @click="fechaVideo('destaque')" type="button" class="btn btn-secondary">Cancelar</button></div>
+            </div>
         </div>
-        <div v-show="!novoVideo.aberto && !destaque.aberto" class="row editar-video">
+        <div v-show="!novoVideo[0].aberto && !destaque.aberto" class="row editar-video">
             <template v-for="video, index in videos">
                 <div v-if="video.aberto" class="col-12 mt-5 mb-4"><span>Editar "{{ video.titulo }}"</span></div>
                 <div class="col-4 d-flex align-items-center">
