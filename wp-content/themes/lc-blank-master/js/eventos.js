@@ -59,6 +59,7 @@ var app = new Vue({
     validacaoAgenda: false,
     categorias: [],
     categoriasOrdenadas: [],
+    editarCat: false,
     videos: [],
     videosCampos: ['categoria', 'titulo', 'link', 'imagem'],
     videosLabels: {
@@ -69,9 +70,10 @@ var app = new Vue({
     },
     videosModo: '',
     ordenacaoHabilitada: true,
+    ordenacaoPendente: false,
     destaque: {
       aberto: false,
-      videoId: ''
+      id: ''
     },
     videoAtual: {
       aberto: false
@@ -86,26 +88,40 @@ var app = new Vue({
       }
       this.$forceUpdate();
     },
-    abreVideo: function(key) {
+    abrirVideo: function(key) {
+      this.resetarVideos();
+      this.resetarCategorias();
+
       if (key == 'novo') {
         this.novoVideo[0].aberto = true;
       } else if (key == 'destaque') {
         this.destaque.aberto = true;
+      } else if (key == 'cat') {
+        this.editarCat = true;
       } else if (key >= 0) {
         this.videos[key].aberto = true;
         this.ordenacaoHabilitada = false;
       }
+
       this.$forceUpdate();
     },
-    fechaVideo: function(key) {
+    fecharVideo: function(key) {            
+      this.resetarVideos();
+      this.resetarCategorias();
+
       if (key == 'novo') {
         this.novoVideo[0].aberto = false;
       } else if (key == 'destaque') {
         this.destaque.aberto = false;
+      } else if (key == 'cat') {
+        this.editarCat = false;
+      } else if (key == 'ordenacao') {
+        this.ordenacaoPendente = false;
       } else if (key >= 0) {
         this.videos[key].aberto = false;
         this.ordenacaoHabilitada = true;
       }
+
       this.$forceUpdate();
     },
     addNoticia: function() {
@@ -422,11 +438,16 @@ var app = new Vue({
     },
     resetarVideos() {
       this.videos = [];
+      this.destaque['id'] = '';
       this.videos = structuredClone(this.evento['videos']);
       this.videos.reverse();
       this.videos.forEach(video => {
         video['aberto'] = false;
         video['link'] = `https://youtu.be/${video.id_video}`
+        
+        if(video['destacado'] == 1) {
+          this.destaque['id'] = video['id'];
+        }
       });
     },
     resetarCategorias() {
@@ -466,19 +487,14 @@ var app = new Vue({
         return;
       }
 
-      video.ordem = ordemNova;
+      this.ordenacaoPendente = true;
 
-      console.log("antiga", ordemAntiga)
-      console.log("nova", ordemNova)
+      video.ordem = ordemNova;
 
       let videosTemp = structuredClone(this.videos);
       videosTemp[qtdVideos - ordemNova].ordem = ordemAntiga;
 
-      console.log(videosTemp);
-
       this.videos = [];
-
-      console.log(this.videos)
 
       for (let i = qtdVideos; i > 0; i--) {
         videosTemp.forEach(video => {
