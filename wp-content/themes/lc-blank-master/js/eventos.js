@@ -73,8 +73,10 @@ var app = new Vue({
     ordenacaoPendente: false,
     destaque: {
       aberto: false,
+      idInicial: '',
       id: ''
     },
+    detaqueAntigo: '',
     videoAtual: {
       aberto: false
     }
@@ -438,6 +440,7 @@ var app = new Vue({
     },
     resetarVideos() {
       this.videos = [];
+      this.destaque['idInicial'] = '';
       this.destaque['id'] = '';
       this.videos = structuredClone(this.evento['videos']);
       this.videos.reverse();
@@ -446,6 +449,7 @@ var app = new Vue({
         video['link'] = `https://youtu.be/${video.id_video}`
         
         if(video['destacado'] == 1) {
+          this.destaque['idInicial'] = video['id'];
           this.destaque['id'] = video['id'];
         }
       });
@@ -537,6 +541,25 @@ var app = new Vue({
         return true;
       }
       return false;
+    },
+    destacarVideo() {
+      this.modalTexto= 'Enviando...';
+      let dados = Object.assign({tipo: 'destaque'}, this.destaque);
+      this.modalTrava = true;
+
+      axios
+        .put('/evento/?tipo=videos', dados)
+        .then(response => {
+          console.log(response.status)
+          if (response.status === 200) {
+            console.log(response);
+            this.modalTexto = 'Atualizado com sucesso!';
+            this.destaque.idInicial = this.destaque.id;
+          } else {
+            this.modalTexto = 'Falha no envio, tente novamente mais tarde.'
+          }
+          this.modalTrava = false;
+        });
     },
     atualizarCategorias() {
       return;

@@ -98,17 +98,19 @@
             </div>
         </div>
         
-        <!-- Vídeos -->
+        <!-- Destaque -->
         <div class="col-8" v-if="destaque.aberto && !novoVideo[0].aberto && !videoAtual.aberto && !editarCat">
             <select name="" id="" v-model='destaque.id'>
                 <option value="" disabled :selected="!destaque.id">Selecione...</option>
                 <option v-for="video in videos" :value='video.id'>{{ video.titulo }}</option>
             </select>
             <div class="mt-5 row justify-content-end">
-                <div class="col-auto"><button @click="addVideo()" type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-eventos" data-backdrop="static">Destacar</button></div>
+                <div class="col-auto"><button @click="destacarVideo()" type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-eventos" data-backdrop="static">Destacar</button></div>
                 <div class="col-auto"><button @click="fecharVideo('destaque')" type="button" class="btn btn-secondary">Cancelar</button></div>
             </div>
         </div>
+
+        <!-- Vídeos -->
         <div v-show="!novoVideo[0].aberto && !destaque.aberto && !editarCat" class="row editar-video">
             <template v-for="video, index in videos">
                 <div v-if="video.aberto" class="col-12 mt-5 mb-4"><span>Editar "{{ video.titulo }}"</span></div>

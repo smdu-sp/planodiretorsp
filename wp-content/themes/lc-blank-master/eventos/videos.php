@@ -30,20 +30,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 if ($_SERVER["REQUEST_METHOD"] == "PUT") {
     $_POST = json_decode(file_get_contents("php://input"), true);
-    $id = $_POST['id'];
-    foreach($_POST as $chave => $valor) {
-      if ($chave === 'id') {
-        continue;
-      }
-  
-      if (trim($valor) === '') {
-        $valor = '';
-      }
-      
-      $wpdb->update('noticias', array($chave => $valor), array('id' => $id));
+
+    $tipoPost = $_POST['tipo'];
+
+    if ($tipoPost == 'destaque') {
+      $idAntigo = array('id' => $_POST['idInicial']);
+      $idNovo = array('id' => $_POST['id']);
+
+      $wpdb->update('videos', array('destacado' => 0), $idAntigo);
+      $wpdb->update('videos', array('destacado' => 1), $idNovo);
     }
 
-    return;
+    // $id = $_POST['id'];
+    // foreach($_POST as $chave => $valor) {
+    //   if ($chave === 'id') {
+    //     continue;
+    //   }
+  
+    //   if (trim($valor) === '') {
+    //     $valor = '';
+    //   }
+      
+    //   $wpdb->update('noticias', array($chave => $valor), array('id' => $id));
+    // }
+
+    // return;
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "DELETE") {
