@@ -7,25 +7,42 @@
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   // Novo Vídeo
   $_POST = json_decode(file_get_contents("php://input"), true);
-  $dados = [];
 
-  $dados['titulo'] = trim($_POST['titulo']);
-  $dados['categoria'] = trim($_POST['categoria']);
-  $dados['id_video'] = trim($_POST['idVideo']);
-  $dados['ordem'] = trim($_POST['ordem']);
-  $dados['destacado'] = 0;
-  $dados['imagem'] = '';
+  $tipoPost = $_POST['tipo'];
 
-  if (trim($_POST['idVideo'])) {
-    $dados['imagem'] = trim($_POST['imagem']);
+  if ($tipoPost == 'video') {
+    $dados = [];
+  
+    $dados['titulo'] = trim($_POST['titulo']);
+    $dados['categoria'] = trim($_POST['categoria']);
+    $dados['id_video'] = trim($_POST['idVideo']);
+    $dados['ordem'] = trim($_POST['ordem']);
+    $dados['destacado'] = 0;
+    $dados['imagem'] = '';
+  
+    if (trim($_POST['imagem'])) {
+      $dados['imagem'] = trim($_POST['imagem']);
+    }
+  
+    $dados['id_video'] = trim($_POST['idVideo']);
+  
+    global $wpdb;
+    $wpdb->insert('videos', $dados);
+  
+    return;
   }
 
-  $dados['id_video'] = trim($_POST['idVideo']);
+  if ($tipoPost == 'categoria') {
+    $dados = [];
+  
+    $dados['categoria'] = trim($_POST['categoria']);
+    $dados['ordem'] = trim($_POST['ordem']);
 
-  global $wpdb;
-  $wpdb->insert('videos', $dados);
-
-  return;
+    global $wpdb;
+    $wpdb->insert('videos_categorias', $dados);
+  
+    return;
+  }
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "PUT") {
@@ -36,9 +53,21 @@ if ($_SERVER["REQUEST_METHOD"] == "PUT") {
     if ($tipoPost == 'destaque') {
       $idAntigo = array('id' => $_POST['idInicial']);
       $idNovo = array('id' => $_POST['id']);
-
+      
       $wpdb->update('videos', array('destacado' => 0), $idAntigo);
       $wpdb->update('videos', array('destacado' => 1), $idNovo);
+    }
+    
+    if ($tipoPost == 'categorias') {
+      foreach ($_POST['arrayCategorias'] as $arr) {
+        foreach($arr as $chave => $valor) {
+          if ($chave === 'id') {
+            continue;
+          }
+
+          $wpdb->update('videos_categorias', array($chave => trim($valor)), array('id' => $arr['id']));
+        }
+      }
     }
 
     // $id = $_POST['id'];

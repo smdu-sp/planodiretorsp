@@ -53,6 +53,10 @@ var app = new Vue({
       link: '',
       imagem: '',
     }],
+    novaCategoria: [{
+      aberto: false,
+      categoria: ''
+    }],
     listaDeDocumentos: [],
     periodoValido: false,
     tipoDeEvento: tipoDeEvento,
@@ -76,7 +80,6 @@ var app = new Vue({
       idInicial: '',
       id: ''
     },
-    detaqueAntigo: '',
     videoAtual: {
       aberto: false
     }
@@ -100,6 +103,9 @@ var app = new Vue({
         this.destaque.aberto = true;
       } else if (key == 'cat') {
         this.editarCat = true;
+      } else if (key == 'novaCat') {        
+        this.editarCat = false;
+        this.novaCategoria[0].aberto = true;
       } else if (key >= 0) {
         this.videos[key].aberto = true;
         this.ordenacaoHabilitada = false;
@@ -119,6 +125,9 @@ var app = new Vue({
         this.editarCat = false;
       } else if (key == 'ordenacao') {
         this.ordenacaoPendente = false;
+      } else if (key == 'novaCat') {
+        this.novaCategoria[0].aberto = false;
+        this.editarCat = true;
       } else if (key >= 0) {
         this.videos[key].aberto = false;
         this.ordenacaoHabilitada = true;
@@ -153,13 +162,6 @@ var app = new Vue({
       } else {
         this.modalTexto = 'Um ou mais campos contém dados inválidos, verifique os dados e tente novamente.'
       }
-    },
-    addCategoria: function() {
-      const iniciaCategoria = {
-        categoria: '',
-        ordem: this.categorias.length + 1,
-      }
-      this.categorias.push(iniciaCategoria);
     },
     addDocumento: function() {
       this.listaDeDocumentos.push({
@@ -451,6 +453,8 @@ var app = new Vue({
         if(video['destacado'] == 1) {
           this.destaque['idInicial'] = video['id'];
           this.destaque['id'] = video['id'];
+
+          console.log(video['id'])
         }
       });
     },
@@ -508,6 +512,38 @@ var app = new Vue({
         });
       }
     },
+    addCategoria: function() {
+      this.modalTexto= 'Enviando...';
+      this.novaCategoria[0].ordem = this.categorias.length + 1;
+      let validacaoCat = false;
+
+      if (this.novaCategoria[0].categoria && this.novaCategoria[0].categoria.length > 0) {
+        validacaoCat = true;
+      }
+      
+      if (validacaoCat) {
+        this.modalTrava = true;
+        // Recarrega após fechar o Modal
+        jQuery('#modal-eventos').on('hidden.bs.modal', function () {
+          window.location.href = window.location.href;
+        });
+        let dados = Object.assign({tipo: 'categoria'}, this.novaCategoria[0]);
+        axios
+          .post('/evento/?tipo=videos', dados)
+          .then(response => {
+            console.log(response.status)
+            if (response.status === 200) {
+              console.log(response);
+              this.modalTexto = 'Categoria adicionada com sucesso!';
+            } else {
+              this.modalTexto = 'Falha no envio, tente novamente mais tarde.'
+            }
+            this.modalTrava = false;
+          });
+      } else {
+        this.modalTexto = 'Um ou mais campos contém dados inválidos, verifique os dados e tente novamente.'
+      }
+    },
     addVideo() {
       this.modalTexto= 'Enviando...';
       let validacaoVideo = this.validarVideo(this.novoVideo[0]);
@@ -518,7 +554,7 @@ var app = new Vue({
         jQuery('#modal-eventos').on('hidden.bs.modal', function () {
           window.location.href = window.location.href;
         });
-        let dados = Object.assign({}, this.novoVideo[0]);
+        let dados = Object.assign({tipo: 'video'}, this.novoVideo[0]);
         axios
           .post('/evento/?tipo=videos', dados)
           .then(response => {
@@ -561,8 +597,28 @@ var app = new Vue({
           this.modalTrava = false;
         });
     },
-    atualizarCategorias() {
-      return;
+    atualizarCategorias() {      this.modalTexto= 'Enviando...';
+      let dados = Object.assign({
+        tipo: 'categorias',
+        arrayCategorias: this.categorias
+      });
+      
+      this.modalTrava = true;
+
+      axios
+        .put('/evento/?tipo=videos', dados)
+        .then(response => {
+          console.log(response.status)
+          if (response.status === 200) {
+            console.log(response);
+            this.modalTexto = 'Atualizado com sucesso!';
+            this.destaque.idInicial = this.destaque.id;
+          } else {
+            this.modalTexto = 'Falha no envio, tente novamente mais tarde.'
+          }
+          this.modalTrava = false;
+        });
+
     },
     atualizarVideo() {
       return;
