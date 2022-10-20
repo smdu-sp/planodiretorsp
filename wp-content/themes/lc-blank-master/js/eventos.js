@@ -504,6 +504,40 @@ var app = new Vue({
         });
       }
     },
+    addVideo() {
+      this.modalTexto= 'Enviando...';
+      let validacaoVideo = this.validarVideo(this.novoVideo[0]);
+      this.novoVideo[0].ordem = this.videos.length + 1;
+      if (validacaoVideo) {
+        this.modalTrava = true;
+        // Recarrega após fechar o Modal
+        jQuery('#modal-eventos').on('hidden.bs.modal', function () {
+          window.location.href = window.location.href;
+        });
+        let dados = Object.assign({}, this.novoVideo[0]);
+        axios
+          .post('/evento/?tipo=videos', dados)
+          .then(response => {
+            console.log(response.status)
+            if (response.status === 200) {
+              console.log(response);
+              this.modalTexto = 'Vídeo adicionado com sucesso!';
+            } else {
+              this.modalTexto = 'Falha no envio, tente novamente mais tarde.'
+            }
+            this.modalTrava = false;
+          });
+      } else {
+        this.modalTexto = 'Um ou mais campos contém dados inválidos, verifique os dados e tente novamente.'
+      }
+    },
+    validarVideo(video) {
+      video.idVideo = this.calcularIdVideo(video.link);
+      if (video.idVideo && video.idVideo.length == 11 && video.categoria.length > 0 && video.titulo.length > 0) {
+        return true;
+      }
+      return false;
+    },
     atualizarCategorias() {
       return;
     },

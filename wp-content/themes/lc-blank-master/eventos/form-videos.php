@@ -53,18 +53,19 @@
                 </div>
             </div>
 
+            <!-- Novo Vídeo -->
             <div class="col-12" v-if="novoVideo[0].aberto && !videoAtual.aberto && !destaque.aberto && !editarCat">
                 <div class="row">
                     <div class="col-6">
                         <div v-for="valor, prop in video">
-                            <label v-if="prop != 'aberto'" :for="'novo-video-' + prop">
+                            <label v-if="prop != 'aberto' && prop != 'idVideo' && prop != 'ordem'" :for="'novo-video-' + prop">
                                 {{videosLabels[prop]}}<b v-if="prop != 'imagem'" class='obrigatorio'>*</b>
                                 <b v-if="prop == 'imagem'" style="font-weight: normal">(<a href="/wp-admin/media-new.php" target="_blank">Upload de imagem</a>)</b>
                             </label>
-                            <input v-if="prop != 'categoria' && prop != 'aberto'" type="text" class="form-control mb-2" :id="'novo-video-' + prop" v-model="video[prop]">
+                            <input v-if="prop != 'categoria' && prop != 'aberto' && prop != 'idVideo' && prop != 'ordem'" type="text" class="form-control mb-2" :id="'novo-video-' + prop" v-model="video[prop]">
                             <select v-if="prop == 'categoria'" type="text" class="form-control mb-2" :id="'novo-video-' + prop" v-model="video[prop]">
                                 <option disabled value="">Selecione...</option>
-                                <option v-for="categoria in categorias">{{ categoria.categoria }}</option>
+                                <option v-for="categoria in categorias" :value="categoria.id">{{ categoria.categoria }}</option>
                             </select>
                         </div>
                         <div class="mt-5 row justify-content-end">
