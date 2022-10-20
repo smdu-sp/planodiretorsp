@@ -119,7 +119,7 @@
     <div class="col-8" v-if="ordenacaoPendente">
         <span>Alterando a ordem dos vídeos:</span>
         <div class="row">
-            <div class="col-auto"><button @click="salvarOrdemVideo()" type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-eventos" data-backdrop="static">Salvar</button></div>
+            <div class="col-auto"><button @click="salvarOrdemVideos()" type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-eventos" data-backdrop="static">Salvar</button></div>
             <div class="col-auto"><button @click="fecharVideo('ordenacao')" type="button" class="btn btn-secondary">Cancelar</button></div>
         </div>
     </div>

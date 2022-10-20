@@ -112,12 +112,20 @@ if (have_posts()) : while (have_posts()) : the_post();
                     incrementaIndex: function(categoria) {
                         const posicao = this.categorias.indexOf(categoria);
                         let indexAtual = this.indexVideos[posicao];
+                        console.log("posicao", posicao)
 
                         if (indexAtual >= this.videos[categoria].length - this.qtdVideos) {
-                            return this.indexVideos[posicao] = this.videos[categoria].length - this.qtdVideos;
+                            const novoIndex = this.videos[categoria].length - this.qtdVideos;
+                            console.log(novoIndex)
+                            if (novoIndex > 0) {
+                                console.log("aqui")
+                                this.indexVideos[posicao] = novoIndex;
+                            }
+                            return
                         }
 
                         this.indexVideos[posicao] += 1;
+
 
                         this.$forceUpdate();
                     },

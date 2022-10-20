@@ -632,8 +632,29 @@ var app = new Vue({
           this.modalTrava = false;
         });
     },
-    atualizarOrdem(tipo) {
-      return;
+    salvarOrdemVideos() {
+      this.modalTexto = 'Enviando...';
+      let dados = Object.assign({
+        tipo: 'ordem',
+        arrayVideos: this.videos
+      });
+
+      this.modalTrava = true;
+      this.agendarRecarregamento();
+
+      axios
+        .put('/evento/?tipo=videos', dados)
+        .then(response => {
+          console.log(response.status)
+          if (response.status === 200) {
+            console.log(response);
+            this.modalTexto = 'Atualizado com sucesso!';
+            this.destaque.idInicial = this.destaque.id;
+          } else {
+            this.modalTexto = 'Falha no envio, tente novamente mais tarde.'
+          }
+          this.modalTrava = false;
+        });
     },
     agendarRecarregamento() {
       // Recarrega após fechar o Modal
@@ -644,16 +665,6 @@ var app = new Vue({
   },
   computed: {
 
-  },
-  watch: {
-    videos: {
-      handler: (val, oldVal) => {
-        console.log('watch')
-        return;
-      },
-
-      deep: true
-    }
   },
   mounted() {
     // Esconde conteúdo quando JavaScript não estiver habilitado

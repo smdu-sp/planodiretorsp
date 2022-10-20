@@ -29,9 +29,9 @@ function getVideos(array $idCategorias = [])
     if (sizeof($idCategorias) > 0) {
         for ($i = 0; $i < sizeof($idCategorias); $i++) {
             if ($i === 0) {
-                $where .= " AND `categoria` = '{$idCategorias[$i]}'";
+                $where .= " AND `id_categoria` = '{$idCategorias[$i]}'";
             } else {
-                $where .= " OR `categoria` = '{$idCategorias[$i]}'";
+                $where .= " OR `id_categoria` = '{$idCategorias[$i]}'";
             }
         }
     }

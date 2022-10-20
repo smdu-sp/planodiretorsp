@@ -82,6 +82,12 @@ if ($_SERVER["REQUEST_METHOD"] == "PUT") {
       }
     }
 
+    if ($tipoPost == 'ordem') {
+      foreach ($_POST['arrayVideos'] as $arr) {
+          $wpdb->update('videos', array('ordem' => trim($arr['ordem'])), array('id' => $arr['id']));
+      }
+    }
+
     // $id = $_POST['id'];
     // foreach($_POST as $chave => $valor) {
     //   if ($chave === 'id') {
