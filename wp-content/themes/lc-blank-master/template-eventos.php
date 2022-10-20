@@ -28,6 +28,7 @@ if (have_posts()) : while (have_posts()) : the_post();
       require_once get_stylesheet_directory() . '/eventos/videos.php';
       $url = 'http://' . $_SERVER['SERVER_NAME'] . '/lista-videos/';
       $json = file_get_contents($url);
+      
       $evento = json_decode($json);
     }
     

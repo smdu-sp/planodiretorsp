@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $dados = [];
   
     $dados['titulo'] = trim($_POST['titulo']);
-    $dados['categoria'] = trim($_POST['categoria']);
+    $dados['id_categoria'] = trim($_POST['categoria']);
     $dados['id_video'] = trim($_POST['idVideo']);
     $dados['ordem'] = trim($_POST['ordem']);
     $dados['destacado'] = 0;
@@ -67,6 +67,18 @@ if ($_SERVER["REQUEST_METHOD"] == "PUT") {
 
           $wpdb->update('videos_categorias', array($chave => trim($valor)), array('id' => $arr['id']));
         }
+      }
+    }
+
+    if ($tipoPost == 'video') {
+      $id = $_POST['video']['id'];
+
+      foreach($_POST['video'] as $chave => $valor) {
+        if ($chave === 'id') {
+          continue;
+        }
+
+        $wpdb->update('videos', array($chave => trim($valor)), array('id' => $id));
       }
     }
 

@@ -140,10 +140,7 @@ var app = new Vue({
       let validacaoNoticia = this.validaNoticia();
       if (validacaoNoticia) {
         this.modalTrava = true;
-        // Recarrega após fechar o Modal
-        jQuery('#modal-eventos').on('hidden.bs.modal', function () {
-          window.location.href = window.location.href;
-        });
+        this.agendarRecarregamento();
         let dados = Object.assign({}, this.novaNoticia[0]);
         const arrayDelete = ['checkboxPraCegoVer'];
         arrayDelete.forEach(valor => delete dados[valor]);
@@ -209,25 +206,6 @@ var app = new Vue({
         .then(response => (console.log(response)));
     },
     atualizaNoticia: function(id) {
-      this.modalTexto= 'Enviando...';
-      this.modalTrava = true;
-      let dados = Object.assign({}, this.evento[id]);
-      const arrayDelete = ['aberto', 'checkboxPraCegoVer', 'tipo', 'created_at'];
-      arrayDelete.forEach(valor => delete dados[valor]);
-      axios
-        .put('/evento/?tipo=noticias', dados)
-        .then(response => {
-          console.log(response.status)
-          if (response.status === 200) {
-            console.log(response);
-            this.modalTexto = 'Atualizado com sucesso!';
-          } else {
-            this.modalTexto = 'Falha no envio, tente novamente mais tarde.'
-          }
-          this.modalTrava = false;
-        });
-    },
-    atualizaVideo: function(id) {
       this.modalTexto= 'Enviando...';
       this.modalTrava = true;
       let dados = Object.assign({}, this.evento[id]);
@@ -448,13 +426,11 @@ var app = new Vue({
       this.videos.reverse();
       this.videos.forEach(video => {
         video['aberto'] = false;
-        video['link'] = `https://youtu.be/${video.id_video}`
+        video['link'] = `https://youtu.be/${video.id_video}`;
         
         if(video['destacado'] == 1) {
           this.destaque['idInicial'] = video['id'];
           this.destaque['id'] = video['id'];
-
-          console.log(video['id'])
         }
       });
     },
@@ -523,10 +499,7 @@ var app = new Vue({
       
       if (validacaoCat) {
         this.modalTrava = true;
-        // Recarrega após fechar o Modal
-        jQuery('#modal-eventos').on('hidden.bs.modal', function () {
-          window.location.href = window.location.href;
-        });
+        this.agendarRecarregamento();
         let dados = Object.assign({tipo: 'categoria'}, this.novaCategoria[0]);
         axios
           .post('/evento/?tipo=videos', dados)
@@ -548,12 +521,14 @@ var app = new Vue({
       this.modalTexto= 'Enviando...';
       let validacaoVideo = this.validarVideo(this.novoVideo[0]);
       this.novoVideo[0].ordem = this.videos.length + 1;
+      const arrayDelete = ['categoria'];
+      arrayDelete.forEach(el => {
+        delete this.novoVideo[0].el;
+      })
+      
       if (validacaoVideo) {
         this.modalTrava = true;
-        // Recarrega após fechar o Modal
-        jQuery('#modal-eventos').on('hidden.bs.modal', function () {
-          window.location.href = window.location.href;
-        });
+        this.agendarRecarregamento();
         let dados = Object.assign({tipo: 'video'}, this.novoVideo[0]);
         axios
           .post('/evento/?tipo=videos', dados)
@@ -582,6 +557,7 @@ var app = new Vue({
       this.modalTexto= 'Enviando...';
       let dados = Object.assign({tipo: 'destaque'}, this.destaque);
       this.modalTrava = true;
+      this.agendarRecarregamento();      
 
       axios
         .put('/evento/?tipo=videos', dados)
@@ -597,13 +573,15 @@ var app = new Vue({
           this.modalTrava = false;
         });
     },
-    atualizarCategorias() {      this.modalTexto= 'Enviando...';
+    atualizarCategorias() {
+      this.modalTexto = 'Enviando...';
       let dados = Object.assign({
         tipo: 'categorias',
         arrayCategorias: this.categorias
       });
-      
+
       this.modalTrava = true;
+      this.agendarRecarregamento();
 
       axios
         .put('/evento/?tipo=videos', dados)
@@ -618,20 +596,68 @@ var app = new Vue({
           }
           this.modalTrava = false;
         });
-
     },
-    atualizarVideo() {
-      return;
+    atualizarVideo(index) {
+      let video = structuredClone(this.videos[index]);
+      video['id_video'] = this.calcularIdVideo(video.link)
+      
+      const arrayDelete = [
+        'aberto',
+        'categoria',
+        'link',
+        'created_at'
+      ];
+      arrayDelete.forEach(valor => delete video[valor]);
+
+      let dados = Object.assign({
+        tipo: 'video',
+        video: video
+      });
+      
+      this.modalTexto = 'Enviando...';
+      this.modalTrava = true;
+      this.agendarRecarregamento();     
+
+      axios
+        .put('/evento/?tipo=videos', dados)
+        .then(response => {
+          console.log(response.status)
+          if (response.status === 200) {
+            console.log(response);
+            this.modalTexto = 'Atualizado com sucesso!';
+            this.destaque.idInicial = this.destaque.id;
+          } else {
+            this.modalTexto = 'Falha no envio, tente novamente mais tarde.'
+          }
+          this.modalTrava = false;
+        });
     },
     atualizarOrdem(tipo) {
       return;
+    },
+    agendarRecarregamento() {
+      // Recarrega após fechar o Modal
+      jQuery('#modal-eventos').on('hidden.bs.modal', function () {
+        window.location.href = window.location.href;
+      });            
     }
   },
   computed: {
 
   },
+  watch: {
+    videos: {
+      handler: (val, oldVal) => {
+        console.log('watch')
+        return;
+      },
+
+      deep: true
+    }
+  },
   mounted() {
     // Esconde conteúdo quando JavaScript não estiver habilitado
+    console.log(eventoRaw)
     var conteudo = document.getElementById("appevento");
     conteudo.style.display = "block";
     
@@ -657,6 +683,9 @@ var app = new Vue({
     }
 
     if (this.tipoDeEvento == 'videos') {
+      eventoRaw['videos'].forEach(video => {
+        video.link = '';
+      })
       this.resetarVideos();
       this.resetarCategorias();
     }

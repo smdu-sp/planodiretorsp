@@ -40,7 +40,7 @@ function getVideos(array $idCategorias = [])
     $videos = $wpdb->get_results($sqlVideos, OBJECT);
 
     foreach($videos as $video) {
-        $idCat = $video->categoria;
+        $idCat = $video->id_categoria;
         $video->categoria = $categorias[$idCat - 1]->categoria;
     }
 

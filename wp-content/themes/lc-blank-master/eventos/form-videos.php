@@ -144,7 +144,7 @@
                 <div v-if="ordenacaoHabilitada" class="player-seta" @click="mudarOrdemVideos(video, -1)"><button><img src="/assets/videos/seta 03.png" alt=""></button></div>
                 <div class="d-flex align-items-center container-thumbnail">
                     <div class="d-flex align-items-center thumbnail" @click="abrirVideo(index)">
-                        <img v-if="thumbYT(video.id_video, index, true)" :src="imagemVideo(video.id_video, index, true)">
+                        <img v-if="thumbYT(video.link, index)" :src="imagemVideo(video.link, index)">
                         <img v-if="video.imagem.trim().length > 0" :src="video.imagem">
                     </div>
                 </div>
@@ -159,16 +159,16 @@
                                 <b v-if="prop == 'imagem'" style="font-weight: normal">(<a href="/wp-admin/media-new.php" target="_blank">Upload de imagem</a>)</b>
                             </label>
                             <input v-if="prop != 'categoria'" type="text" class="form-control mb-2" :id="'video-' + prop" v-model="video[prop]">
-                            <select v-if="prop == 'categoria'" type="text" class="form-control mb-2" :id="'video-' + prop" v-model="video[prop]">
+                            <select v-if="prop == 'categoria'" type="text" class="form-control mb-2" :id="'video-' + prop" v-model="video['id_categoria']">
                                 <option disabled value="">Selecione...</option>
-                                <option v-for="categoria in categorias">{{ categoria.categoria }}</option>
+                                <option v-for="categoria in categorias" :value="categoria.id">{{ categoria.categoria }}</option>
                             </select>
                         </template>
                     </div>
                 </template>
                 <div class="d-flex justify-content-end">
-                    <button @click="atualizaVideo(index)" type="button" class="btn btn-success mb-5" data-toggle="modal" data-target="#modal-eventos" data-backdrop="static">Atualizar</button>
-                    <button @click="excluiVideo(index)" type="button" class="btn btn-danger mb-5 ml-4">Excluir</button>
+                    <button @click="atualizarVideo(index)" type="button" class="btn btn-success mb-5" data-toggle="modal" data-target="#modal-eventos" data-backdrop="static">Atualizar</button>
+                    <button @click="excluirVideo(index)" type="button" class="btn btn-danger mb-5 ml-4">Excluir</button>
                     <button @click="fecharVideo(index)" type="button" class="btn btn-secondary mb-5 ml-4">Cancelar</button>
                 </div>
             </div>
