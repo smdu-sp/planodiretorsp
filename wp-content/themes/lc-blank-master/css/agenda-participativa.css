@@ -88,7 +88,8 @@
 }
 
 #agenda-participativa .titulo {
-    width: 55%;
+    width: 65%;
+    padding-right: 10px;
 }
 
 #agenda-participativa .titulo h3 {

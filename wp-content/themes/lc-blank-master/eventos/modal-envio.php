@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalCenterTitle">{{ tipoDeEvento == 'agenda' ? 'Agenda Participativa' : 'Notícia'}}</h5>
+                <h5 class="modal-title" id="exampleModalCenterTitle">{{ tipoDeEvento == 'videos' ? 'Vídeos' : tipoDeEvento == 'agenda' ? 'Agenda Participativa' : 'Notícia'}}</h5>
             </div>
             <div class="modal-body" v-html="modalTexto">
             </div>

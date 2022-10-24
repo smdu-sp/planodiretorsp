@@ -24,7 +24,9 @@
 label,
 .evento .item-nome,
 .evento input,
-.evento textarea {
+.evento textarea,
+.evento .nav-link,
+.evento select {
   font-size: 16px;
 }
 
@@ -62,4 +64,59 @@ input[type="date"] {
 /* Esconde o botão "Edit in Live Composer" */
 .dslca-activate-composer-hook {
   display: none !important;
+}
+
+/* Vídeos */
+.ordem label {
+  display: block;
+}
+
+.ordem span {
+  padding: 0 10px;
+}
+
+.btn.ordem {
+  font-size: 12px !important;
+  vertical-align: middle;
+}
+
+.evento span {
+  font-size: 20px;
+  vertical-align: middle;
+}
+
+.container-thumbnail {
+  border-radius: 8px;
+  min-width: 277px;
+  max-width: 277px;
+  margin: 20px 5px;
+}
+
+.thumbnail {
+  overflow: hidden;
+  min-height: 151px;
+  max-height: 151px;
+  min-width: 277px;
+  max-width: 277px;
+  border-radius: 8px;
+}
+
+.tab-content {
+  max-width: 1110px;
+  margin: auto;
+}
+
+.player-seta button {
+  background-color: #fff;
+}
+
+.player-seta button:active {
+  background: #fff;
+  box-shadow: inset 0px 0px 5px #ddd;
+  outline: none;
+}
+
+.player-seta button:focus, 
+.player-seta button:focus-visible {
+  outline: none;
 }

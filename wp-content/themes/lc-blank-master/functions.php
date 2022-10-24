@@ -66,15 +66,20 @@ function lct_title( $sep ) {
 	echo ' ' . $sep . ' ';
 	bloginfo( 'name ' );
 }
+
 // Cadastro e carregamento de estilos
 function gerenciamentoDeEstilos() {
-	wp_register_style('Agenda Participativa', get_template_directory_uri() . '/css/agenda-participativa.css', array(), '1.0.6', 'all');
+	wp_register_style('Contribua', get_template_directory_uri() . '/css/contribuicao.css', array(), '1.0.0', 'all');
+	wp_register_style('Agenda Participativa', get_template_directory_uri() . '/css/agenda-participativa.css', array(), '1.0.7', 'all');
 	wp_register_style('Botoes Bootstrap', get_template_directory_uri() . '/css/botoes.css', array(), '1.0', 'all');
 	wp_register_style('Eventos', get_template_directory_uri() . '/css/eventos.css', array(), '1.0.1', 'all');
+	wp_register_style('Bootstrap', get_template_directory_uri() . '/css/bootstrap.min.css', array(), '4.3.1', 'all');
+	wp_register_script('Bootstrap JS', get_template_directory_uri() . '/js/bootstrap.min.js', array(), '4.3.1', 'all');
 	wp_register_style('Notícias', get_template_directory_uri() . '/css/noticias.css', array(), '1.0', 'all');
 
 	  // Estilos da Home
-	  if (is_front_page() || is_page('evento')) {
+	  if (is_front_page() || is_page('evento') || is_page('home-teste')) {
+		wp_enqueue_style('Contribua');
 		wp_enqueue_style('Agenda Participativa');
 		wp_enqueue_style('Notícias');
 		wp_enqueue_style('Botoes Bootstrap');
@@ -82,6 +87,8 @@ function gerenciamentoDeEstilos() {
 
 	  if (is_page('evento')) {
 		wp_enqueue_style('Eventos');
+		wp_enqueue_style('Bootstrap');
+		wp_enqueue_script('Bootstrap JS');
 	  }
 }
 
@@ -124,16 +131,22 @@ function validaUrl($url) {
 // SHORTCODES
 add_shortcode('shortcodeAgendaParticipativa', 'shortcodeAgendaParticipativa');
 add_shortcode('shortcodeNoticias', 'shortcodeNoticias');
+add_shortcode('shortcodeContador', 'shortcodeContador');
 
 function shortcodeAgendaParticipativa() {
-	
-require_once "modulo-agenda-participativa.php";
+	require_once "modulo-agenda-participativa.php";
 
-return ob_get_clean();
+	return ob_get_clean();
 }
 
 function shortcodeNoticias() {
 	require_once "noticias/modulo-noticias.php";
 	
+	return ob_get_clean();
+}
+
+function shortcodeContador() {
+	require_once "modulo-contador.php";
+
 	return ob_get_clean();
 }

@@ -2,10 +2,18 @@
 /*
 Template Name: Lista de vídeos
 */
+
 header('Content-Type: application/json; charset=utf-8');
-require_once 'eventos/evento.php';
-$lista = [];
-$lista['videos'] = getEventos(['video']);
-$lista['documentos'] = getEventos(['documento']);
+
+$cat = [];
+
+if ($_GET['cat']) {
+    $cat = explode(",", $_GET["cat"]);
+}
+
+require_once 'eventos/video.php';
+
+$lista = getVideos($cat);
 echo json_encode($lista);
+
 return;

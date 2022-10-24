@@ -356,6 +356,7 @@ if (have_posts()) : while (have_posts()) : the_post();
         </div>
         <div id="calendario-2022">
           <h3 class="calendario-ano">2022</h3>
+          <h4 class="calendario-etapa">ETAPA 01</h4>
           <table class="calendario-tabela">
             <caption class="calendario-rosa">
               Março
@@ -724,7 +725,7 @@ if (have_posts()) : while (have_posts()) : the_post();
                 </td>
                 <td colspan="1" class="calendario-evento">08 Oficinas presenciais</td>
                 <td class="calendario-descricao">
-                  Sapopemba, Vila Prudente, Aricanduva/Formosa/Carrão, Móoca, Sé, Vila
+                  Sapopemba, Vila Prudente, Aricanduva/Formosa/Carrão, Mooca, Sé, Vila
                   Mariana, Ipiranga e Jabaquara
                 </td>
               </tr>
@@ -747,11 +748,492 @@ if (have_posts()) : while (have_posts()) : the_post();
                   <span class="calendario-dia">12</span>
                 </td>
                 <td colspan="2" class="calendario-evento">
-                  Encerramento da consulta pública no Participe+
+                  Encerramento da 1ª Consulta Pública no Participe+
+                </td>
+              </tr>
+              <tr>
+                <td class="calendario-data calendario-rosa-claro">
+                  <span class="calendario-dia-nome">SEG</span>
+                  <span class="calendario-dia">22</span>
+                </td>
+                <td colspan="1" class="calendario-evento">
+                  Encontro com COMUSAN
+                </td>
+                <td class="calendario-descricao">
+                  Reunião com integrantes do Conselho Municipal de Segurança Alimentar e Nutricional
+                </td>
+              </tr>
+              <tr>
+                <td class="calendario-data calendario-rosa-claro">
+                  <span class="calendario-dia-nome">SEX</span>
+                  <span class="calendario-dia">26</span>
+                </td>
+                <td colspan="1" class="calendario-evento">
+                  Encontro com Povos Indígenas de Parelheiros
+                </td>
+                <td class="calendario-descricao">
+                  Território Indígena Tenonde Porã - Parelheiros
+                </td>
+              </tr>
+              <tr>
+                <td class="calendario-data calendario-rosa-claro">
+                  <span class="calendario-dia-nome">SEG</span>
+                  <span class="calendario-dia">29</span>
+                </td>
+                <td colspan="1" class="calendario-evento">
+                  Reunião com CMPU
+                </td>
+                <td class="calendario-descricao">
+                  Apresentação dos Fundamentos da Revisão e Elementos do Processo Participativo<br>Apresentação das agendas - Etapas 2 e 3
                 </td>
               </tr>
             </tbody>
           </table>
+          <table class="calendario-tabela">
+            <caption class="calendario-laranja">
+              Setembro
+            </caption>
+            <colgroup>
+              <col class="col-1" />
+              <col class="col-2" />
+              <col class="col-3" />
+            </colgroup>
+            <thead>
+              <tr>
+                <th>Data</th>
+                <th class="calendario-evento">Evento</th>
+                <th class="calendario-descricao">Descrição</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="calendario-data calendario-laranja-claro">
+                  <span class="calendario-dia-nome">TER</span>
+                  <span class="calendario-dia">06</span>
+                </td>
+                <td colspan="1" class="calendario-evento">
+                  Encontro Povos Indígenas do Jaraguá
+                </td>
+                <td class="calendario-descricao">
+                  Aldeia Yvy Porã - Jaraguá
+                </td>
+              </tr>
+              <tr>
+                <td class="calendario-data calendario-laranja-claro">
+                  <span class="calendario-dia-nome">QUI</span>
+                  <span class="calendario-dia">08</span>
+                </td>
+                <td colspan="1" class="calendario-evento">
+                  Publicação da Sistematização da Etapa 1
+                </td>
+                <td class="calendario-descricao">
+                  Divulgação do Relatório da Sistematização da Participação Social - Etapa 1
+                </td>
+              </tr>
+              <tr>
+                <td class="calendario-data calendario-laranja-claro">
+                  <span class="calendario-dia-nome">QUI</span>
+                  <span class="calendario-dia">15</span>
+                </td>
+                <td colspan="1" class="calendario-evento">
+                  Reunião com CMPU
+                </td>
+                <td class="calendario-descricao">
+                  Apresentação da Sistematização, das Proposta de Limites da Revisão e das Agendas para as Etapas 2 e 3
+                </td>
+              </tr>
+              <tr>
+                <td class="calendario-data calendario-laranja-claro">
+                  <span class="calendario-dia-nome">SEX</span>
+                  <span class="calendario-dia">23</span>
+                </td>
+                <td colspan="1" class="calendario-evento">
+                  Publicação dos Limites da Revisão
+                </td>
+                <td class="calendario-descricao">
+                  Divulgação do Relatório
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <h4 class="calendario-etapa" id="etapa-2">ETAPA 02</h4>
+          <table class="calendario-tabela">
+            <caption class="calendario-laranja">
+              Setembro
+            </caption>
+            <colgroup>
+              <col class="col-1" />
+              <col class="col-2" />
+              <col class="col-3" />
+            </colgroup>
+            <thead>
+              <tr>
+                <th>Data</th>
+                <th class="calendario-evento">Evento</th>
+                <th class="calendario-descricao">Descrição</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="calendario-data calendario-laranja-claro">
+                  <span class="calendario-dia-nome">SEX</span>
+                  <span class="calendario-dia">23</span>
+                </td>
+                <td colspan="1" class="calendario-evento">
+                  Abertura da 2ª Consulta Pública no Participe+
+                </td>
+                <td class="calendario-descricao">
+                  Abertura do Participe+ para recebimento de propostas
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <table class="calendario-tabela">
+            <caption class="calendario-azul">
+              Outubro
+            </caption>
+            <colgroup>
+              <col class="col-1" />
+              <col class="col-2" />
+              <col class="col-3" />
+            </colgroup>
+            <thead>
+              <tr>
+                <th>Data</th>
+                <th class="calendario-evento">Evento</th>
+                <th class="calendario-descricao">Descrição</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="calendario-data calendario-azul-claro">
+                  <span class="calendario-dia-nome">SEX</span>
+                  <span class="calendario-dia">14</span>
+                </td>
+                <td colspan="1" class="calendario-evento">
+                  Reunião CMTT
+                </td>
+                <td class="calendario-descricao">
+                  Reunião com integrantes do Conselho Municipal de Trânsito e Transporte
+                </td>
+              </tr>
+              <tr>
+                <td class="calendario-data calendario-azul-claro">
+                  <span class="calendario-dia-nome">SEX</span>
+                  <span class="calendario-dia">14</span>
+                </td>
+                <td colspan="1" class="calendario-evento">
+                  Reunião FUNDURB
+                </td>
+                <td class="calendario-descricao">
+                  Reunião com integrantes do Fundo Municipal de Desenvolvimento Urbano
+                </td>
+              </tr>
+              <tr>
+                <td class="calendario-data calendario-azul-claro">
+                  <span class="calendario-dia-nome">QUA</span>
+                  <span class="calendario-dia">19</span>
+                </td>
+                <td colspan="1" class="calendario-evento">
+                  Reunião CIMPDE
+                </td>
+                <td class="calendario-descricao">
+                  Reunião com integrantes do Comitê Intersecretarial de Monitoramento e Avaliação da Implementação do Plano Diretor Estratégico
+                </td>
+              </tr>
+              <tr>
+                <td class="calendario-data calendario-azul-claro">
+                  <span class="calendario-dia-nome">QUA</span>
+                  <span class="calendario-dia">19</span>
+                </td>
+                <td colspan="1" class="calendario-evento">
+                  Reunião CADES
+                </td>
+                <td class="calendario-descricao">
+                  Reunião com integrantes do Conselho Municipal do Meio Ambiente e Desenvolvimento Sustentável
+                </td>
+              </tr>
+              <tr>
+                <td class="calendario-data calendario-azul-claro">
+                  <span class="calendario-dia-nome">QUI</span>
+                  <span class="calendario-dia">20</span>
+                </td>
+                <td colspan="1" class="calendario-evento">
+                  Reunião CMPU
+                </td>
+                <td class="calendario-descricao">
+                  Reunião com integrantes do Conselho Municipal de Política Urbana
+                </td>
+              </tr>
+              <tr>
+                <td class="calendario-data calendario-azul-claro">
+                  <span class="calendario-dia-nome">SEX</span>
+                  <span class="calendario-dia">21</span>
+                </td>
+                <td colspan="1" class="calendario-evento">
+                  Reunião CTLU
+                </td>
+                <td class="calendario-descricao">
+                  Reunião com integrantes da Câmara Técnica de Legislação Urbanística
+                </td>
+              </tr>
+              <tr>
+                <td class="calendario-data calendario-azul-claro">
+                  <span class="calendario-dia-nome">SEG</span>
+                  <span class="calendario-dia">24</span>
+                </td>
+                <td colspan="2" class="calendario-evento">
+                  Encerramento da 2ª Consulta Pública no Participe+
+                </td>
+              </tr>
+              <tr>
+                <td colspan="3" class="etapa-indefinido">ETAPA 02 - datas a confirmar</td>
+              </tr>
+              <tr>
+                <td class="calendario-data calendario-azul-claro">
+                  <span class="calendario-dia-nome indefinido" aria-hidden="true">-</span>
+                  <span class="calendario-dia indefinido" aria-hidden="true">-</span>
+                </td>
+                <td colspan="1" class="calendario-evento">
+                  Reunião CMDE
+                </td>
+                <td class="calendario-descricao">
+                  Reunião com integrantes do Conselho Municipal da Pessoa com Deficiência
+                </td>
+              </tr>
+              <tr>
+                <td class="calendario-data calendario-azul-claro">
+                  <span class="calendario-dia-nome indefinido" aria-hidden="true">-</span>
+                  <span class="calendario-dia indefinido" aria-hidden="true">-</span>
+                </td>
+                <td colspan="1" class="calendario-evento">
+                  CADES regionais
+                </td>
+                <td class="calendario-descricao">
+                  Reunião com integrantes das regionais do Conselho Municipal do Meio Ambiente e Desenvolvimento Sustentável
+                </td>
+              </tr>
+              <tr>
+                <td class="calendario-data calendario-azul-claro">
+                  <span class="calendario-dia-nome indefinido" aria-hidden="true">-</span>
+                  <span class="calendario-dia indefinido" aria-hidden="true">-</span>
+                </td>
+                <td colspan="1" class="calendario-evento">
+                  Reunião Conselhos Participativos Municipais - CPM
+                </td>
+                <td class="calendario-descricao">
+                  Reunião com integrantes dos Conselhos Participativos Municipais
+                </td>
+              </tr>
+              <tr>
+                <td class="calendario-data calendario-azul-claro">
+                  <span class="calendario-dia-nome indefinido" aria-hidden="true">-</span>
+                  <span class="calendario-dia indefinido" aria-hidden="true">-</span>
+                </td>
+                <td colspan="1" class="calendario-evento">
+                  Reunião CMDRSS + <br>Reunião COMUSAN
+                </td>
+                <td class="calendario-descricao">
+                  Reunião com integrantes do Conselho Municipal de Desenvolvimento Rural Sustentável e Solidário e do Conselho Municipal de Segurança Alimentar e Nutricional
+                </td>
+              </tr>
+              <tr>
+                <td class="calendario-data calendario-azul-claro">
+                  <span class="calendario-dia-nome indefinido" aria-hidden="true">-</span>
+                  <span class="calendario-dia indefinido" aria-hidden="true">-</span>
+                </td>
+                <td colspan="1" class="calendario-evento">
+                  Reunião CMH
+                </td>
+                <td class="calendario-descricao">
+                  Reunião com integrantes do Conselho Municipal de Habitação
+                </td>
+              </tr>
+              <tr>
+                <td class="calendario-data calendario-azul-claro">
+                  <span class="calendario-dia-nome indefinido" aria-hidden="true">-</span>
+                  <span class="calendario-dia indefinido" aria-hidden="true">-</span>
+                </td>
+                <td colspan="1" class="calendario-evento">
+                  SEMINÁRIO presencial
+                </td>
+                <td class="calendario-descricao">
+                  Data e local a confirmar
+                </td>
+              </tr>
+              <tr>
+                <td class="calendario-data calendario-azul-claro">
+                  <span class="calendario-dia-nome indefinido" aria-hidden="true">-</span>
+                  <span class="calendario-dia indefinido" aria-hidden="true">-</span>
+                </td>
+                <td colspan="1" class="calendario-evento">
+                  Reunião CONPRESP
+                </td>
+                <td class="calendario-descricao">
+                  Reunião com integrantes do Conselho Municipal de Preservação do Patrimônio Histórico, Cultural e Ambiental
+                </td>
+              </tr>
+              <tr>
+                <td class="calendario-data calendario-azul-claro">
+                  <span class="calendario-dia-nome indefinido" aria-hidden="true">-</span>
+                  <span class="calendario-dia indefinido" aria-hidden="true">-</span>
+                </td>
+                <td colspan="1" class="calendario-evento">
+                  Reunião COMPISP
+                </td>
+                <td class="calendario-descricao">
+                  Reunião com integrantes do Conselho Municipal dos Povos Indígenas
+                </td>
+              </tr>
+              <tr>
+                <td class="calendario-data calendario-azul-claro">
+                  <span class="calendario-dia-nome indefinido" aria-hidden="true">-</span>
+                  <span class="calendario-dia indefinido" aria-hidden="true">-</span>
+                </td>
+                <td colspan="1" class="calendario-evento">
+                  Reunião CMDE
+                </td>
+                <td class="calendario-descricao">
+                  Reunião com integrantes do Conselho Municipal de Desenvolvimento Econômico
+                </td>
+              </tr>
+              <tr>
+                <td class="calendario-data calendario-azul-claro">
+                  <span class="calendario-dia-nome indefinido" aria-hidden="true">-</span>
+                  <span class="calendario-dia indefinido" aria-hidden="true">-</span>
+                </td>
+                <td colspan="1" class="calendario-evento">
+                  Reunião CMSSP
+                </td>
+                <td class="calendario-descricao">
+                  Reunião com integrantes do Conselho Municipal de Saúde
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <h4 class="calendario-etapa">ETAPA 03 - datas a confirmar</h4>
+          <table class="calendario-tabela">
+            <caption class="calendario-vermelho">
+              Novembro / Dezembro
+            </caption>
+            <colgroup>
+              <col class="col-1" />
+              <col class="col-2" />
+              <col class="col-3" />
+            </colgroup>
+            <thead>
+              <tr>
+                <th>Data</th>
+                <th class="calendario-evento">Evento</th>
+                <th class="calendario-descricao">Descrição</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="calendario-data calendario-vermelho-claro">
+                  <span class="calendario-dia-nome indefinido" aria-hidden="true">-</span>
+                  <span class="calendario-dia indefinido" aria-hidden="true">-</span>
+                </td>
+                <td colspan="1" class="calendario-evento">
+                  Minuta do Projeto de Lei <br>Abertura da 3ª Consulta Pública do Participe+
+                </td>
+                <td class="calendario-descricao">
+                  Reunião com integrantes do Conselho Municipal de Saúde
+                </td>
+              </tr>
+              <tr>
+                <td class="calendario-data calendario-vermelho-claro">
+                  <span class="calendario-dia-nome indefinido" aria-hidden="true">-</span>
+                  <span class="calendario-dia indefinido" aria-hidden="true">-</span>
+                </td>
+                <td colspan="1" class="calendario-evento">
+                  Audiência Pública Virtual
+                </td>
+                <td class="calendario-descricao">
+                  Discussão da minuta do Projeto de Lei
+                </td>
+              </tr>
+              <tr>
+                <td class="calendario-data calendario-vermelho-claro">
+                  <span class="calendario-dia-nome indefinido" aria-hidden="true">-</span>
+                  <span class="calendario-dia indefinido" aria-hidden="true">-</span>
+                </td>
+                <td colspan="1" class="calendario-evento">
+                  Audiência Pública Presencial
+                </td>
+                <td class="calendario-descricao">
+                  Discussão da minuta do Projeto de Lei
+                </td>
+              </tr>
+              <tr>
+                <td class="calendario-data calendario-vermelho-claro">
+                  <span class="calendario-dia-nome indefinido" aria-hidden="true">-</span>
+                  <span class="calendario-dia indefinido" aria-hidden="true">-</span>
+                </td>
+                <td colspan="1" class="calendario-evento">
+                  Audiência Pública Virtual
+                </td>
+                <td class="calendario-descricao">
+                  Discussão da minuta do Projeto de Lei
+                </td>
+              </tr>
+              <tr>
+                <td class="calendario-data calendario-vermelho-claro">
+                  <span class="calendario-dia-nome indefinido" aria-hidden="true">-</span>
+                  <span class="calendario-dia indefinido" aria-hidden="true">-</span>
+                </td>
+                <td colspan="2" class="calendario-evento">
+                  Encerramento da 3ª Consulta Pública no Participe+
+                </td>
+              </tr>
+              <tr>
+                <td class="calendario-data calendario-vermelho-claro">
+                  <span class="calendario-dia-nome indefinido" aria-hidden="true">-</span>
+                  <span class="calendario-dia indefinido" aria-hidden="true">-</span>
+                </td>
+                <td colspan="1" class="calendario-evento">
+                  Prazo limite para envio do Projeto <br>de Lei à CMSP
+                </td>
+              </tr>
+              <tr>
+                <td class="calendario-data calendario-vermelho-claro">
+                  <span class="calendario-dia-nome indefinido" aria-hidden="true">-</span>
+                  <span class="calendario-dia indefinido" aria-hidden="true">-</span>
+                </td>
+                <td colspan="1" class="calendario-evento">
+                  Reunião CMPU
+                </td>
+                <td class="calendario-descricao">
+                  Reunião com integrantes do Conselho Municipal de Política Urbana
+                </td>
+              </tr>
+              <tr>
+                <td class="calendario-data calendario-vermelho-claro">
+                  <span class="calendario-dia-nome indefinido" aria-hidden="true">-</span>
+                  <span class="calendario-dia indefinido" aria-hidden="true">-</span>
+                </td>
+                <td colspan="1" class="calendario-evento">
+                  Reunião CTLU
+                </td>
+                <td class="calendario-descricao">
+                  Reunião com integrantes da Câmara Técnica de Legislação Urbanística
+                </td>
+              </tr>
+              <tr>
+                <td class="calendario-data calendario-vermelho-claro">
+                  <span class="calendario-dia-nome indefinido" aria-hidden="true">-</span>
+                  <span class="calendario-dia indefinido" aria-hidden="true">-</span>
+                </td>
+                <td colspan="1" class="calendario-evento">
+                  Audiência Pública Devolutiva <br>Final virtual
+                </td>
+                <td class="calendario-descricao">
+                  Apresentação da minuta final do Projeto de Lei
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
         </div>
       </div>
     </div>
