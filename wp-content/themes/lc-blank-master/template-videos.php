@@ -350,6 +350,11 @@ if (have_posts()) : while (have_posts()) : the_post();
                     padding-bottom: 0 !important;
                     margin-bottom: 60px !important;
                 }
+
+                .videos-topo .titulo {
+                    padding-top: 60px !important;    
+                }
+
                 .thumbnail {
                     max-height: 180px;
                     max-width: 320px;
