@@ -66,7 +66,7 @@ if (have_posts()) : while (have_posts()) : the_post();
                     videos: {},
                     videoSelecionado: {},
                     categoriaSelecionada: '',
-                    categorias: ['Mais recentes'], // Nome padrão da categoria com todos os vídeos
+                    categorias: [],
                     qtdVideos: 3,
                     indexVideos: [],
                     carregando: true,
@@ -176,8 +176,16 @@ if (have_posts()) : while (have_posts()) : the_post();
                         .then(response => {
                             if (response.data['videos'].length === 0) {
                                 console.log("Sem vídeos para exibir");
+                                this.categorias[0] = response.data['categorias'][0].categoria;
+                                this.$forceUpdate();
                                 return;
                             }
+
+                            const cats = response.data['categorias'];
+                            cats.forEach(cat => {
+                                this.categorias[cat['ordem'] - 1] = cat['categoria'];
+                            });
+
                             // Adiciona lista com todos os vídeos
                             this.videos[this.categorias[0]] = response.data['videos'].reverse();
 
@@ -190,11 +198,6 @@ if (have_posts()) : while (have_posts()) : the_post();
                                     todosVideos.splice(0, 0, videoDestacado);
                                 }
                             }
-
-                            const cats = response.data['categorias'];
-                            cats.forEach(cat => {
-                                this.categorias[cat['ordem']] = cat['categoria'];
-                            });
 
                             // Adiciona listas de vídeos filtradas por categorias
                             this.categorias.forEach((cat, catIndex) => {
