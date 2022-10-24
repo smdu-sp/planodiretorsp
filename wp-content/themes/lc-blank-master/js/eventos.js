@@ -312,8 +312,8 @@ var app = new Vue({
           });
       }
     },
-    excluiVideo: function(key) {
-      if (window.confirm("ATENÇÃO! Tem certeza que deseja excluir a notícia?")) {
+    excluirVideo: function(key) {
+      if (window.confirm("ATENÇÃO! Tem certeza que deseja excluir este vídeo?")) {
         this.modalTexto= 'Enviando...';
         this.modalTrava = true;
         // Exibe modal, e recarrega página após fechar
@@ -322,12 +322,12 @@ var app = new Vue({
           window.location.href = window.location.href;
         });
         axios
-          .delete('/evento/?tipo=noticias', {data: {id: this.evento[key].id}})
+          .delete('/evento/?tipo=videos', {data: {id: this.videos[key].id}})
           .then(response => {
             console.log(response.status)
             if (response.status === 200) {
               console.log(response);
-              this.modalTexto = 'Notícia excluída com sucesso!';
+              this.modalTexto = 'Vídeo excluído com sucesso!';
             } else {
               this.modalTexto = 'Falha no envio, tente novamente mais tarde.'
             }

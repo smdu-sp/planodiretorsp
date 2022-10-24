@@ -107,6 +107,6 @@ if ($_SERVER["REQUEST_METHOD"] == "PUT") {
 if ($_SERVER["REQUEST_METHOD"] == "DELETE") {
     $_POST = json_decode(file_get_contents("php://input"), true);
     $id = $_POST['id'];
-    $wpdb->delete('noticias', array('id' => $id));
+    $wpdb->delete('videos', array('id' => $id));
     return;
 }
