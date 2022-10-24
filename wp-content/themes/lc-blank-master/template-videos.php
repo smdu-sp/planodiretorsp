@@ -19,7 +19,7 @@ if (have_posts()) : while (have_posts()) : the_post();
             <?php if (is_user_logged_in()) { ?>
                 <a  style="display: inline-block; font-size: 16px; vertical-align: super; margin-bottom: 30px;" href="/evento/?tipo=videos" class="btn btn-primary">Editar Vídeos</a><?php
             } ?>
-            <div v-for="categoria, index in categorias">
+            <div v-for="categoria, index in categorias" class="videos-desktop">
                 <div v-if="categoriaSelecionada && index === categorias.indexOf(categoriaSelecionada)" class="row container-video">
                     <div class="col-12">
                         <div class="row">
@@ -47,13 +47,25 @@ if (have_posts()) : while (have_posts()) : the_post();
                                 <div class="d-flex align-items-center container-thumbnail" :class="{ active: videoSelecionado.index === video.index && categoriaSelecionada === categoria }">
                                     <div class="d-flex align-items-center thumbnail">
                                         <img v-if="video.imagem && video.imagem.trim().length > 0" :src="video.imagem" :alt="`Assistir vídeo '${video.titulo}'`">
-                                        <img v-if="!video.imagem" :src="`https://img.youtube.com/vi/${video.id_video}/hqdefault.jpg`" :alt="`Assistir vídeo '${video.titulo}'`">
+                                        <img v-if="!video.imagem" :src="`https://img.youtube.com/vi/${video.id_video}/maxresdefault.jpg`" :alt="`Assistir vídeo '${video.titulo}'`">
                                     </div>
                                 </div>
                             </li>
                         </ul>
                     </div>
                     <div @click="incrementaIndex(categoria)" class="col-1 player-seta"><button><img v-if="calculaLista(categoria).length > 0" src="/assets/videos/seta 04.png" alt=""></button></div>
+                </div>
+            </div>
+            <div class="videos-mobile">
+                <div v-for="video in videos[categorias[0]]">
+                    <div class="d-flex align-items-center container-thumbnail">
+                        <a :href="`https://youtu.be/${video.id_video}`">
+                            <div class="d-flex align-items-center thumbnail">
+                                <img v-if="video.imagem && video.imagem.trim().length > 0" :src="video.imagem" :alt="`Assistir vídeo '${video.titulo}'`">
+                                <img v-if="!video.imagem" :src="`https://img.youtube.com/vi/${video.id_video}/maxresdefault.jpg`" :alt="`Assistir vídeo '${video.titulo}'`">
+                            </div>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -312,6 +324,46 @@ if (have_posts()) : while (have_posts()) : the_post();
                 font-size: 22px;
                 padding: 10px;
             }
+
+            .videos-mobile {
+                display: none;
+            }
+
+
+            @media (max-width: 1199px) {
+                .thumbnail {
+                    max-height: calc((775px / 3 - 40px) * 9 / 16);
+                }
+            }
+            
+            @media (max-width: 991px) {
+                .thumbnail {
+                    max-height: calc((575px / 3 - 40px) * 9 / 16);
+                }
+            }
+
+            @media (max-width: 767px) {
+                .videos-topo {
+                    background-image: none !important;
+                    background-color: #fee1e7 !important;
+                    padding-top: 0 !important;
+                    padding-bottom: 0 !important;
+                    margin-bottom: 60px !important;
+                }
+                .thumbnail {
+                    max-height: 180px;
+                    max-width: 320px;
+                }
+
+                .videos-desktop {
+                    display: none;
+                }
+
+                .videos-mobile {
+                    display: block;
+                }
+            }
+
 
         </style>
 
