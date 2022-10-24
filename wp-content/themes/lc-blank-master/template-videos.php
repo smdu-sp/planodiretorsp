@@ -16,6 +16,9 @@ if (have_posts()) : while (have_posts()) : the_post();
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <div id="appVideos" class="container">
+            <?php if (is_user_logged_in()) { ?>
+                <a  style="display: inline-block; font-size: 16px; vertical-align: super; margin-bottom: 30px;" href="/evento/?tipo=videos" class="btn btn-primary">Editar Vídeos</a><?php
+            } ?>
             <div v-for="categoria, index in categorias">
                 <div v-if="categoriaSelecionada && index === categorias.indexOf(categoriaSelecionada)" class="row container-video">
                     <div class="col-12">
@@ -30,25 +33,27 @@ if (have_posts()) : while (have_posts()) : the_post();
                         </div>
                     </div>
                 </div>
-                <div>
-                    <div class="categoria row">
-                        <div class="col-1 player-seta" @click="decrementaIndex(categoria)"><button><img src="/assets/videos/seta 03.png" alt=""></button></div>
-                        <div class="col-10">
-                            <h2 class="titulo" :class="{ active: categoriaSelecionada === categoria }">
-                                {{ categoria }}
-                            </h2>
-                            <ul class="row">
-                                <li v-for="video in calculaLista(categoria)" class="col-4" @click="selecionarVideo(video, categoria)">
-                                    <div class="d-flex align-items-center container-thumbnail" :class="{ active: videoSelecionado.index === video.index && categoriaSelecionada === categoria }">
-                                        <div class="d-flex align-items-center thumbnail">
-                                            <img :src="`https://img.youtube.com/vi/${video.id_video}/hqdefault.jpg`" :alt="`Assistir vídeo '${video.titulo}'`">
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
+                <div class="categoria row">
+                    <div class="col-1 player-seta" @click="decrementaIndex(categoria)"><button><img v-if="calculaLista(categoria).length > 0" src="/assets/videos/seta 03.png" alt=""></button></div>
+                    <div class="col-10">
+                        <h2 class="titulo" :class="{ active: categoriaSelecionada === categoria }">
+                            {{ categoria }}
+                        </h2>
+                        <div v-if="calculaLista(categoria).length === 0">
+                            <span class="sem-videos">Nenhum vídeo para exibir</span>
                         </div>
-                        <div @click="incrementaIndex(categoria)" class="col-1 player-seta"><button><img src="/assets/videos/seta 04.png" alt=""></button></div>
+                        <ul class="row">
+                            <li v-for="video in calculaLista(categoria)" class="col-4" @click="selecionarVideo(video, categoria)">
+                                <div class="d-flex align-items-center container-thumbnail" :class="{ active: videoSelecionado.index === video.index && categoriaSelecionada === categoria }">
+                                    <div class="d-flex align-items-center thumbnail">
+                                        <img v-if="video.imagem && video.imagem.trim().length > 0" :src="video.imagem" :alt="`Assistir vídeo '${video.titulo}'`">
+                                        <img v-if="!video.imagem" :src="`https://img.youtube.com/vi/${video.id_video}/hqdefault.jpg`" :alt="`Assistir vídeo '${video.titulo}'`">
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
+                    <div @click="incrementaIndex(categoria)" class="col-1 player-seta"><button><img v-if="calculaLista(categoria).length > 0" src="/assets/videos/seta 04.png" alt=""></button></div>
                 </div>
             </div>
         </div>
@@ -61,7 +66,7 @@ if (have_posts()) : while (have_posts()) : the_post();
                     videos: {},
                     videoSelecionado: {},
                     categoriaSelecionada: '',
-                    categorias: ['Vídeos Recentes'], // Nome padrão da categoria com todos os vídeos
+                    categorias: ['Mais recentes'], // Nome padrão da categoria com todos os vídeos
                     qtdVideos: 3,
                     indexVideos: [],
                     carregando: true,
@@ -112,13 +117,10 @@ if (have_posts()) : while (have_posts()) : the_post();
                     incrementaIndex: function(categoria) {
                         const posicao = this.categorias.indexOf(categoria);
                         let indexAtual = this.indexVideos[posicao];
-                        console.log("posicao", posicao)
 
                         if (indexAtual >= this.videos[categoria].length - this.qtdVideos) {
                             const novoIndex = this.videos[categoria].length - this.qtdVideos;
-                            console.log(novoIndex)
                             if (novoIndex > 0) {
-                                console.log("aqui")
                                 this.indexVideos[posicao] = novoIndex;
                             }
                             return
@@ -131,15 +133,9 @@ if (have_posts()) : while (have_posts()) : the_post();
                     },
 
                     selecionarVideo: function(video, categoria) {
-                        console.log(video.index)
-                        console.log(categoria)
                         this.videoSelecionado = video;
                         this.categoriaSelecionada = categoria;
                         const posicao = this.categorias.indexOf(categoria);
-
-                        console.log(posicao)
-                        console.log(video.index)
-                        console.log(this.indexVideos[posicao])
 
                         if (video.index < this.indexVideos[posicao]) {
                             this.indexVideos[posicao] -= 1;
@@ -178,8 +174,22 @@ if (have_posts()) : while (have_posts()) : the_post();
                     axios
                         .get(this.apiUrl)
                         .then(response => {
+                            if (response.data['videos'].length === 0) {
+                                console.log("Sem vídeos para exibir");
+                                return;
+                            }
                             // Adiciona lista com todos os vídeos
                             this.videos[this.categorias[0]] = response.data['videos'].reverse();
+
+                            const todosVideos = this.videos[this.categorias[0]]
+
+                            for (let i = 0; i < todosVideos.length; i++) {
+                                if (todosVideos[i].destacado == 1) {
+                                    const videoDestacado = structuredClone(todosVideos[i]);
+                                    todosVideos.splice(i, 1);
+                                    todosVideos.splice(0, 0, videoDestacado);
+                                }
+                            }
 
                             const cats = response.data['categorias'];
                             cats.forEach(cat => {
@@ -294,6 +304,12 @@ if (have_posts()) : while (have_posts()) : the_post();
                 font-weight: 900;
                 font-size: 26px;
             }
+
+            .sem-videos {
+                font-size: 22px;
+                padding: 10px;
+            }
+
         </style>
 
 <?php
