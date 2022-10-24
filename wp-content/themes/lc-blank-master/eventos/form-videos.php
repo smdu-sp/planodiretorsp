@@ -28,7 +28,7 @@
                         <input v-if="prop != 'categoria' && prop != 'aberto' && prop != 'idVideo' && prop != 'ordem'" type="text" class="form-control mb-2" :id="'novo-video-' + prop" v-model="video[prop]">
                         <select v-if="prop == 'categoria'" type="text" class="form-control mb-2" :id="'novo-video-' + prop" v-model="video[prop]">
                             <option disabled value="">Selecione...</option>
-                            <option v-for="categoria in categorias" :value="categoria.id">{{ categoria.categoria }}</option>
+                            <option v-for="categoria in categorias.slice(1)" :value="categoria.id">{{ categoria.categoria }}</option>
                         </select>
                     </div>
                     <div class="mt-5 row justify-content-end">
@@ -62,9 +62,9 @@
             </div>
             <div class="ordem col-2">
                 <label v-if="index === 0" :for="`ordem-${index}`">Ordem</label>
-                <button class="btn btn-primary ordem" @click="mudarOrdemCat(cat, -1)">&lt;</button>
+                <button :style="index > 1 ? '' : 'visibility: hidden'" class="btn btn-primary ordem" @click="mudarOrdemCat(cat, -1)">&lt;</button>
                 <span v-html="cat.ordem"></span>
-                <button class="btn btn-primary ordem" @click="mudarOrdemCat(cat, 1)">&gt;</button>
+                <button :style="index > 0 && index < categorias.length - 1 ? '' : 'visibility: hidden'" class="btn btn-primary ordem" @click="mudarOrdemCat(cat, 1)">&gt;</button>
             </div>
         </div>
         <div class="row mt-5">
@@ -161,7 +161,7 @@
                             <input v-if="prop != 'categoria'" type="text" class="form-control mb-2" :id="'video-' + prop" v-model="video[prop]">
                             <select v-if="prop == 'categoria'" type="text" class="form-control mb-2" :id="'video-' + prop" v-model="video['id_categoria']">
                                 <option disabled value="">Selecione...</option>
-                                <option v-for="categoria in categorias" :value="categoria.id">{{ categoria.categoria }}</option>
+                                <option v-for="categoria in categorias.slice(1)" :value="categoria.id">{{ categoria.categoria }}</option>
                             </select>
                         </template>
                     </div>
