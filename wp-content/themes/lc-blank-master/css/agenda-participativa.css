@@ -17,6 +17,7 @@
     font-size: 60px !important;
     font-weight: 900 !important;
     line-height: 1.05 !important;
+    letter-spacing: -1px;
 }
 
 .modulo-agenda-participativa .paragrafo {
@@ -28,11 +29,11 @@
 }
 
 .modulo-agenda-participativa .container-titulo span {
-    color: #0a3299;
+    color: #4d4d4d;
     font-family: museo, serif;
-    font-size: 25px;
-    font-weight: 300;
-    padding-bottom: 30px;
+    font-size: 36px;
+    font-weight: 900;
+    padding-bottom: 20px;
 }
 
 #agenda-participativa {
@@ -64,7 +65,7 @@
     margin-right: 30px;
     padding: 36px 30px 20px 46px;
     border-radius: 12px;
-    height: 460px;
+    min-height: 460px;
     background-color: #f36546;
     box-shadow: 54px -46px 30px -46px rgb(127 127 127 / 60%), -54px -46px 20px -46px rgb(127 127 127 / 25%);
 }
@@ -83,7 +84,7 @@
 
 #agenda-participativa .conteudo {
     display: flex;
-    max-height: 270px;
+    min-height: 270px;
     justify-content: space-between;
 }
 
@@ -156,7 +157,7 @@
 
 @media (max-width: 1180px) {
     #agenda-participativa .local span {
-        font-size: 18px !important;
+        font-size: 18px;
         overflow: hidden;
         width: 100%;
         overflow-wrap: anywhere;
@@ -193,18 +194,22 @@
         background-position: 15px center;
     }
 
+    #agenda-participativa .data,
+    #agenda-participativa .horario {
+        font-size: 22px;
+    }
+
     #agenda-participativa b.quebra-linha {
         width: auto;
         padding-top: 0 !important;
     }
 
     #agenda-participativa .info span {
-        font-size: 22px !important;
         padding: 4px 12px 4px 30px;
     }
 
     #agenda-participativa .local span {
-        font-size: 18px !important;
+        font-size: 18px;
     }
 
     .modulo-agenda-participativa .dslc-col {
