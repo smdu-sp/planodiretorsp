@@ -57,15 +57,26 @@ if (have_posts()) : while (have_posts()) : the_post();
                 </div>
             </div>
             <div class="videos-mobile">
-                <div v-for="video in videos[categorias[0]]">
-                    <div class="d-flex align-items-center container-thumbnail">
-                        <a :href="`https://youtu.be/${video.id_video}`">
-                            <div class="d-flex align-items-center thumbnail">
-                                <img v-if="video.imagem && video.imagem.trim().length > 0" :src="video.imagem" :alt="`Assistir vídeo '${video.titulo}'`">
-                                <img v-if="!video.imagem" :src="`https://img.youtube.com/vi/${video.id_video}/maxresdefault.jpg`" :alt="`Assistir vídeo '${video.titulo}'`">
-                            </div>
-                        </a>
-                    </div>
+                <div class="container-categorias-mobile" v-for="categoria, index in categoriasMobile">
+                    <ul aria-label="Categorias de vídeos">
+                        <li v-if="videos[categoria.nome].length > 0">
+                            <button class="titulo-categoria-mobile" :aria-controls="`conteudo-${index}`" :aria-expanded="categoria.aberto" @click="toggleCategoria(categoria)">
+                                <span class="mobile-mais" v-if="!categoria.aberto">+</span><span  class="mobile-menos" v-if="categoria.aberto">–</span>{{ categoria.nome }}
+                            </button>
+                            <ul class="container-videos-mobile" :aria-label="`Vídeos de ${categoria.nome}`" :aria-hidden="!categoria.aberto" v-show="categoria.aberto" >
+                                <li v-for="video in videos[categoria.nome]">
+                                    <div class="d-flex align-items-center container-thumbnail">
+                                        <a :href="`https://youtu.be/${video.id_video}`">
+                                            <div class="d-flex align-items-center thumbnail">
+                                                <img v-if="video.imagem && video.imagem.trim().length > 0" :src="video.imagem" :alt="`Assistir vídeo '${video.titulo}'`">
+                                                <img v-if="!video.imagem" :src="`https://img.youtube.com/vi/${video.id_video}/maxresdefault.jpg`" :alt="`Assistir vídeo '${video.titulo}'`">
+                                            </div>
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -79,6 +90,7 @@ if (have_posts()) : while (have_posts()) : the_post();
                     videoSelecionado: {},
                     categoriaSelecionada: '',
                     categorias: [],
+                    categoriasMobile: [],
                     qtdVideos: 3,
                     indexVideos: [],
                     carregando: true,
@@ -170,6 +182,10 @@ if (have_posts()) : while (have_posts()) : the_post();
                         }
 
                         this.selecionarVideo(this.videos[categoria][indexAtual + direcao], categoria);
+                    },
+
+                    toggleCategoria(cat) {
+                        cat.aberto = !cat.aberto;
                     }
                 },
                 computed: {
@@ -235,6 +251,12 @@ if (have_posts()) : while (have_posts()) : the_post();
                                                 this.$forceUpdate();
                                             }
                                         });
+
+                                    // Cria array com categorias para uso no layout mobile
+                                    this.categoriasMobile.push({
+                                        nome: cat,
+                                        aberto: false,
+                                    });
                                 }
                             });
                         })
@@ -366,6 +388,31 @@ if (have_posts()) : while (have_posts()) : the_post();
 
                 .videos-mobile {
                     display: block;
+                }
+
+                .mobile-mais, 
+                .mobile-menos {
+                    padding-right: 10px;
+                }
+
+                .container-categorias-mobile {
+                    margin-bottom: 30px;
+                }
+
+                .container-videos-mobile {
+                    margin-bottom: 15px;
+                }
+
+                .videos-mobile h2.titulo {
+                    font-size: 24px !important;
+                }
+                
+                .titulo-categoria-mobile {
+                    background-color: transparent;
+                    color: #0a3299;
+                    font-size: 24px;
+                    width: 100%;
+                    text-align: left;
                 }
             }
 
