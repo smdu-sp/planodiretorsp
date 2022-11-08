@@ -365,6 +365,18 @@ if (have_posts()) : while (have_posts()) : the_post();
             }
 
             @media (max-width: 767px) {
+                .videos-mobile {
+                    margin-bottom: 100px;
+                }
+                
+                .videos-topo h1.titulo {
+                    margin-left: 0;
+                }
+
+                .videos-topo .subtitulo {
+                    margin-left: 0;
+                }
+
                 .videos-topo {
                     background-image: none !important;
                     background-color: #fee1e7 !important;
