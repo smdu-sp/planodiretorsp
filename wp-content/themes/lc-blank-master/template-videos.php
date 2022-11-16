@@ -20,7 +20,7 @@ if (have_posts()) : while (have_posts()) : the_post();
                 <a  style="display: inline-block; font-size: 16px; vertical-align: super; margin-bottom: 30px;" href="/evento/?tipo=videos" class="btn btn-primary">Editar Vídeos</a><?php
             } ?>
             <div v-for="categoria, index in categorias" class="videos-desktop">
-                <div v-if="categoriaSelecionada && index === categorias.indexOf(categoriaSelecionada)" class="row container-video">
+                <div v-if="categoriaSelecionada && index === categorias.indexOf(categoriaSelecionada)" class="row container-video" :id="`player-${categoria.toLowerCase().replace(' ', '-')}`">
                     <div class="col-12">
                         <div class="row">
                             <div class="col-1 player-seta" @click="proximoVideo(videoSelecionado, categoriaSelecionada, -1)"><button><img src="/assets/videos/seta 01.png" alt=""></button></div>
@@ -157,9 +157,15 @@ if (have_posts()) : while (have_posts()) : the_post();
                     },
 
                     selecionarVideo: function(video, categoria) {
+                        let videoAnterior = this.videoSelecionado;
                         this.videoSelecionado = video;
                         this.categoriaSelecionada = categoria;
                         const posicao = this.categorias.indexOf(categoria);
+
+                        // Evita scroll após primeiro carregamento da página
+                        if (Object.keys(videoAnterior).length > 0) {
+                            this.scrollToVideo(categoria);
+                        }
 
                         if (video.index < this.indexVideos[posicao]) {
                             this.indexVideos[posicao] -= 1;
@@ -186,6 +192,30 @@ if (have_posts()) : while (have_posts()) : the_post();
 
                     toggleCategoria(cat) {
                         cat.aberto = !cat.aberto;
+                    },
+
+                    scrollToVideo(cat) {
+                        // Offset = header + 10px
+                        offset = -150;
+
+                        if (this.logado) {
+                            offset = -182;
+                        }
+
+                        const id = 'player-' + cat.toLowerCase().replace(' ', '-');
+                        let yOffset = offset; 
+                        const element = document.getElementById(id);
+
+                        // Caso o player não tenha renderizado ainda, espera 100ms e tenta novamente
+                        if (element === null) {
+                            setTimeout(() => {
+                                this.scrollToVideo(cat)
+                            }, 100);
+                            return
+                        }
+                        const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+
+                        window.scrollTo({top: y, behavior: 'smooth'});
                     }
                 },
                 computed: {
